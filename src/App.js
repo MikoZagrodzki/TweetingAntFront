@@ -129,8 +129,15 @@ function App() {
         <option value="9">9</option>
         <option value="10">10</option>
       </select>
-      <p>Your Prompt: {responseArray[0]}</p>
-      <p>Chat GPT Answer: {responseArray.slice(1)}</p>
+      {responseArray.length > 0 ? (
+        <div>
+        <p>Your Prompt: {responseArray[0]}</p>
+        <p>Chat GPT Answer: {responseArray.slice(1)}</p>
+        </div>
+      ) : (
+        <p>Type your question and find answer right away!</p>
+      )}
+
     </div>
   );
 }
