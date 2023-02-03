@@ -6,12 +6,14 @@ function App() {
   const [inputChat, setInputChat] = useState("");
   const [buttonClick, setButtonClick] = useState(false);
   const [responseArray, setResponseArray] = useState([]);
+  const [numberSentences, setNumberSentences] = useState(1)
 
-  //to my byc wywolywane na chatGptResponse
-  //array
-  //prompt+response do array
-  //jezeli array jest pusty to prompt idzie do array
-  //jezeli array nie jest pusty to tylko push response
+  //to my byc wywolywane na chatGptResponsee✅
+  //array✅
+  //prompt+response do array✅
+  //jezeli array jest pusty to prompt idzie do array✅
+  //jezeli array nie jest pusty to tylko push response✅
+  
   //getApiGpt logika na numSentences
 
   //useState wywolany na response - fetch
@@ -45,16 +47,22 @@ function App() {
     if (!inputChat && !buttonClick) {
       return;
     }
+
+    if (responseArray.length - 1 === numberSentences) {
+      return
+    }
     getApiGpt();
-  }, [buttonClick]);
+  }, [buttonClick,responseArray]);
 
   const handleResponse = () => {
     if (responseArray.length === 0) {
-      setResponseArray([inputChat, chatGptResponse]);
+      setResponseArray([...responseArray, inputChat, chatGptResponse]);
     } else {
       setResponseArray(...responseArray, chatGptResponse);
     }
   };
+  // console.log(responseArray)
+  // console.log(typeof responseArray)
 
   useEffect(() => {
     if (!chatGptResponse) {
@@ -74,6 +82,7 @@ function App() {
         }}
       ></input>
       <button onClick={() => setButtonClick(!buttonClick)}>test</button>
+      <input type='number' onChange={(e) => setNumberSentences(e.target.value)}></input>
       <p>{chatGptResponse}</p>
       <h1>{responseArray}</h1>
     </div>
