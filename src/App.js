@@ -56,6 +56,16 @@ function App() {
       responseArray.length - 1 === numberSentences ||
       responseArray.length > numberSentences
     ) {
+      let lastElem = responseArray[responseArray.length - 1];
+      let cutIndex = lastElem.search(/[.!?]/);
+
+      if (cutIndex !== -1) {
+        lastElem = lastElem.slice(0, cutIndex + 1);
+      } else {
+        getApiGpt();
+      }
+      responseArray[responseArray.length - 1] = lastElem;
+      setResponseArray(responseArray);
       setInputChat("");
       setNumberSentences(1);
       return;
@@ -84,13 +94,12 @@ function App() {
 
   const handleClick = () => {
     if (responseArray) {
-      setResponseArray([])
-      setButtonClick(!buttonClick)
+      setResponseArray([]);
+      setButtonClick(!buttonClick);
     } else {
-      setButtonClick(!buttonClick)
+      setButtonClick(!buttonClick);
     }
-    
-  }
+  };
 
   // if (chatGptResponse) {
   //   handleResponse() }
