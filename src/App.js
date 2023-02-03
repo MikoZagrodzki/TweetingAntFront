@@ -6,19 +6,8 @@ function App() {
   const [inputChat, setInputChat] = useState("");
   const [buttonClick, setButtonClick] = useState(false);
   const [responseArray, setResponseArray] = useState([]);
-  const [numberSentences, setNumberSentences] = useState(10);
+  const [numberSentences, setNumberSentences] = useState(1);
   const [isResponseEmpty, setResponseEmpty] = useState(false);
-
-  //to my byc wywolywane na chatGptResponsee✅
-  //array✅
-  //prompt+response do array✅
-  //jezeli array jest pusty to prompt idzie do array✅
-  //jezeli array nie jest pusty to tylko push response✅
-
-  //getApiGpt logika na numSentences
-
-  //useState wywolany na response - fetch
-  //join cala array i podac jako prompt
 
   const getApiGpt = async () => {
     let bodyChat = {};
@@ -26,12 +15,12 @@ function App() {
       bodyChat = {
         prompt: inputChat,
       };
-      console.log(4)
+      console.log(4);
     } else {
       bodyChat = {
         prompt: responseArray,
       };
-      console.log(3)
+      console.log(3);
     }
     try {
       const response = await fetch("http://localhost:3001/find-complexity", {
@@ -44,15 +33,14 @@ function App() {
       });
       if (!response.ok) {
         throw new Error("Please reload the app");
-      } 
+      }
       const chatResponse = await response.json();
       setChatGptResponse(chatResponse.data);
       console.log(chatResponse);
 
       if (!chatResponse.data) {
-        setResponseEmpty(!isResponseEmpty)
+        setResponseEmpty(!isResponseEmpty);
       }
-      
     } catch (error) {
       console.log(error.message);
     }
@@ -62,19 +50,26 @@ function App() {
     if (!inputChat && !buttonClick) {
       return;
     }
-    if (responseArray.length - 1 === numberSentences) {
+    console.log(responseArray.length + "array ");
+    console.log(numberSentences + "number of sentences ");
+    if (
+      responseArray.length - 1 === numberSentences ||
+      responseArray.length > numberSentences
+    ) {
+      setInputChat("");
+      setNumberSentences(1);
       return;
     }
     getApiGpt();
-  }, [buttonClick, responseArray,isResponseEmpty]);
+  }, [buttonClick, responseArray, isResponseEmpty]);
 
   const handleResponse = () => {
     if (responseArray.length === 0) {
       setResponseArray([...responseArray, inputChat, chatGptResponse]);
-      console.log(1)
+      console.log(1);
     } else {
       setResponseArray([...responseArray, chatGptResponse]);
-      console.log(2)
+      console.log(2);
     }
   };
   // console.log(responseArray)
@@ -87,25 +82,46 @@ function App() {
     handleResponse();
   }, [chatGptResponse]);
 
+  const handleClick = () => {
+    if (responseArray) {
+      setResponseArray([])
+      setButtonClick(!buttonClick)
+    } else {
+      setButtonClick(!buttonClick)
+    }
+    
+  }
+
   // if (chatGptResponse) {
   //   handleResponse() }
   return (
     <div className="App">
-      <input
+      <textarea
         value={inputChat}
         onChange={(e) => {
           setInputChat(e.target.value);
         }}
-      ></input>
-      <button onClick={() => setButtonClick(!buttonClick)}>test</button>
-      <input
-        type="number"
-        onChange={(e) => setNumberSentences(e.target.value)}
-      ></input>
-
-      <button onClick={() => setButtonClick(!buttonClick)}>test</button>
-      <p>{chatGptResponse}</p>
-      <p>{responseArray}</p>
+      />
+      <button onClick={handleClick}>test</button>
+      <select
+        value={numberSentences}
+        onChange={(e) => {
+          setNumberSentences(e.target.value);
+        }}
+      >
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+      </select>
+      <p>Your Prompt: {responseArray[0]}</p>
+      <p>Chat GPT Answer: {responseArray.slice(1)}</p>
     </div>
   );
 }
