@@ -103,6 +103,26 @@ function App() {
 
   // if (chatGptResponse) {
   //   handleResponse() }
+const twitterPostReq = async (tweetContent)=>{
+  const tweetContentJoin = tweetContent.join(" ")
+  let body = {text: tweetContentJoin}
+  try{
+    const response = await fetch("http://localhost:3001/twitterpost", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+        body: JSON.stringify(body),
+      });
+      if (!response.ok) {
+        throw new Error("Please reload the app");
+      }
+  }catch(error){
+    console.error(error)
+  }
+}
+
   return (
     <div className="App">
       <textarea
@@ -111,7 +131,8 @@ function App() {
           setInputChat(e.target.value);
         }}
       />
-      <button onClick={handleClick}>test</button>
+      <button onClick={handleClick}>Ask Chat GPT!</button>
+      <button onClick={()=>{twitterPostReq(responseArray.slice(1))}}>Add to Twitter!</button>
       <select
         value={numberSentences}
         onChange={(e) => {
