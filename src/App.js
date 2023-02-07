@@ -1,5 +1,5 @@
 import "./App.css";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 function App() {
   const [chatGptResponse, setChatGptResponse] = useState("");
@@ -103,11 +103,11 @@ function App() {
 
   // if (chatGptResponse) {
   //   handleResponse() }
-const twitterPostReq = async (tweetContent)=>{
-  const tweetContentJoin = tweetContent.join(" ")
-  let body = {text: tweetContentJoin}
-  try{
-    const response = await fetch("http://localhost:3001/twitterpost", {
+  const twitterPostReq = async (tweetContent) => {
+    const tweetContentJoin = tweetContent.join(" ");
+    let body = { text: tweetContentJoin };
+    try {
+      const response = await fetch("http://localhost:3001/twitterpost", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -118,10 +118,10 @@ const twitterPostReq = async (tweetContent)=>{
       if (!response.ok) {
         throw new Error("Please reload the app");
       }
-  }catch(error){
-    console.error(error)
-  }
-}
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <div className="App">
@@ -132,7 +132,13 @@ const twitterPostReq = async (tweetContent)=>{
         }}
       />
       <button onClick={handleClick}>Ask Chat GPT!</button>
-      <button onClick={()=>{twitterPostReq(responseArray.slice(1))}}>Add to Twitter!</button>
+      <button
+        onClick={() => {
+          twitterPostReq(responseArray.slice(1));
+        }}
+      >
+        Add to Twitter!
+      </button>
       <select
         value={numberSentences}
         onChange={(e) => {
@@ -152,13 +158,12 @@ const twitterPostReq = async (tweetContent)=>{
       </select>
       {responseArray.length > 0 ? (
         <div>
-        <p>Your Prompt: {responseArray[0]}</p>
-        <p>Chat GPT Answer: {responseArray.slice(1)}</p>
+          <p>Your Prompt: {responseArray[0]}</p>
+          <p>Chat GPT Answer: {responseArray.slice(1)}</p>
         </div>
       ) : (
         <p>Type your question and find answer right away!</p>
       )}
-
     </div>
   );
 }
