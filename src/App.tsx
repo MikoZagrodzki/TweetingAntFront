@@ -1,35 +1,46 @@
 import "./App.css";
 import React, { useEffect, useState } from "react";
 import postRequestAPI from "./CustomHooks/PostRequestAPI";
+import {bodyPromptGpt, tweetContentJoin} from "./TypesApi"
+
+interface responseChatGpt{
+  success: boolean,
+  data:string
+}
+
 
 function App() {
-  const [chatGptCompletion, setChatGptCompletion] = useState("");
-  const [inputChatGpt, setInputChatGpt] = useState("");
-  const [isChatButtonClicked, setIsChatButtonClicked] = useState(false);
-  const [gptPromptAndCompletions, setGptPromptAndCompletions] = useState(null);
-  const [isGptResponseEmpty, setIsGptResponseEmpty] = useState(false);
+  const [chatGptCompletion, setChatGptCompletion] = useState<string>("");
+  const [inputChatGpt, setInputChatGpt] = useState<string>("");
+  const [isChatButtonClicked, setIsChatButtonClicked] = useState<boolean>(false);
+  const [gptPromptAndCompletions, setGptPromptAndCompletions] = useState<string[]>([]);
+  const [isGptResponseEmpty, setIsGptResponseEmpty] = useState<boolean>(false);
 
-  const getGptCompletion = async (inputChatGpt, gptPromptAndCompletions) => {
-    let bodyPromptGpt = {};
-    if (!gptPromptAndCompletions) {
-      bodyPromptGpt = {
+  const getGptCompletion = async (inputChatGpt:string, gptPromptAndCompletions:string[]) => {
+    // let bodyPromptGpt:bodyPromptGpt|Record<string, never> = {};
+    // if (gptPromptAndCompletions?.length === 0) {
+     const bodyPromptGpt:bodyPromptGpt = {
         prompt: inputChatGpt,
       };
-    } else {
-      bodyPromptGpt = {
-        prompt: gptPromptAndCompletions,
-      };
-    }
+    // } 
+    // else {
+    //   bodyPromptGpt = {
+    //     prompt: gptPromptAndCompletions,
+    //   };
+    // }
+
     try {
-      const responseChatGpt = await postRequestAPI(
+      const responseChatGpt:responseChatGpt = await postRequestAPI(
         "http://localhost:3001/chat-gpt",
         bodyPromptGpt
       );
+      console.log(responseChatGpt)
+      console.log(responseChatGpt.data)
       setChatGptCompletion(responseChatGpt.data);
       if (!responseChatGpt.data) {
         setIsGptResponseEmpty(!isGptResponseEmpty);
       }
-    } catch (error) {
+    } catch (error:any) {
       console.error(error.message);
     }
   };
@@ -41,7 +52,7 @@ function App() {
     getGptCompletion(inputChatGpt, gptPromptAndCompletions);
   }, [isChatButtonClicked, isGptResponseEmpty]);
 
-  const handleGptCompletion = (inputChatGpt, chatGptCompletion) => {
+  const handleGptCompletion = (inputChatGpt:string, chatGptCompletion:string) => {
     setGptPromptAndCompletions([inputChatGpt, chatGptCompletion]);
     setInputChatGpt("");
   };
@@ -55,13 +66,13 @@ function App() {
 
   const requestGptCompletionButton = () => {
     if (gptPromptAndCompletions) {
-      setGptPromptAndCompletions(null);
+      setGptPromptAndCompletions([]);
     }
     setIsChatButtonClicked(!isChatButtonClicked);
   };
 
-  const addTwitterPost = async (tweetContent) => {
-    const tweetContentJoin = { text: tweetContent.join(" ") };
+  const addTwitterPost = async (tweetContent:string[]) => {
+    const tweetContentJoin:tweetContentJoin = { text: tweetContent.join(" ") };
     try {
       postRequestAPI("http://localhost:3001/twitterpost", tweetContentJoin);
     } catch (error) {

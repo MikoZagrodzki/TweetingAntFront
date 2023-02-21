@@ -1,5 +1,6 @@
-   const postRequestAPI = async (url, bodyValue) => {
-   
+  import {bodyPromptGpt, tweetContentJoin} from "../TypesApi"
+  const postRequestAPI = async (url:string, bodyValue:bodyPromptGpt|tweetContentJoin) => {
+   console.log("body walue here"+bodyValue)
     const response = await fetch(url,{
         method: "POST",
         headers: {
