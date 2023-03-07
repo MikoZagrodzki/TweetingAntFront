@@ -16,7 +16,7 @@ function App() {
   const [gptPromptAndCompletions, setGptPromptAndCompletions] = useState<string[]>([]);
   const [isGptResponseEmpty, setIsGptResponseEmpty] = useState<boolean>(false);
 
-  const getGptCompletion = async (inputChatGpt:string, gptPromptAndCompletions:string[]) => {
+  const getGptCompletion = async (inputChatGpt:string, gptPromptAndCompletions:string[] ) => {
     // let bodyPromptGpt:bodyPromptGpt|Record<string, never> = {};
     // if (gptPromptAndCompletions?.length === 0) {
      const bodyPromptGpt:bodyPromptGpt = {
@@ -80,6 +80,23 @@ function App() {
     }
   };
 
+  const fetchTweets = async () => {
+    try {
+     const response = await fetch("http://localhost:3001/twittersearch?query=from:elonmusk&max_results=100&tweet.fields=public_metrics&media.fields=public_metrics&expansions=author_id&sort_order=relevancy",{
+         method: "GET",
+       });
+       if (!response.ok) {
+         throw new Error("Please reload the app");
+       } 
+       const apiResponse = await response.json();
+       console.log(apiResponse)
+       return apiResponse 
+    } catch (error) {
+      console.error(error)
+    }
+ }
+  
+
   return (
     <div className="App">
       <textarea
@@ -96,6 +113,8 @@ function App() {
       >
         Add to Twitter!
       </button>
+      {/* <TwitterGetPosts/> */}
+      <button onClick={fetchTweets}>Tweets tryyyyyy</button>
 
       {gptPromptAndCompletions ? (
         <div>
