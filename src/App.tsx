@@ -32,6 +32,7 @@ function App() {
   >([]);
   const [isGptResponseEmpty, setIsGptResponseEmpty] = useState<boolean>(false);
   const [fetchedTweets, setFetchedTweets] = useState<Tweet[]>([]);
+  const [twitterLoginCredentials, setTwitterLoginCredentials] = useState<{email: string, password: string} | null >(null)
 
   const rephraseTweet = (tweets: Tweet[]): void => {
     let isUrl: boolean = false;
@@ -147,8 +148,6 @@ function App() {
       console.error(error);
     }
   };
-  // start date, end date,
-  //
   const fetchTweetsMap = (tweet: FetchTweet): Tweet => {
     return {
       authorId: tweet.author_id,
@@ -169,7 +168,46 @@ function App() {
     console.log(fetchedTweets);
   };
 
-  ///////////////////REPHRASING//////////////////
+const openTwitterDriver = async()=>{
+  const response = await fetch("http://localhost:3002/");
+    if (!response.ok) {
+      throw new Error("Please reload the app");
+    }
+    const apiResponse = await response.json();
+    return apiResponse;
+}
+
+const handleLoginToTwitter = async () => {
+  let twitterUsername = prompt('Please Enter Twitter Username', 'Username')
+  if (!twitterUsername) {
+    alert('Username not provided, please try again')
+    return;
+  }
+  let twitterPassword = prompt('Please Enter Twitter Password', 'Password')
+  if (!twitterPassword) {
+    alert('Username not provided, please try again')
+    return;
+  }
+
+  const twitterCredentials = {
+    email : twitterUsername,
+    password : twitterPassword
+  }
+  setTwitterLoginCredentials(twitterCredentials)
+
+  console.log(twitterCredentials)
+  // const response = await requestApi('http://localhost:3002/selenium/twitter_driver_and_login', {
+  // method: "POST",
+  // body : JSON.stringify(twitterCredentials)
+  // })
+}
+
+const loginPostRequestTwitter = async (twitterLoginCredentials: {email: string, password: string } | null ) => {
+  const response = await requestApi('http://localhost:3002/selenium/twitter_driver_and_login', {
+    method: "POST",
+    body : JSON.stringify(twitterLoginCredentials)
+    })
+}
 
   return (
     <div className="App">
@@ -178,6 +216,7 @@ function App() {
         onChange={(e) => {
           setInputChatGpt(e.target.value);
         }}
+        placeholder="Ask For anything or Get Tweets from a specific user"
       />
       <button onClick={requestGptCompletionButton}>Ask Chat GPT!</button>
       <button
@@ -194,6 +233,8 @@ function App() {
       >
         Get Me Tweets From...
       </button>
+      <button onClick={()=>handleLoginToTwitter()}>Set Twitter Credentials</button>
+      <button onClick={()=>loginPostRequestTwitter(twitterLoginCredentials)}>POST METHOD TWIITER LOGIN</button>
       {fetchedTweets.length > 1 ? (
         <button
           onClick={() => {
