@@ -9,12 +9,14 @@ interface responseChatGpt {
 }
 
 interface FetchTweet {
+  id:string,
   author_id: string;
   public_metrics: { like_count: number; retweet_count: number };
   text: string;
 }
 
 interface Tweet {
+  tweetId:string,
   authorId: string,
   likeCount: number,
   retweetCount: number,
@@ -33,7 +35,7 @@ function App() {
   const [isGptResponseEmpty, setIsGptResponseEmpty] = useState<boolean>(false);
   const [fetchedTweets, setFetchedTweets] = useState<Tweet[]>([]);
   const [twitterLoginCredentials, setTwitterLoginCredentials] = useState<{email: string, password: string} | null >(null)
-
+  const [likeAllTweets,setLikeAllTweets] = useState<boolean>(false)
   const rephraseTweet = (tweets: Tweet[]): void => {
     let isUrl: boolean = false;
     let tweet!: string;
@@ -82,7 +84,7 @@ function App() {
 
     try {
       const responseChatGpt: responseChatGpt = await requestApi(
-        "http://localhost:3001/chat-gpt",
+        "http://localhost:3002/chat-gpt",
         // bodyPromptGpt
         {
           method: "POST",
@@ -136,7 +138,7 @@ function App() {
   const addTwitterPost = async (tweetContent: string[]) => {
     const tweetContentJoin: tweetContentJoin = { text: tweetContent.join(" ") };
     try {
-      requestApi("http://localhost:3001/twitterpost", {
+      requestApi("http://localhost:3002/twitterpost", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -150,6 +152,7 @@ function App() {
   };
   const fetchTweetsMap = (tweet: FetchTweet): Tweet => {
     return {
+      tweetId: tweet.id,
       authorId: tweet.author_id,
       likeCount: tweet.public_metrics.like_count,
       retweetCount: tweet.public_metrics.retweet_count,
@@ -159,12 +162,13 @@ function App() {
 
   const fetchTweets = async (fetchTweetsQuery: string) => {
     const apiResponse = await requestApi(
-      `http://localhost:3001/twittersearch?query=${fetchTweetsQuery}  -is:reply&max_results=20&tweet.fields=public_metrics&media.fields=public_metrics&expansions=author_id&sort_order=relevancy`,
+      `http://localhost:3002/twittersearch?query=${fetchTweetsQuery}  -is:reply&max_results=20&tweet.fields=public_metrics&media.fields=public_metrics&expansions=author_id&sort_order=relevancy`,
       {
         method: "GET",
       }
     );
     setFetchedTweets(apiResponse.payload._realData.data.map(fetchTweetsMap));
+    console.log(apiResponse.payload._realData)
     console.log(fetchedTweets);
   };
 
@@ -193,21 +197,81 @@ const handleLoginToTwitter = async () => {
     email : twitterUsername,
     password : twitterPassword
   }
-  setTwitterLoginCredentials(twitterCredentials)
 
-  console.log(twitterCredentials)
-  // const response = await requestApi('http://localhost:3002/selenium/twitter_driver_and_login', {
-  // method: "POST",
-  // body : JSON.stringify(twitterCredentials)
-  // })
-}
-
-const loginPostRequestTwitter = async (twitterLoginCredentials: {email: string, password: string } | null ) => {
   const response = await requestApi('http://localhost:3002/selenium/twitter_driver_and_login', {
-    method: "POST",
-    body : JSON.stringify(twitterLoginCredentials)
+    method: 'POST',
+    headers: {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+    },
+    body:JSON.stringify({
+      email : 'ketaminion2137',
+      password : 'Selenium2137'
+    })
+
     })
 }
+  const handleAddingTwitterPost = async () => {
+   const response = await requestApi('http://localhost:3002/selenium/twitter_add_rephrased_post', {
+    method: 'POST',
+    headers: {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+    },
+    body: JSON.stringify({text : fetchedTweets[0].text})
+
+    })
+  }
+  // const mapThroughTweetsAndLike = async(username : any ,fetchedTweets: any) => {
+
+  //   const tweets = await Promise.all(fetchedTweets.map(async (tweet: any)=> {
+  //     const response = await requestApi('http://localhost:3002/selenium/twitter_like_all_tweets', {
+  //      method: 'POST',
+  //      headers: {
+  //        "Content-Type": "application/json",
+  //        "Access-Control-Allow-Origin": "*",
+  //      },
+  //      body: JSON.stringify({username: useState, tweetId : tweet.tweetId })
+  //      })
+  //   }))
+    
+  // }
+  
+
+ useEffect(()=>{
+  if (fetchedTweets?.length === 0 ) {
+    return;
+  }
+
+  for (let i = 0; i < fetchedTweets.length; i++) {
+    (function (index) {
+      setTimeout(() => {
+        handleLikeAllTweetsFromUser(inputChatGpt, fetchedTweets[index].tweetId);
+        console.log(index)
+      },10000 * (index + 1));
+    })(i);
+    
+  }
+
+ },[likeAllTweets])
+
+
+  const handleLikeAllTweetsFromUser = async(inputChat: string, fetchedTweets: any)=>{
+
+      const likeTweetsObject = {username : inputChatGpt, tweetId:fetchedTweets}
+      console.log(likeTweetsObject)
+      
+      const response = await requestApi('http://localhost:3002/selenium/twitter_like_all_tweets', {
+       method: 'POST',
+       headers: {
+         "Content-Type": "application/json",
+         "Access-Control-Allow-Origin": "*",
+       },
+       body: JSON.stringify(likeTweetsObject)
+       })
+  }
+
+
 
   return (
     <div className="App">
@@ -234,7 +298,10 @@ const loginPostRequestTwitter = async (twitterLoginCredentials: {email: string, 
         Get Me Tweets From...
       </button>
       <button onClick={()=>handleLoginToTwitter()}>Set Twitter Credentials</button>
-      <button onClick={()=>loginPostRequestTwitter(twitterLoginCredentials)}>POST METHOD TWIITER LOGIN</button>
+      <button onClick={()=>handleAddingTwitterPost()}>Add Twitter Rephrase</button>
+      <button onClick={()=>{handleLikeAllTweetsFromUser(inputChatGpt, fetchedTweets[0].tweetId)}}>Like All Tweets From User</button>
+      <button onClick={()=>handleLikeAllTweetsFromUser(inputChatGpt,fetchedTweets)}>Like All Tweets Map</button>
+      <button onClick={()=>setLikeAllTweets(!likeAllTweets)}>Like All Tweets UseEffect</button>
       {fetchedTweets.length > 1 ? (
         <button
           onClick={() => {
