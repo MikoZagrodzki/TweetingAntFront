@@ -9,8 +9,14 @@ module.exports = {
         "plugin:react/recommended",
         "plugin:react/jsx-runtime"
     ],
-    "overrides": [
-    ],
+    "overrides":  [
+        {
+          "files": ["*.ts", "*.tsx"],
+          "rules": {
+            "no-undef": "off"
+          }
+        }
+      ],
     "parserOptions": {
         "ecmaVersion": "latest",
         "ecmaFeatures": {
@@ -28,6 +34,7 @@ module.exports = {
       },
     "rules": {
         "react/jsx-uses-react": "error",
-     "react/jsx-uses-vars": "error"
+     "react/jsx-uses-vars": "error",
+     "no-unused-vars": "off",
     }
 }
