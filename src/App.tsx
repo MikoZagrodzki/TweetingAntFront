@@ -2,6 +2,7 @@ import "./App.css";
 import React, { useEffect, useState } from "react";
 import { requestApi } from "./CustomHooks";
 import { bodyPromptGpt, tweetContentJoin } from "./TypesApi";
+import getCurrentTime from "./GetCurrentTime"
 
 interface responseChatGpt {
   success: boolean;
@@ -25,6 +26,8 @@ interface Tweet {
 }
 
 function App() {
+  const currentDate: Date = new Date();
+  const [currentHour, setCurrentHour] = useState<number>(currentDate.getHours())
   const [chatGptCompletion, setChatGptCompletion] = useState<string>("");
   const [inputChatGpt, setInputChatGpt] = useState<string>("");
   const [isChatButtonClicked, setIsChatButtonClicked] =
@@ -39,6 +42,13 @@ function App() {
   const rephraseTweet = (tweets: Tweet[]): void => {
     let isUrl: boolean = false;
     let tweet!: string;
+
+
+    useEffect(()=>{
+     const intervalID = getCurrentTime(setCurrentHour);
+
+     return () => clearInterval(intervalID);
+    },[])
 
     const isValidHttpUrl = (tweets: Tweet[]) => {
       for (let i = 0; i < tweets.length; i++) {
@@ -248,7 +258,7 @@ const handleLoginToTwitter = async () => {
       setTimeout(() => {
         handleLikeAllTweetsFromUser(inputChatGpt, fetchedTweets[index].tweetId);
         console.log(index)
-      },10000 * (index + 1));
+      },5000 * (index + 1));
     })(i);
     
   }
@@ -320,6 +330,7 @@ const handleLoginToTwitter = async () => {
       ) : (
         <p>Type your question and find answer right away!</p>
       )}
+      <h4>{currentHour}</h4>
     </div>
   );
 }
