@@ -1,29 +1,11 @@
 import "./App.css";
 import React, { useEffect, useState } from "react";
 import { requestApi } from "./CustomHooks";
-import { bodyPromptGpt, tweetContentJoin } from "./TypesApi";
+import { bodyPromptGpt, tweetContentJoin, ResponseChatGpt, FetchTweet, Tweet  } from "./TypesApi";
 import getCurrentTime from "./GetCurrentTime"
+import twentyFourHourInterval from "./TwentyFourHourInterval";
 
-interface responseChatGpt {
-  success: boolean;
-  data: string;
-}
 
-interface FetchTweet {
-  id:string,
-  author_id: string;
-  public_metrics: { like_count: number; retweet_count: number };
-  text: string;
-}
-
-interface Tweet {
-  tweetId:string,
-  authorId: string,
-  likeCount: number,
-  retweetCount: number,
-  text: string
-
-}
 
 function App() {
   const currentDate: Date = new Date();
@@ -39,15 +21,18 @@ function App() {
   const [fetchedTweets, setFetchedTweets] = useState<Tweet[]>([]);
   const [twitterLoginCredentials, setTwitterLoginCredentials] = useState<{email: string, password: string} | null >(null)
   const [likeAllTweets,setLikeAllTweets] = useState<boolean>(false)
+  const [drivers, setDrivers] = useState<string[]>(['1','2','3','4','5'])
+  const [twitterAccountsWithClass, setTwitterAccountsWithClass] = useState<{}[]>([])
   const rephraseTweet = (tweets: Tweet[]): void => {
     let isUrl: boolean = false;
     let tweet!: string;
 
-
+      
     useEffect(()=>{
-     const intervalID = getCurrentTime(setCurrentHour);
+     const intervalID1 = getCurrentTime(setCurrentHour, (x,y) => twentyFourHourInterval(x, y), drivers, setTwitterAccountsWithClass);
 
-     return () => clearInterval(intervalID);
+     return () => clearInterval(intervalID1);
+
     },[])
 
     const isValidHttpUrl = (tweets: Tweet[]) => {
@@ -93,7 +78,7 @@ function App() {
     // }
 
     try {
-      const responseChatGpt: responseChatGpt = await requestApi(
+      const responseChatGpt: ResponseChatGpt = await requestApi(
         "http://localhost:3002/chat-gpt",
         // bodyPromptGpt
         {
@@ -312,6 +297,7 @@ const handleLoginToTwitter = async () => {
       <button onClick={()=>{handleLikeAllTweetsFromUser(inputChatGpt, fetchedTweets[0].tweetId)}}>Like All Tweets From User</button>
       <button onClick={()=>handleLikeAllTweetsFromUser(inputChatGpt,fetchedTweets)}>Like All Tweets Map</button>
       <button onClick={()=>setLikeAllTweets(!likeAllTweets)}>Like All Tweets UseEffect</button>
+      <button onClick={()=> twentyFourHourInterval(drivers,setTwitterAccountsWithClass)}>Twentyfourhourinterval check</button>
       {fetchedTweets.length > 1 ? (
         <button
           onClick={() => {
