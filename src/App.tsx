@@ -12,28 +12,34 @@ function App() {
   const [currentHour, setCurrentHour] = useState<number>(currentDate.getHours())
   const [chatGptCompletion, setChatGptCompletion] = useState<string>("");
   const [inputChatGpt, setInputChatGpt] = useState<string>("");
-  const [isChatButtonClicked, setIsChatButtonClicked] =
-    useState<boolean>(false);
-  const [gptPromptAndCompletions, setGptPromptAndCompletions] = useState<
-    string[]
-  >([]);
+  const [isChatButtonClicked, setIsChatButtonClicked] = useState<boolean>(false);
+  const [gptPromptAndCompletions, setGptPromptAndCompletions] = useState<string[]>([]);
   const [isGptResponseEmpty, setIsGptResponseEmpty] = useState<boolean>(false);
   const [fetchedTweets, setFetchedTweets] = useState<Tweet[]>([]);
   const [twitterLoginCredentials, setTwitterLoginCredentials] = useState<{email: string, password: string} | null >(null)
   const [likeAllTweets,setLikeAllTweets] = useState<boolean>(false)
   const [drivers, setDrivers] = useState<string[]>(['1','2','3','4','5'])
   const [twitterAccountsWithClass, setTwitterAccountsWithClass] = useState<{}[]>([])
+
+
+  
+  const twitterLikeFunction = async (twitterUserNameFetch: string) => {
+    await fetchTweets(twitterUserNameFetch)
+    await handleLikeAllTweetsFromUser(twitterUserNameFetch, fetchedTweets[0].tweetId)
+    
+  }
+
+  const twitterAddRephraseTweet = async (twitterUserNameFetch: string) => {
+    await fetchTweets(twitterUserNameFetch)
+    await handleAddingTwitterPost(fetchedTweets)
+
+  }
+  
+
+  
   const rephraseTweet = (tweets: Tweet[]): void => {
     let isUrl: boolean = false;
     let tweet!: string;
-
-      
-    useEffect(()=>{
-     const intervalID1 = getCurrentTime(setCurrentHour, (x,y) => twentyFourHourInterval(x, y), drivers, setTwitterAccountsWithClass);
-
-     return () => clearInterval(intervalID1);
-
-    },[])
 
     const isValidHttpUrl = (tweets: Tweet[]) => {
       for (let i = 0; i < tweets.length; i++) {
@@ -51,6 +57,7 @@ function App() {
         }
       }
     };
+
     isValidHttpUrl(tweets);
 
     if (!tweet) {
@@ -61,26 +68,26 @@ function App() {
     getGptCompletion(`Rephrase this: ${tweet}`);
   };
 
+
+
+  useEffect(()=>{
+    const intervalID1 = getCurrentTime(setCurrentHour, (x,y) => twentyFourHourInterval(x, y), drivers, setTwitterAccountsWithClass);
+
+    return () => clearInterval(intervalID1);
+
+   },[])
+
   const getGptCompletion = async (
     inputChatGpt: string
-    // gptPromptAndCompletions: string[]
   ) => {
-    // let bodyPromptGpt:bodyPromptGpt|Record<string, never> = {};
-    // if (gptPromptAndCompletions?.length === 0) {
     const bodyPromptGpt: bodyPromptGpt = {
       prompt: inputChatGpt,
     };
-    // }
-    // else {
-    //   bodyPromptGpt = {
-    //     prompt: gptPromptAndCompletions,
-    //   };
-    // }
+ 
 
     try {
       const responseChatGpt: ResponseChatGpt = await requestApi(
         "http://localhost:3002/chat-gpt",
-        // bodyPromptGpt
         {
           method: "POST",
           headers: {
@@ -206,8 +213,8 @@ const handleLoginToTwitter = async () => {
 
     })
 }
-  const handleAddingTwitterPost = async () => {
-   const response = await requestApi('http://localhost:3002/selenium/twitter_add_rephrased_post', {
+  const handleAddingTwitterPost = async (fetchedTweets: Tweet[]) => {
+    await requestApi('http://localhost:3002/selenium/twitter_add_rephrased_post', {
     method: 'POST',
     headers: {
       "Content-Type": "application/json",
@@ -217,23 +224,10 @@ const handleLoginToTwitter = async () => {
 
     })
   }
-  // const mapThroughTweetsAndLike = async(username : any ,fetchedTweets: any) => {
 
-  //   const tweets = await Promise.all(fetchedTweets.map(async (tweet: any)=> {
-  //     const response = await requestApi('http://localhost:3002/selenium/twitter_like_all_tweets', {
-  //      method: 'POST',
-  //      headers: {
-  //        "Content-Type": "application/json",
-  //        "Access-Control-Allow-Origin": "*",
-  //      },
-  //      body: JSON.stringify({username: useState, tweetId : tweet.tweetId })
-  //      })
-  //   }))
-    
-  // }
   
-
  useEffect(()=>{
+
   if (fetchedTweets?.length === 0 ) {
     return;
   }
@@ -242,7 +236,6 @@ const handleLoginToTwitter = async () => {
     (function (index) {
       setTimeout(() => {
         handleLikeAllTweetsFromUser(inputChatGpt, fetchedTweets[index].tweetId);
-        console.log(index)
       },5000 * (index + 1));
     })(i);
     
