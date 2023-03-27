@@ -21,7 +21,7 @@ function App() {
   const [drivers, setDrivers] = useState<string[]>(['1','2','3','4','5'])
   const [twitterAccountsWithClass, setTwitterAccountsWithClass] = useState<{}[]>([])
 
-
+  
   
   const twitterLikeFunction = async (twitterUserNameFetch: string) => {
     await fetchTweets(twitterUserNameFetch)
@@ -31,9 +31,14 @@ function App() {
 
   const twitterAddRephraseTweet = async (twitterUserNameFetch: string) => {
     await fetchTweets(twitterUserNameFetch)
-    await handleAddingTwitterPost(fetchedTweets)
+    rephraseTweet(fetchedTweets)
+    await handleAddingTwitterPost(chatGptCompletion)
 
   }
+  
+  const handleTwitterAccountsUpdate = (twitterAccountsWithClass:any) => {
+    setTwitterAccountsWithClass(twitterAccountsWithClass);
+  };
   
 
   
@@ -71,11 +76,17 @@ function App() {
 
 
   useEffect(()=>{
-    const intervalID1 = getCurrentTime(setCurrentHour, (x,y) => twentyFourHourInterval(x, y), drivers, setTwitterAccountsWithClass);
+
+    // twentyFourHourInterval(drivers, setTwitterAccountsWithClass)
+    // if (twitterAccountsWithClass.length > 0) {
+    // accountsAutomationTwitter(twitterAccountsWithClass)
+    // }
+    const intervalID1 = getCurrentTime(setCurrentHour, (x,y) => twentyFourHourInterval(x, y), drivers,
+     setTwitterAccountsWithClass, twitterAccountsWithClass, handleTwitterAccountsUpdate);
 
     return () => clearInterval(intervalID1);
 
-   },[])
+   },[twitterAccountsWithClass])
 
   const getGptCompletion = async (
     inputChatGpt: string
@@ -184,21 +195,6 @@ const openTwitterDriver = async()=>{
 }
 
 const handleLoginToTwitter = async () => {
-  let twitterUsername = prompt('Please Enter Twitter Username', 'Username')
-  if (!twitterUsername) {
-    alert('Username not provided, please try again')
-    return;
-  }
-  let twitterPassword = prompt('Please Enter Twitter Password', 'Password')
-  if (!twitterPassword) {
-    alert('Username not provided, please try again')
-    return;
-  }
-
-  const twitterCredentials = {
-    email : twitterUsername,
-    password : twitterPassword
-  }
 
   const response = await requestApi('http://localhost:3002/selenium/twitter_driver_and_login', {
     method: 'POST',
@@ -212,15 +208,16 @@ const handleLoginToTwitter = async () => {
     })
 
     })
+   console.log(response)
 }
-  const handleAddingTwitterPost = async (fetchedTweets: Tweet[]) => {
+  const handleAddingTwitterPost = async (fetchedTweets: any) => {
     await requestApi('http://localhost:3002/selenium/twitter_add_rephrased_post', {
     method: 'POST',
     headers: {
       "Content-Type": "application/json",
       "Access-Control-Allow-Origin": "*",
     },
-    body: JSON.stringify({text : fetchedTweets[0].text})
+    body: JSON.stringify({text : fetchedTweets[0].text ? fetchedTweets[0].text : fetchedTweets})
 
     })
   }
@@ -286,11 +283,12 @@ const handleLoginToTwitter = async () => {
         Get Me Tweets From...
       </button>
       <button onClick={()=>handleLoginToTwitter()}>Set Twitter Credentials</button>
-      <button onClick={()=>handleAddingTwitterPost()}>Add Twitter Rephrase</button>
+      <button onClick={()=>handleAddingTwitterPost(fetchedTweets)}>Add Twitter Rephrase</button>
       <button onClick={()=>{handleLikeAllTweetsFromUser(inputChatGpt, fetchedTweets[0].tweetId)}}>Like All Tweets From User</button>
       <button onClick={()=>handleLikeAllTweetsFromUser(inputChatGpt,fetchedTweets)}>Like All Tweets Map</button>
       <button onClick={()=>setLikeAllTweets(!likeAllTweets)}>Like All Tweets UseEffect</button>
       <button onClick={()=> twentyFourHourInterval(drivers,setTwitterAccountsWithClass)}>Twentyfourhourinterval check</button>
+      <button onClick={()=> console.log(twitterAccountsWithClass)}>ConsoleLogTwitterAccountsClass</button>
       {fetchedTweets.length > 1 ? (
         <button
           onClick={() => {
