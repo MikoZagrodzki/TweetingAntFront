@@ -1,18 +1,20 @@
 
 
-export const twentyFourHourInterval = (drivers: string[], setTwitterAccountsWithClass: any ) => {
+export const generateTwitterAccounts = (drivers: string[]) => {
   let accountsWithTwitterClass: {}[] = []
   // drivers.forEach((x, i ) => accountsWithTwitterClass.push(new TwitterAccount(x)))
  
 
   drivers.forEach((driver, i) => {
-    const twitterAccountName = `${i}`;
-    const twitterAccount = new TwitterAccount(driver);
-    Object.defineProperty(twitterAccount, 'name', { value: twitterAccountName });
-    accountsWithTwitterClass.push(twitterAccount);
+     let twitterAccountName: string | {} = driver;
+         twitterAccountName = new TwitterAccount(driver);
+    // Object.defineProperty(twitterAccount, 'name', { value: twitterAccountName });
+    accountsWithTwitterClass.push(twitterAccountName);
+    
   });
   // console.log(accountsWithTwitterClass[0].howManyLikes)
-  setTwitterAccountsWithClass(accountsWithTwitterClass)
+  // setTwitterAccountsWithClass(accountsWithTwitterClass)
+  return accountsWithTwitterClass
 }
 
 interface Comment {
@@ -178,7 +180,8 @@ class TwitterAccount {
 
 // example usage
 myFunction = () =>{
-    console.log('Scheduled time reached!');
+  const now = new Date()
+    console.log(`Scheduled time reached at ${now}!`);
 }
 
 
@@ -192,4 +195,4 @@ myFunction = () =>{
 
 
 
-export default twentyFourHourInterval
+export default generateTwitterAccounts

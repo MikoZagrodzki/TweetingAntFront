@@ -1,5 +1,6 @@
-import requestApi from './RequestApi'
+
+import useDailyTask from './useDailyTask'
 
 export {
-    requestApi
+    useDailyTask
 }
