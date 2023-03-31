@@ -1,16 +1,32 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { generateTwitterAccounts } from '../Funcinalities';
 
 const useDailyTask = (Drivers:any) => {
   const [taskResult, setTaskResult] = useState<{}[] | null >(null);
+  const isFirstRun = useRef(true);
+  
+  const executeTask = () => {
+    console.log('Daily task executed at', new Date());
+    // Your daily task code here
+    const result = generateTwitterAccounts(Drivers); // Replace with the actual result from your daily task
+    setTaskResult(result);
+  };
+
+
 
   useEffect(() => {
-    const executeTask = () => {
-      console.log('Daily task executed at', new Date());
-      // Your daily task code here
-      const result = generateTwitterAccounts(Drivers); // Replace with the actual result from your daily task
-      setTaskResult(result);
-    };
+    if(isFirstRun.current){
+      executeTask();
+      isFirstRun.current = false;
+    }
+  },[])
+
+
+
+
+
+  useEffect(() => {
+
 
     const getNextMidnight = () => {
       const now = new Date();
@@ -18,12 +34,9 @@ const useDailyTask = (Drivers:any) => {
       return tomorrow.getTime() - now.getTime();
     };
 
-    // Execute the task immediately on startup
-    executeTask();
 
     // Schedule the task to run at the next midnight (00:00:00)
     const initialTimeout = setTimeout(() => {
-      executeTask();
       // Set an interval of 24 hours (86400000 ms) after the initial midnight execution
       const dailyInterval = setInterval(executeTask, 24 * 60 * 60 * 1000);
 

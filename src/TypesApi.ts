@@ -27,3 +27,9 @@
     text: string
   
   }
+
+  export interface LoginData {
+    loginNameTwitter : string,
+    passwordTwitter: string,
+    id: string
+  }

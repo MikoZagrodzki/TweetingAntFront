@@ -6,6 +6,9 @@ import likeAllTweetsFromArray from "./LikeAllTweetsFromArray";
 import generateTwitterAccounts from "./GenerateTwitterAccounts";
 import requestApi from "./RequestApi";
 import generateSeleniumDriver from "./GenerateSeleniumDriver";
+import triggerLikeTweet from "./TriggerLikeTweet";
+import triggerCommentTweet from "./TriggerCommentTweet";
+import triggerLoginToTwitterAccount from "./TriggerLoginToTwitterAccount";
 
 export {
     chatGpt,
@@ -15,7 +18,11 @@ export {
     likeAllTweetsFromArray,
     generateTwitterAccounts,
     requestApi,
-    generateSeleniumDriver
+    generateSeleniumDriver,
+    triggerLikeTweet,
+    triggerCommentTweet,
+    triggerLoginToTwitterAccount
+    
     
     
 }

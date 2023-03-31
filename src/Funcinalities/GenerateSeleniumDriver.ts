@@ -15,6 +15,7 @@ export const generateSeleniumDriver = async (driver: string) => {
     body: JSON.stringify(body)
 
     })
+    console.log('requestGenerateSeleniumDriverSent')
     }catch(error){
         console.error(error)
         throw error

@@ -1,6 +1,7 @@
 import "./App.css";
 import React, { useEffect, useState } from "react";
 import { useDailyTask } from "./CustomHooks";
+import loginData from './Data/SimpleAccountList'
 
 
 
@@ -9,7 +10,7 @@ function App() {
  
   let twitterAccounts; 
   if (!twitterAccounts) {
-  twitterAccounts = useDailyTask(['1','2','3','4','5'])
+  twitterAccounts = useDailyTask(loginData)
   console.log(twitterAccounts)
 }
   
