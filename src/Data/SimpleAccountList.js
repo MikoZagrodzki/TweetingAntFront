@@ -9,8 +9,10 @@ export const loginData = [
       "justinbieber",
       "katyperry",
     ],
-    rephresedTweets: [''],
-    likedTweets: '',
+    rephresedTweets: [],
+    likedTweets: [],
+    commentedTweets: [],
+    retweetedTweets: []
   },
   {
     loginNameTwitter: "JacekNFT",

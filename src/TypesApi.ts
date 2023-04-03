@@ -29,7 +29,7 @@
   }
 
   export interface LoginData {
-    loginNameTwitter : string,
-    passwordTwitter: string,
+    loginnametwitter : string,
+    passwordtwitter: string,
     id: string
   }

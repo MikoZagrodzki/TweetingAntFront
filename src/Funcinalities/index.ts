@@ -9,6 +9,7 @@ import generateSeleniumDriver from "./GenerateSeleniumDriver";
 import triggerLikeTweet from "./TriggerLikeTweet";
 import triggerCommentTweet from "./TriggerCommentTweet";
 import triggerLoginToTwitterAccount from "./TriggerLoginToTwitterAccount";
+import executeAtScheduledTime from "./ExecuteAtScheduledTime";
 
 export {
     chatGpt,
@@ -21,7 +22,8 @@ export {
     generateSeleniumDriver,
     triggerLikeTweet,
     triggerCommentTweet,
-    triggerLoginToTwitterAccount
+    triggerLoginToTwitterAccount,
+    executeAtScheduledTime
     
     
     

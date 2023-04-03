@@ -1,14 +1,14 @@
 import TwitterAccount from '../TwitterAccount'
-import loginData from '../Data/SimpleAccountList';
-import {LoginData} from '../TypesApi';
+import { LoginData } from '../TypesApi';
+import { getLoginData } from '../SQL';
 
-export const generateTwitterAccounts = (loginData: LoginData[]) => {
+export const generateTwitterAccounts = async () => {
   let accountsWithTwitterClass: TwitterAccount[] = []
-  
-
-  loginData.forEach((account, i) => {
-        let  twitterAccountName = new TwitterAccount(account.loginNameTwitter, account.passwordTwitter, account.id );
-        
+  let loginData: LoginData[] = await getLoginData()
+  console.log(loginData)
+  loginData?.forEach((account:LoginData) => {
+        let  twitterAccountName = new TwitterAccount(account.loginnametwitter, account.passwordtwitter, account.id );
+    
         accountsWithTwitterClass.push(twitterAccountName);
     
   });

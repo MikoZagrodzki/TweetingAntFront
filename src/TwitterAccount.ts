@@ -1,4 +1,5 @@
-import { generateSeleniumDriver, triggerLoginToTwitterAccount } from "./Funcinalities";
+import { generateSeleniumDriver, triggerLoginToTwitterAccount, executeAtScheduledTime } from "./Funcinalities";
+
 
 
 export class TwitterAccount {
@@ -18,7 +19,7 @@ export class TwitterAccount {
       this.howManyRetweets = this.setTimeToRetweets();
       this.howManyComments = this.setTimeToComments();
       this.createDriversAndLogin()
-      this.executeAtScheduledTime(this.myFunction);
+      executeAtScheduledTime(this.myFunction, this.howManyComments);
       
 
      }
@@ -45,10 +46,12 @@ export class TwitterAccount {
   
      
      getRandomTime = ():  {hours: number, minutes: number} => {
+    
         const currentDate = new Date()
-        const hour = parseInt(Math.floor((Math.random() * 24) + currentDate.getHours() % 23).toString().padStart(2, '0'))
+        const hour = parseInt(Math.floor((Math.random() * 24  - currentDate.getHours() + 1) + currentDate.getHours()).toString().padStart(2, '0'))
         const minute = parseInt(Math.floor(Math.random() * 60).toString().padStart(2, '0'));
         const randomTime: {hours: number, minutes: number} = {hours: hour, minutes: minute }
+        console.log(currentDate.getHours())
         return randomTime
   
      } 
@@ -129,61 +132,7 @@ export class TwitterAccount {
       await triggerLoginToTwitterAccount(this.loginNameTwitter,this.loginNameTwitter,this.passwordTwitter)
     }
       
-    async executeAtScheduledTime(callback: any){
-      
 
-      const now = new Date();
-      const currentHours = now.getHours();
-      const currentMinutes = now.getMinutes();
-  
-      // iterate through each account and find the next scheduled time that hasn't passed yet
-      let nextScheduledTime:any = null;
-      
-          // sort the howManyComments array in ascending order based on the time
-          const sortedTimes = this.howManyComments.sort((a: any, b: any) => {
-              if (a.hours === b.hours) {
-                  return a.minutes - b.minutes;
-              }
-              return a.hours - b.hours;
-          });
-              console.log(console.log(JSON.stringify(sortedTimes)) + ' sorted times ')
-          // find the next scheduled time that hasn't passed yet
-          const scheduledTime = sortedTimes.find((time: any) => {
-              return (
-                  time.hours > currentHours ||
-                  (time.hours === currentHours && time.minutes >= currentMinutes)
-              );
-          });
-  
-          if (scheduledTime && (!nextScheduledTime || scheduledTime.hours < nextScheduledTime.hours)) {
-              nextScheduledTime = { time: scheduledTime };
-          }
-      
-  
-      // if no future scheduled time is found, return null
-      if (!nextScheduledTime) {
-          console.log('No scheduled time found');
-          return;
-      }
-  
-      const scheduledHours = nextScheduledTime.time.hours;
-      const scheduledMinutes = nextScheduledTime.time.minutes;
-  
-      // calculate the time until the next scheduled time
-      let timeUntilScheduled =
-          (scheduledHours - currentHours) * 60 * 60 * 1000 +
-          (scheduledMinutes - currentMinutes) * 60 * 1000;
-  
-      // if the scheduled time is already past, add 24 hours to the time until scheduled
-      if (scheduledHours < currentHours || (scheduledHours === currentHours && scheduledMinutes <= currentMinutes)) {
-          timeUntilScheduled += 24 * 60 * 60 * 1000;
-      }
-  
-      console.log(`Next scheduled time found for next Comment : ${scheduledHours}:${scheduledMinutes}`);
-      console.log(`Time until scheduled: ${timeUntilScheduled}ms`);
-  
-      setTimeout(callback, timeUntilScheduled);
-  }
   
   // example usage
   myFunction = () =>{
