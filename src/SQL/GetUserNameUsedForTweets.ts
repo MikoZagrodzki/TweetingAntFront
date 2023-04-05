@@ -14,8 +14,13 @@ export const getUserNameUsedForTweets = async (loginNameTwitter:string) => {
         },
         body: JSON.stringify(body)
     })
-    console.log(response)
-    return response
+    if (!response?.payload) {
+        throw new Error('Response not exist')
+    }
+   const mappedResponse = response.payload.map((x: any) => {
+    return x.usernameusedfortweets
+   })
+    return mappedResponse
     }catch(error){
         console.error(error)
         throw error

@@ -10,6 +10,9 @@ import triggerLikeTweet from "./TriggerLikeTweet";
 import triggerCommentTweet from "./TriggerCommentTweet";
 import triggerLoginToTwitterAccount from "./TriggerLoginToTwitterAccount";
 import executeAtScheduledTime from "./ExecuteAtScheduledTime";
+import dailyTask from "./DailyTask";
+import fetchAndRephreseAndTweet from "./FetchAndRephreseAndTweet";
+import triggerRetweetTweet from "./TriggerRetweetTweet";
 
 export {
     chatGpt,
@@ -23,8 +26,10 @@ export {
     triggerLikeTweet,
     triggerCommentTweet,
     triggerLoginToTwitterAccount,
-    executeAtScheduledTime
-    
+    executeAtScheduledTime,
+    dailyTask,
+    fetchAndRephreseAndTweet,
+    triggerRetweetTweet
     
     
 }

@@ -7,7 +7,7 @@ export const checkRephresedTweets = async (loginNameTwitter: string, tweetId: st
        
     }
     try {
-    await requestApi('http://localhost:3002/database/check_Rephrased_Tweets', {
+    const response = await requestApi('http://localhost:3002/database/check_Rephrased_Tweets', {
     method: 'POST',
     headers: {
       "Content-Type": "application/json",
@@ -16,6 +16,9 @@ export const checkRephresedTweets = async (loginNameTwitter: string, tweetId: st
     body: JSON.stringify(body)
 
     })
+    const exists = response.payload[0].exists
+    return exists
+    
     }catch(error){
         console.error(error)
         throw error

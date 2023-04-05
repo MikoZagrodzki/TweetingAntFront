@@ -1,24 +1,30 @@
 import "./App.css";
 import React, { useEffect, useState } from "react";
 import { useDailyTask } from "./CustomHooks";
-import loginData from './Data/SimpleAccountList'
-import { getUserNameUsedForTweets } from './SQL'
-import { generateTwitterAccounts } from "./Funcinalities";
+import { getUserNameUsedForTweets, getLoginData } from './SQL'
+import { chatGpt, generateTwitterAccounts } from "./Funcinalities";
+import TwitterAccount from "./TwitterAccount";
+import { LoginData } from "./TypesApi";
 
 
+1
 
 
 function App() {
+    let twitterAccountswithClass: any
+    const createTwitterAccountsWithClass = async() => {
+      const response = await getLoginData()
+      twitterAccountswithClass = generateTwitterAccounts(response)
+      return twitterAccountswithClass
+      // twitterAccountswithClass[0].fetchRephreseTweetTwitter()
+    }
 
- 
-  let twitterAccounts; 
-  if (!twitterAccounts) {
-  twitterAccounts =  useDailyTask()
-}
   
   return (
     <div className="App">
-      <button role='button' onClick={() => getUserNameUsedForTweets('ketaminion2137')}>GetLoginDataSql</button>
+      <button role='button' onClick={() => createTwitterAccountsWithClass()}>Create Twitter Classes</button>
+      <button role='button' onClick={() => twitterAccountswithClass[2].fetchAndComment()}>TESTBITCH</button>
+      <button role='button' onClick={() => chatGpt('whats up my baby')}>TEST GPT</button>
     </div>
   );
     }

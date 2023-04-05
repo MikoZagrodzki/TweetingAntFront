@@ -1,10 +1,10 @@
 import requestApi from "./RequestApi"
 
 
-export const triggerLikeTweet = async (driver: string, TwitterUrl: string) => {
+export const triggerRetweetTweet = async (driver: string, author_id: string, tweetId:string) => {
     const body = {
         driverId : driver,
-        url : TwitterUrl
+        url : `https://twitter.com/${author_id}/status/${tweetId}`
     }
     try {
     await requestApi('http://localhost:3002/selenium/twitter_retweet_tweet', {
@@ -22,4 +22,4 @@ export const triggerLikeTweet = async (driver: string, TwitterUrl: string) => {
     }
   }
 
-  export default triggerLikeTweet
+  export default triggerRetweetTweet

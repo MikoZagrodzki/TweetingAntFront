@@ -18,11 +18,12 @@ export const chatGpt = async (inputChatGpt: string) => {
         body: JSON.stringify(bodyPromptGpt),
       }
     );
-   
-    // if (!responseChatGpt.data) {
-    //   setIsGptResponseEmpty(!isGptResponseEmpty);
-    // }
-   const chatGptCompletion = responseChatGpt.data;
+      if (!responseChatGpt?.data){
+        throw new Error('rephrase error, response not exists.')
+      }
+      
+   const chatGptCompletion = responseChatGpt?.data;
+
    return chatGptCompletion;
   } catch (error: any) {
     console.error(error.message);

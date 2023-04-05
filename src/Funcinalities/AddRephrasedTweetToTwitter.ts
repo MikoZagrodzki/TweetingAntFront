@@ -1,7 +1,7 @@
 import requestApi from "./RequestApi"
 
 
-export const addRephrasedTweetToTwitter = async (fetchedTweets: any) => {
+export const addRephrasedTweetToTwitter = async (fetchedTweets: any, twitterAccountName:string) => {
     try {
     await requestApi('http://localhost:3002/selenium/twitter_add_rephrased_post', {
     method: 'POST',
@@ -9,7 +9,7 @@ export const addRephrasedTweetToTwitter = async (fetchedTweets: any) => {
       "Content-Type": "application/json",
       "Access-Control-Allow-Origin": "*",
     },
-    body: JSON.stringify({text : fetchedTweets[0].text ? fetchedTweets[0].text : fetchedTweets})
+    body: JSON.stringify({driverId: twitterAccountName, text : fetchedTweets})
 
     })
     }catch(error){
@@ -17,5 +17,5 @@ export const addRephrasedTweetToTwitter = async (fetchedTweets: any) => {
         throw error
     }
   }
-
+  //{drvierId: twitterAccountName, text : fetchedTweets}
   export default addRephrasedTweetToTwitter

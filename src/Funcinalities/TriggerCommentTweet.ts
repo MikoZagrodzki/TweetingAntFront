@@ -1,14 +1,14 @@
 import requestApi from "./RequestApi"
 
 
-export const triggerCommentTweet = async (driver: string, twitterUrl: string, commentText:string) => {
+export const triggerCommentTweet = async (driver: string, commentText:string, author_id:string, tweetId:string ) => {
     const body = {
         driverId : driver,
-        url : twitterUrl,
+        url : `https://twitter.com/${author_id}/status/${tweetId}`,
         text : commentText
     }
     try {
-    await requestApi('http://localhost:3002/selenium/twitter_retweet_tweet', {
+    await requestApi('http://localhost:3002/selenium/twitter_comment_tweet', {
     method: 'POST',
     headers: {
       "Content-Type": "application/json",

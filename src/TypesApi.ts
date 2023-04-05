@@ -1,5 +1,5 @@
  export interface bodyPromptGpt{
-    prompt:string|string[]
+    prompt:string
   }
 
   export interface tweetContentJoin{

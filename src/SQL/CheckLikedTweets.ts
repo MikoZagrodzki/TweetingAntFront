@@ -8,7 +8,7 @@ export const checkLikedTweets = async (loginNameTwitter: string, tweetId: string
        
     }
     try {
-    await requestApi('http://localhost:3002/database/check_Liked_Tweets', {
+    const response = await requestApi('http://localhost:3002/database/check_Liked_Tweets', {
     method: 'POST',
     headers: {
       "Content-Type": "application/json",
@@ -17,6 +17,8 @@ export const checkLikedTweets = async (loginNameTwitter: string, tweetId: string
     body: JSON.stringify(body)
 
     })
+    const exists = response.payload[0].exists
+    return exists
     }catch(error){
         console.error(error)
         throw error

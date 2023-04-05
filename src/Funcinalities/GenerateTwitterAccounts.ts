@@ -1,10 +1,9 @@
 import TwitterAccount from '../TwitterAccount'
 import { LoginData } from '../TypesApi';
-import { getLoginData } from '../SQL';
 
-export const generateTwitterAccounts = async () => {
+export const generateTwitterAccounts = (loginData: LoginData[]) => {
   let accountsWithTwitterClass: TwitterAccount[] = []
-  let loginData: LoginData[] = await getLoginData()
+  
   console.log(loginData)
   loginData?.forEach((account:LoginData) => {
         let  twitterAccountName = new TwitterAccount(account.loginnametwitter, account.passwordtwitter, account.id );
