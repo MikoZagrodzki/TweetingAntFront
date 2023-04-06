@@ -22,13 +22,16 @@ export class TwitterAccount {
       this.howManyRetweets = this.setTimeToRetweets();
       this.howManyComments = this.setTimeToComments();
       this.createDriversAndLogin()
-      executeAtScheduledTime(this.myFunction, this.howManyComments);
-      executeAtScheduledTime(this.fetchAndRephreseAndTweet, this.howManyTweets);
-      executeAtScheduledTime(this.fetchAndLikeTweet, this.howManyLikes)
+      this.executeAtScheduledTime(this.fetchAndComment, this.howManyComments, 'Comment');
+      this.executeAtScheduledTime(this.fetchAndRephreseAndTweet, this.howManyTweets, 'Rephresed Tweet');
+      this.executeAtScheduledTime(this.fetchAndLikeTweet, this.howManyLikes, 'Like Tweet')
+      this.executeAtScheduledTime(this.fetchAndRetweetTweet, this.howManyRetweets, 'Retweet Tweet')
       
 
      }
   
+///////////////////
+
      setHowManyTweets = (numberOfTweets: number) => {
         this.setHowManyTweets(numberOfTweets)
         return this.howManyTweets
@@ -49,22 +52,10 @@ export class TwitterAccount {
         return; 
      }
   
-     
-     getRandomTime = ():  {hours: number, minutes: number} => {
-    
-        const currentDate = new Date()
-        const hour = parseInt(Math.floor((Math.random() * 24  - currentDate.getHours() + 1) + currentDate.getHours()).toString().padStart(2, '0'))
-        const minute = parseInt(Math.floor(Math.random() * 60).toString().padStart(2, '0'));
-        const randomTime: {hours: number, minutes: number} = {hours: hour, minutes: minute }
-        console.log(currentDate.getHours())
-        return randomTime
-  
-     } 
-  
+///////////////////
 
-     
      setTimeToTweets = (numberOfTweets?:number) => {
-      let randomNumber: number = Math.floor(Math.random() * 5) + 1;
+      let randomNumber: number = Math.floor(Math.random() * 5) + 1; 
       if (numberOfTweets) {
         randomNumber = numberOfTweets
       }
@@ -74,7 +65,6 @@ export class TwitterAccount {
         tweets = [ ...tweets, this.getRandomTime()];
       }
       this.howManyTweets = tweets ;
-      console.log(this.howManyTweets);
       return this.howManyTweets;
     };
   
@@ -121,20 +111,25 @@ export class TwitterAccount {
       return this.howManyComments
     }
 
+    getRandomTime = ():  {hours: number, minutes: number} => {
+    
+      const currentDate = new Date()
+      const hour = parseInt(Math.floor((Math.random() * (23  - currentDate.getHours())) + currentDate.getHours()).toString().padStart(2, '0'))
+      const minute = parseInt(Math.floor(Math.random() * 60).toString().padStart(2, '0'));
+      const randomTime: {hours: number, minutes: number} = {hours: hour, minutes: minute }
+      return randomTime
+   } 
+
+
+///////////////////
+
+
     async createDriversAndLogin(){
       await generateSeleniumDriver(this.loginNameTwitter)
       await triggerLoginToTwitterAccount(this.loginNameTwitter,this.loginNameTwitter,this.passwordTwitter)
     }
       
 
-  
-  // example usage
-  myFunction = () =>{
-    const now = new Date()
-      console.log(`Scheduled time reached at ${now}!`);
-  }
-
-  // need to get from SQL userNameUsedForTweets
 
     async fetchAndRephreseAndTweet(index:number = 0, addTweets: Tweet[] = [] ){
       let isTrue: boolean = false
@@ -154,7 +149,6 @@ export class TwitterAccount {
       }
   
       if (isTrue) {
-        console.log('Loop is executed')
         addToIndex += 1;
         await this.fetchAndRephreseAndTweet(addToIndex, tweets);
 
@@ -240,15 +234,74 @@ export class TwitterAccount {
           addToIndex += 1
           this.fetchAndComment(addToIndex, tweets)
         } else {
-          const rephresedTweet: any = await chatGpt(`Write a comment to this tweet as a intelectual teenager, use 50 characters, write in english: ${tweets[index].text}`)
+          
+
+          const rephresedTweet: any = await chatGpt(`Write a in english comment to this tweet as a intelectual teenager, use 50 characters, write in english: ${tweets[index].text}`)
           await triggerCommentTweet(this.loginNameTwitter, rephresedTweet, tweets[index].authorId, tweets[index].tweetId)
           await insertCommentedTweets(this.loginNameTwitter, tweets[index].tweetId)
           console.log('FetchAndComment Executed!')
         }
-
-
     }
     
+
+
+    async executeAtScheduledTime(callback: any, timeData: [] | { hours: number,  minutes: number }[], whatIsExecuted: string){
+      // const delayTime = 2000
+      // const delay = (ms: any) => new Promise((resolve) => setTimeout(resolve, ms))
+      // await delay(10000)
+      // await callback.call(this);
+
+      const now = new Date();  
+      const currentHours = now.getHours();
+      const currentMinutes = now.getMinutes();
+  
+      // iterate through each account and find the next scheduled time that hasn't passed yet
+      let nextScheduledTime:any = null;
+      
+          // sort the howManyComments array in ascending order based on the time
+          const sortedTimes = timeData.sort((a: any, b: any) => {
+              if (a.hours === b.hours) {
+                  return a.minutes - b.minutes;
+              }
+              return a.hours - b.hours;
+          });
+          // find the next scheduled time that hasn't passed yet
+          const scheduledTime: any = sortedTimes.find((time: any) => {
+              return (
+                  time.hours > currentHours ||
+                  (time.hours === currentHours && time.minutes >= currentMinutes)
+              );
+          });
+  
+          if (scheduledTime && (!nextScheduledTime || scheduledTime.hours < nextScheduledTime.hours)) {
+              nextScheduledTime = { time: scheduledTime };
+          }
+      
+  
+      // if no future scheduled time is found, return null
+      if (!nextScheduledTime) {
+          console.log('No scheduled time found');
+          return;
+      }
+  
+      const scheduledHours = nextScheduledTime.time.hours;
+      const scheduledMinutes = nextScheduledTime.time.minutes;
+  
+      // calculate the time until the next scheduled time
+      let timeUntilScheduled =
+          (scheduledHours - currentHours) * 60 * 60 * 1000 +
+          (scheduledMinutes - currentMinutes) * 60 * 1000;
+  
+      // if the scheduled time is already past, add 24 hours to the time until scheduled
+      if (scheduledHours < currentHours || (scheduledHours === currentHours && scheduledMinutes <= currentMinutes)) {
+          timeUntilScheduled += 24 * 60 * 60 * 1000;
+      }
+  
+      console.log(`Next scheduled time found for next ${this.loginNameTwitter} to exectute ${whatIsExecuted} : ${scheduledHours}:${scheduledMinutes}`);
+      console.log(`Time until scheduled: ${timeUntilScheduled}ms`);
+  
+      setTimeout(() => callback.call(this), timeUntilScheduled);
+  } 
 
 
 

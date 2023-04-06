@@ -6,6 +6,7 @@ export const insertCommentedTweets = async (loginNameTwitter: string, tweetId: s
         tweetId : tweetId,
        
     }
+    console.log(body.loginNameTwitter)
     try {
     await requestApi('http://localhost:3002/database/insert_Commented_Tweets', {
     method: 'POST',
