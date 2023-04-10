@@ -2,8 +2,13 @@ import "./App.css";
 import React from "react";
 import { getLoginData } from './SQL'
 import { chatGpt, generateTwitterAccounts } from "./Funcinalities";
-
-1
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import {AuthProvider} from './AuthContext'
+import Login from "./AuthComponents/Login";
+import Signup from "./AuthComponents/Signup";
+import ForgotPassword from "./AuthComponents/ForgotPassword";
+import PrivateRoute from "./PrivateRoute/PrivateRoute"
+import Main from './Main/Main'
 
 
 function App() {
@@ -17,7 +22,17 @@ function App() {
 
   
   return (
-    <div className="App">
+    <div className="App-container">
+      <Router basename="/">
+        <AuthProvider>
+          <Routes>
+          <Route path='/login' element={<Login/>}/>
+          <Route path='/signup' element={<Signup/>}/>
+          <Route path='/forgot-password' element={<ForgotPassword/>}/>
+          <Route path='/' element={<PrivateRoute><Main/></PrivateRoute>}/>
+          </Routes>
+        </AuthProvider>
+      </Router>
       <button role='button' onClick={() => createTwitterAccountsWithClass()}>Create Twitter Classes</button>
       <button role='button' onClick={() => twitterAccountswithClass[2].fetchAndLikeTweet()}>TESTBITCH</button>
       <button role='button' onClick={() => chatGpt('whats up my baby')}>TEST GPT</button>
