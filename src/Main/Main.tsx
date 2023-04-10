@@ -4,15 +4,28 @@ import {checkLoginData, insertLoginData } from "../SQL";
 import {createSingleTwitterAccount} from "../Funcinalities";
 import TwitterAccount from "../TwitterAccount";
 import FormTwitterCredentials from "../FormTwitterCredentials/FormTwitterCredentials";
+import Card from "../Card/Card";
 
+interface Props {
+    setTwitterClasses: React.Dispatch<React.SetStateAction<[] | TwitterAccount[]>>
+    twitterClasses: TwitterAccount[] | []
+}
 
-
-function Main() {
-  const { currentUser } = useAuth();
-  
+function Main(props : Props) {
+  const { currentUser } : any = useAuth();
+  const {setTwitterClasses, twitterClasses} = props
+  const filteredTwitterClasses = twitterClasses.filter(x => x.email === currentUser.email)
+  console.log(currentUser)
   return (
     <div className="Main-container">
-      <FormTwitterCredentials/>
+      <FormTwitterCredentials setTwitterClasses={setTwitterClasses} twitterClasses={twitterClasses}/>
+      <ul>
+      {filteredTwitterClasses.map( x => {
+        return (<li key={x.id} ><Card loginNameTwitter={x.loginNameTwitter}
+                          
+        /></li>)
+      })}
+     </ul>
       <p>{currentUser.email} is logged in.</p>
     </div>
   );

@@ -3,20 +3,23 @@ import { generateSeleniumDriver, triggerLoginToTwitterAccount, executeAtSchedule
 import { checkCommentedTweets, checkLikedTweets, checkRephresedTweets, checkRetweetedTweets, getUserNameUsedForTweets, insertCommentedTweets, insertLikedTweets, insertRephresedTweets, insertRetweetedTweets } from "./SQL";
 import { Tweet } from "./TypesApi";
 import categories from "./Data/ListOfCategories";
+import { v4 as uuidv4 } from 'uuid';
 
 
 export class TwitterAccount {
     loginNameTwitter : string; 
     private passwordTwitter: string;
-    email: string; 
+    email: string;
+    id?: string;
     howManyTweets: [] | { hours: number,  minutes: number }[];
     howManyLikes: [] | { hours: number,  minutes: number }[];
     howManyRetweets: [] | { hours: number,  minutes: number }[];
     howManyComments: [] | { hours: number,  minutes: number }[];
-     constructor(loginNameTwitter: string, passwordTwitter: string, email: string) {
+     constructor(loginNameTwitter: string, passwordTwitter: string, email: string, id?: string ) {
       this.loginNameTwitter = loginNameTwitter;
       this.passwordTwitter = passwordTwitter;
       this.email = email;
+      this.id = uuidv4()
       this.howManyTweets =  dailyTask(this.setTimeToTweets)
       this.howManyLikes = dailyTask(this.setTimeToLikes);
       this.howManyRetweets = this.setTimeToRetweets();

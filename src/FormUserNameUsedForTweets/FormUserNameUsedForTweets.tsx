@@ -6,7 +6,7 @@ import { insertUserNameUsedForTweets, checkUserNameUsedForTweets } from '../SQL'
 
 function FormUserNameUsedForTweets() {
     const [errorMessageLoginData, seterrorMessageLoginData] = useState<boolean>(false);
-    const { currentUser } = useAuth();
+    const { currentUser }: any = useAuth();
     const {
       register,
       handleSubmit,

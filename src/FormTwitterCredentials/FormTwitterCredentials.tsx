@@ -3,16 +3,23 @@ import createSingleTwitterAccount from "../Funcinalities/CreateSingleTwitterAcco
 import { useAuth } from "../AuthContext";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
+import TwitterAccount from "../TwitterAccount";
 
-function FormTwitterCredentials() {
+interface Props {
+  setTwitterClasses: React.Dispatch<React.SetStateAction<[] | TwitterAccount[]>>
+  twitterClasses: TwitterAccount[] | []
+}
+
+function FormTwitterCredentials(props : Props) {
   const [errorMessageLoginData, seterrorMessageLoginData] = useState<boolean>(false);
-  const { currentUser } = useAuth();
+  const { currentUser } : any = useAuth();
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
   } = useForm();
+  const {setTwitterClasses, twitterClasses} = props
 
   const formSubmit = async (data: any) => {
     const response = await checkLoginData(
@@ -33,6 +40,8 @@ function FormTwitterCredentials() {
       data.TwitterPassword,
       currentUser.email
     );
+    setTwitterClasses([...twitterClasses, twitterAccount])
+    console.log(twitterClasses)
     seterrorMessageLoginData(false);
     reset();
   };

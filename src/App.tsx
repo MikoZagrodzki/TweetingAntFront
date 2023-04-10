@@ -14,13 +14,13 @@ import TwitterAccount from "./TwitterAccount";
 
 function App() {
 
-   const [twitterClasses, setTwitterClasses] = useState<TwitterAccount[]>([])
-  
-    let twitterAccountswithClass: any
+  const [twitterClasses, setTwitterClasses] = useState<TwitterAccount[] | []>([])
+    let twitterAccountswithClass: TwitterAccount[] 
+
     const createTwitterAccountsWithClass = async() => {
       const response = await getLoginData()
       twitterAccountswithClass = generateTwitterAccounts(response)
-      return twitterAccountswithClass
+      setTwitterClasses(twitterAccountswithClass)
       // twitterAccountswithClass[0].fetchRephreseTweetTwitter()
     }
 
@@ -32,7 +32,7 @@ function App() {
           <Route path='/login' element={<Login/>}/>
           <Route path='/signup' element={<Signup/>}/>
           <Route path='/forgot-password' element={<ForgotPassword/>}/>
-          <Route path='/' element={<PrivateRoute><Main /></PrivateRoute>}/>
+          <Route path='/' element={<PrivateRoute><Main setTwitterClasses={setTwitterClasses} twitterClasses={twitterClasses}/></PrivateRoute>}/>
           </Routes>
         </AuthProvider>
       </Router>
@@ -40,6 +40,7 @@ function App() {
       <button role='button' onClick={() => createTwitterAccountsWithClass()}>Create Twitter Classes</button>
       <button role='button' onClick={() => twitterAccountswithClass[2].fetchAndLikeTweet()}>TESTBITCH</button>
       <button role='button' onClick={() => chatGpt('whats up my baby')}>TEST GPT</button>
+      <button role='button' onClick={() => console.log(twitterClasses)}>Console.logTWitterClasses</button>
     </div>
   );
     }
