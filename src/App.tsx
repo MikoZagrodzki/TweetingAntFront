@@ -1,17 +1,21 @@
 import "./App.css";
-import React from "react";
+import React, {useState} from "react";
 import { getLoginData } from './SQL'
 import { chatGpt, generateTwitterAccounts } from "./Funcinalities";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import {AuthProvider} from './AuthContext'
+import {AuthProvider, useAuth} from './AuthContext'
 import Login from "./AuthComponents/Login";
 import Signup from "./AuthComponents/Signup";
 import ForgotPassword from "./AuthComponents/ForgotPassword";
 import PrivateRoute from "./PrivateRoute/PrivateRoute"
 import Main from './Main/Main'
+import TwitterAccount from "./TwitterAccount";
 
 
 function App() {
+
+   const [twitterClasses, setTwitterClasses] = useState<TwitterAccount[]>([])
+  
     let twitterAccountswithClass: any
     const createTwitterAccountsWithClass = async() => {
       const response = await getLoginData()
@@ -20,7 +24,6 @@ function App() {
       // twitterAccountswithClass[0].fetchRephreseTweetTwitter()
     }
 
-  
   return (
     <div className="App-container">
       <Router basename="/">
@@ -29,10 +32,11 @@ function App() {
           <Route path='/login' element={<Login/>}/>
           <Route path='/signup' element={<Signup/>}/>
           <Route path='/forgot-password' element={<ForgotPassword/>}/>
-          <Route path='/' element={<PrivateRoute><Main/></PrivateRoute>}/>
+          <Route path='/' element={<PrivateRoute><Main /></PrivateRoute>}/>
           </Routes>
         </AuthProvider>
       </Router>
+
       <button role='button' onClick={() => createTwitterAccountsWithClass()}>Create Twitter Classes</button>
       <button role='button' onClick={() => twitterAccountswithClass[2].fetchAndLikeTweet()}>TESTBITCH</button>
       <button role='button' onClick={() => chatGpt('whats up my baby')}>TEST GPT</button>

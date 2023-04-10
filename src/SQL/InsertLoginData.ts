@@ -1,7 +1,8 @@
 import {requestApi} from "../Funcinalities"
 
-export const insertLoginData = async (loginNameTwitter: string, passwordTwitter: string ) => {
+export const insertLoginData = async (email:string, loginNameTwitter: string, passwordTwitter: string ) => {
     const body = {
+        email: email,
         loginNameTwitter : loginNameTwitter,
         passwordTwitter : passwordTwitter,
        

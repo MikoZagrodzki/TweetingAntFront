@@ -6,7 +6,7 @@ export const generateTwitterAccounts = (loginData: LoginData[]) => {
   
   console.log(loginData)
   loginData?.forEach((account:LoginData) => {
-        let  twitterAccountName = new TwitterAccount(account.loginnametwitter, account.passwordtwitter, account.id );
+        let  twitterAccountName = new TwitterAccount(account.loginnametwitter, account.passwordtwitter, account.email );
     
         accountsWithTwitterClass.push(twitterAccountName);
     

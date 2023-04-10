@@ -8,15 +8,15 @@ import categories from "./Data/ListOfCategories";
 export class TwitterAccount {
     loginNameTwitter : string; 
     private passwordTwitter: string;
-    id: string; 
+    email: string; 
     howManyTweets: [] | { hours: number,  minutes: number }[];
     howManyLikes: [] | { hours: number,  minutes: number }[];
     howManyRetweets: [] | { hours: number,  minutes: number }[];
     howManyComments: [] | { hours: number,  minutes: number }[];
-     constructor(loginNameTwitter: string, passwordTwitter: string, id: string) {
+     constructor(loginNameTwitter: string, passwordTwitter: string, email: string) {
       this.loginNameTwitter = loginNameTwitter;
       this.passwordTwitter = passwordTwitter;
-      this.id = id;
+      this.email = email;
       this.howManyTweets =  dailyTask(this.setTimeToTweets)
       this.howManyLikes = dailyTask(this.setTimeToLikes);
       this.howManyRetweets = this.setTimeToRetweets();

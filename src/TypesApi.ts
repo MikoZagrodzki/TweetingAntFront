@@ -31,5 +31,5 @@
   export interface LoginData {
     loginnametwitter : string,
     passwordtwitter: string,
-    id: string
+    email: string
   }

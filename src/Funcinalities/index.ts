@@ -13,6 +13,7 @@ import executeAtScheduledTime from "./ExecuteAtScheduledTime";
 import dailyTask from "./DailyTask";
 import fetchAndRephreseAndTweet from "./FetchAndRephreseAndTweet";
 import triggerRetweetTweet from "./TriggerRetweetTweet";
+import createSingleTwitterAccount from './CreateSingleTwitterAccount'
 
 export {
     chatGpt,
@@ -29,7 +30,8 @@ export {
     executeAtScheduledTime,
     dailyTask,
     fetchAndRephreseAndTweet,
-    triggerRetweetTweet
+    triggerRetweetTweet,
+    createSingleTwitterAccount,
     
     
 }
