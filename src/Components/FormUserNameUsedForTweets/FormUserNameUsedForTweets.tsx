@@ -1,8 +1,8 @@
 import React from 'react'
-import { useAuth } from "../AuthContext";
+import { useAuth } from "../../AuthContext";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
-import { insertUserNameUsedForTweets, checkUserNameUsedForTweets } from '../SQL';
+import { insertUserNameUsedForTweets, checkUserNameUsedForTweets } from '../../SQL';
 
 function FormUserNameUsedForTweets() {
     const [errorMessageLoginData, seterrorMessageLoginData] = useState<boolean>(false);

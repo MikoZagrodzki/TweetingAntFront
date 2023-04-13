@@ -1,9 +1,10 @@
-import { checkLoginData, insertLoginData } from "../SQL";
-import createSingleTwitterAccount from "../Funcinalities/CreateSingleTwitterAccount";
-import { useAuth } from "../AuthContext";
+import { checkLoginData, insertLoginData } from "../../SQL";
+import createSingleTwitterAccount from "../../Funcinalities/CreateSingleTwitterAccount";
+import { useAuth } from "../../AuthContext";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
-import TwitterAccount from "../TwitterAccount";
+import TwitterAccount from "../../TwitterAccount";
+import "./FormTwitterCredentials.css"
 
 interface Props {
   setTwitterClasses: React.Dispatch<React.SetStateAction<[] | TwitterAccount[]>>
@@ -48,6 +49,7 @@ function FormTwitterCredentials(props : Props) {
 
   return (
     <div className="FormTwitterCredentials-container">
+      <p>Add Twitter Account</p>
       <form onSubmit={handleSubmit((data) => formSubmit(data))}>
         <input
         type="text"
