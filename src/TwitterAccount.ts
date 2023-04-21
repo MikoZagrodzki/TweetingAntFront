@@ -4,26 +4,58 @@ import { checkCommentedTweets, checkLikedTweets, checkRephresedTweets, checkRetw
 import { Tweet } from "./TypesApi";
 import categories from "./Data/ListOfCategories";
 import { v4 as uuidv4 } from 'uuid';
+import cron, { job } from 'cron';
 
-
+      
 export class TwitterAccount {
     loginNameTwitter : string; 
     private passwordTwitter: string;
     email: string;
     id?: string;
-    howManyTweets: [] | { hours: number,  minutes: number }[];
+    isAutomated: string;
+    howManyTweets: any;
     howManyLikes: [] | { hours: number,  minutes: number }[];
     howManyRetweets: [] | { hours: number,  minutes: number }[];
     howManyComments: [] | { hours: number,  minutes: number }[];
-     constructor(loginNameTwitter: string, passwordTwitter: string, email: string, id?: string ) {
+     constructor(loginNameTwitter: string, passwordTwitter: string, email: string, isAutomated: string, id?: string,  ) {
       this.loginNameTwitter = loginNameTwitter;
       this.passwordTwitter = passwordTwitter;
       this.email = email;
+      this.isAutomated = isAutomated;
       this.id = uuidv4()
-      this.howManyTweets =  dailyTask(this.setTimeToTweets)
-      this.howManyLikes = dailyTask(this.setTimeToLikes);
+      // this.howManyTweets = this.setTimeToTweets()
+      this.howManyLikes = this.setTimeToLikes()
       this.howManyRetweets = this.setTimeToRetweets();
       this.howManyComments = this.setTimeToComments();
+      new cron.CronJob('@daily', () => {
+        this.howManyTweets = this.setTimeToTweets()
+      },undefined,false,undefined,undefined,true,undefined,undefined)
+      
+      new cron.CronJob('1 0 * * *', () => {
+        
+        const array = [{hours: 16, minutes: 50,}, {hours: 16, minutes: 10}, {hours: 13, minutes: 25}]
+        const date = new Date()
+        const hour = date.getHours()
+        const minutes = date.getMinutes()
+        console.log(hour)
+        console.log(minutes)
+
+        if ( array.length === 0 ){
+          console.log('tu nie wpadasz ziomal')
+          return; 
+        }
+
+        array.forEach( x => { 
+          if (  x.hours < hour || x.hours === hour && x.minutes <= minutes){
+            console.log(x.hours , x.minutes , "TESTING")
+              // test
+              // sql update 
+          }
+        })
+
+      },undefined,false,undefined,undefined,true,undefined,undefined)
+        // [12.12, 13.15, 20.47]
+
       this.createDriversAndLogin()
       this.executeAtScheduledTime(this.fetchAndComment, this.howManyComments, 'Comment');
       this.executeAtScheduledTime(this.fetchAndRephreseAndTweet, this.howManyTweets, 'Rephresed Tweet');
@@ -68,6 +100,7 @@ export class TwitterAccount {
         tweets = [ ...tweets, this.getRandomTime()];
       }
       this.howManyTweets = tweets ;
+      console.log('DZIALA KURWA MAC, WELL DONE')
       return this.howManyTweets;
     };
   

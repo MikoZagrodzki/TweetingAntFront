@@ -8,8 +8,9 @@ import Login from "./AuthComponents/Login";
 import Signup from "./AuthComponents/Signup";
 import ForgotPassword from "./AuthComponents/ForgotPassword";
 import PrivateRoute from "./PrivateRoute/PrivateRoute"
-import Main from './Main/Main'
+import Main from './Components/Main/Main'
 import TwitterAccount from "./TwitterAccount";
+import { fetchTweets } from "./Funcinalities";
 
 
 function App() {
@@ -17,12 +18,12 @@ function App() {
   const [twitterClasses, setTwitterClasses] = useState<TwitterAccount[] | []>([])
     let twitterAccountswithClass: TwitterAccount[] 
 
-    const createTwitterAccountsWithClass = async() => {
-      const response = await getLoginData()
-      twitterAccountswithClass = generateTwitterAccounts(response)
-      setTwitterClasses(twitterAccountswithClass)
-      // twitterAccountswithClass[0].fetchRephreseTweetTwitter()
-    }
+    // const createTwitterAccountsWithClass = async() => {
+    //   const response = await getLoginData()
+    //   twitterAccountswithClass = generateTwitterAccounts(response)
+    //   setTwitterClasses(twitterAccountswithClass)
+    //   // twitterAccountswithClass[0].fetchRephreseTweetTwitter()
+    // }
 
   return (
     <div className="App-container">
@@ -37,10 +38,10 @@ function App() {
         </AuthProvider>
       </Router>
 
-      <button role='button' onClick={() => createTwitterAccountsWithClass()}>Create Twitter Classes</button>
+      {/* <button role='button' onClick={() => createTwitterAccountsWithClass()}>Create Twitter Classes</button> */}
       <button role='button' onClick={() => twitterAccountswithClass[2].fetchAndLikeTweet()}>TESTBITCH</button>
       <button role='button' onClick={() => chatGpt('whats up my baby')}>TEST GPT</button>
-      <button role='button' onClick={() => console.log(twitterClasses)}>Console.logTWitterClasses</button>
+      <button role='button' onClick={() => fetchTweets('elonmusk')}>Fetchowanko</button>
     </div>
   );
     }

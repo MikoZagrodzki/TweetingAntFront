@@ -31,5 +31,6 @@
   export interface LoginData {
     loginnametwitter : string,
     passwordtwitter: string,
-    email: string
+    email: string,
+    isautomated: string,
   }

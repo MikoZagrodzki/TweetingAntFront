@@ -1,18 +1,23 @@
-
 import {requestApi} from "../Funcinalities"
-import { LoginData } from "../TypesApi"
 
-export const getLoginData = async () => {
-   
-   
-    const { payload : loginData } = await requestApi('http://localhost:3002/database/login_Data', {
-    method: 'GET',
-    })
-    if (!loginData) {
-        throw new Error('No data found in API response!')
+export const getLoginData = async (email:string) => {
+    const body = {
+        email: email,
     }
-    return loginData
-
+    try {
+        const response = await requestApi('http://localhost:3002/database/login_Data_From_Email', {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+        body: JSON.stringify(body)
+    })
+    return response
+    }catch(error){
+        console.error(error)
+        throw error
+    }
   }
 
   export default getLoginData

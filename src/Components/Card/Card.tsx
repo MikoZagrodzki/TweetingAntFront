@@ -1,10 +1,13 @@
 import { useRef } from "react";
 import Popup from "reactjs-popup";
 import "./Card.css";
+import { v4 as uuidv4 } from 'uuid';
+import SettingCard from "./SettingCard";
 
 interface Props {
   loginNameTwitter: string;
   email: string;
+  isAutomated: string|undefined;
   howManyTweets: [] | { hours: number; minutes: number }[];
   howManyLikes: [] | { hours: number; minutes: number }[];
   howManyRetweets: [] | { hours: number; minutes: number }[];
@@ -15,6 +18,7 @@ function Card(props: Props) {
   const {
     loginNameTwitter: twitterAccount,
     email,
+    isAutomated,
     howManyTweets,
     howManyLikes,
     howManyRetweets,
@@ -25,8 +29,7 @@ function Card(props: Props) {
   const openTooltip = () => ref.current.open();
   const closeTooltip = () => ref.current.close();
 
-  console.log(howManyTweets);
-
+  // console.log(howManyTweets);
   return (
     // <div className="Card-container">
     //     <p>{twitterAccount}</p>
@@ -37,50 +40,19 @@ function Card(props: Props) {
       <button type="button" className="Card openButton" onClick={openTooltip}>
         open
       </button>
+      <p>{isAutomated==="1"?"AUTOMATED":"NOTAUTOMATED"}</p>
       <Popup ref={ref}>
         <div className="Card-popup-container">
-          <p>{twitterAccount}</p>
+          <div className="Card-popup-container-header">
+          <h1>{twitterAccount}</h1>
           <p>{email}</p>
-          <ul>
-            I am gonna tweet at:
-            {howManyTweets.map((x) => {
-              return (
-                <li>
-                  {x.hours}:{x.minutes}
-                </li>
-              );
-            })}
-          </ul>
-          <ul>
-            I am gonna tweet at:
-            {howManyLikes.map((x) => {
-              return (
-                <li>
-                  {x.hours}:{x.minutes}
-                </li>
-              );
-            })}
-          </ul>
-          <ul>
-            I am gonna retweet at:
-            {howManyRetweets.map((x) => {
-              return (
-                <li>
-                  {x.hours}:{x.minutes}
-                </li>
-              );
-            })}
-          </ul>
-          <ul>
-            I am gonna comment at:
-            {howManyComments.map((x) => {
-              return (
-                <li>
-                  {x.hours}:{x.minutes}
-                </li>
-              );
-            })}
-          </ul>
+          </div>
+          <div className="Card-settings-container">
+          <SettingCard purpose="tweet" howMany={howManyTweets}/>
+          <SettingCard purpose="like" howMany={howManyLikes}/>
+          <SettingCard purpose="retweet" howMany={howManyRetweets}/>
+          <SettingCard purpose="comment" howMany={howManyComments}/>
+          </div>
           <button
             type="button"
             className="Card closeButton"

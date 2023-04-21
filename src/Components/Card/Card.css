@@ -4,20 +4,68 @@
 .Card-popup-container{
     position: relative;
     background-color: white;
-    height: 100vh;
+    min-height: 100vh;
     width: 100vw;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    /* flex-wrap: wrap; */
+    text-align: center;
+    gap: 10px;
 }
-.Card-popup-container ul {
-    max-height: 250px;
-    width: fit-content;
+.Card-popup-container header{
+    height: 10vh;
+    width: 100vw;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.Card-settings-container{
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    overflow: scroll;
+}
+.SettingCard-container{
+    padding: 3px;
+    display: flex;
+    flex-direction: column;
+    overflow: scroll;
+    border: 2px solid black;
+    overflow: scroll;
+    width: 270px;
+}
+.Card-settings-container ul{
+    padding: 0px;
+    margin: 0px;
+    overflow: scroll;
+    list-style: none;
+    display: flex;
     flex-wrap: wrap;
-    width: fit-content;
     justify-content: center;
     align-items: center;
+    gap: 10px;
+    text-align: center;
+}
+.Card-settings-container li{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 20px;
+}
+.Card-settings-container li:hover button {
+    display: block;
+  }
+.button-li{
+    display: none;
+    border: 0px;
+    background-color: rgba(255, 255, 255, 0);
+    text-align: center;
+    color: red;
+    font-weight: 700;
+    font-size: larger;
 }

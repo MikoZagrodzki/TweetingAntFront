@@ -1,5 +1,5 @@
 import { checkLoginData, insertLoginData } from "../../SQL";
-import createSingleTwitterAccount from "../../Funcinalities/CreateSingleTwitterAccount";
+// import createSingleTwitterAccount from "../../Funcinalities/CreateSingleTwitterAccount";
 import { useAuth } from "../../AuthContext";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
@@ -36,12 +36,12 @@ function FormTwitterCredentials(props : Props) {
       data.TwitterUsername,
       data.TwitterPassword
     );
-    const twitterAccount = createSingleTwitterAccount(
-      data.TwitterUsername,
-      data.TwitterPassword,
-      currentUser.email
-    );
-    setTwitterClasses([...twitterClasses, twitterAccount])
+    // const twitterAccount = createSingleTwitterAccount(
+    //   data.TwitterUsername,
+    //   data.TwitterPassword,
+    //   currentUser.email
+    // );
+    // setTwitterClasses([...twitterClasses, twitterAccount])
     console.log(twitterClasses)
     seterrorMessageLoginData(false);
     reset();
