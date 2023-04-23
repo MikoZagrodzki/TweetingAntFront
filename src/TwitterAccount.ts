@@ -56,7 +56,7 @@ export class TwitterAccount {
       },undefined,false,undefined,undefined,true,undefined,undefined)
         // [12.12, 13.15, 20.47]
 
-      this.createDriversAndLogin()
+      // this.createDriversAndLogin()
       this.executeAtScheduledTime(this.fetchAndComment, this.howManyComments, 'Comment');
       this.executeAtScheduledTime(this.fetchAndRephreseAndTweet, this.howManyTweets, 'Rephresed Tweet');
       this.executeAtScheduledTime(this.fetchAndLikeTweet, this.howManyLikes, 'Like Tweet')

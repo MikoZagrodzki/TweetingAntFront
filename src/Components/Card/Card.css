@@ -69,3 +69,8 @@
     font-weight: 700;
     font-size: larger;
 }
+.Card-forms-container{
+    display: flex;
+    gap: 10px;
+
+}

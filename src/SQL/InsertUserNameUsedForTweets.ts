@@ -1,11 +1,12 @@
 import {requestApi} from "../Funcinalities"
 
-export const insertUserNameUsedForTweets = async (loginNameTwitter: string, username: string ) => {
-    const body = {
-        loginNameTwitter : loginNameTwitter,
-        username : username,
+export const insertUserNameUsedForTweets = async (formData: {}[]) => {
+    // const body = {
+    //     email: email,
+    //     loginNameTwitter : loginNameTwitter,
+    //     username : username,
        
-    }
+    // }
     try {
     await requestApi('http://localhost:3002/database/insert_User_Name_Used_For_Tweets', {
     method: 'POST',
@@ -13,7 +14,8 @@ export const insertUserNameUsedForTweets = async (loginNameTwitter: string, user
       "Content-Type": "application/json",
       "Access-Control-Allow-Origin": "*",
     },
-    body: JSON.stringify(body)
+    // mode: 'no-cors',
+    body: JSON.stringify(formData)
 
     })
     }catch(error){

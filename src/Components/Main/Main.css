@@ -1,6 +1,16 @@
+.Main-container p{
+    margin: 0px;
+    padding: 0px;
+}
 .Main-container{
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+.Main-header{
+    display: flex;
     justify-content: center;
     align-items: center;
     gap: 10px;
@@ -19,6 +29,8 @@
     justify-content: center;
     align-items: center;
     gap: 10px;
+    margin: 0px;
+    padding: 0px;
 }
 .listOfCards-container li{
     min-width: 150px;

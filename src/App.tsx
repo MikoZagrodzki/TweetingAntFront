@@ -39,9 +39,9 @@ function App() {
       </Router>
 
       {/* <button role='button' onClick={() => createTwitterAccountsWithClass()}>Create Twitter Classes</button> */}
-      <button role='button' onClick={() => twitterAccountswithClass[2].fetchAndLikeTweet()}>TESTBITCH</button>
+      {/* <button role='button' onClick={() => twitterAccountswithClass[2].fetchAndLikeTweet()}>TESTBITCH</button>
       <button role='button' onClick={() => chatGpt('whats up my baby')}>TEST GPT</button>
-      <button role='button' onClick={() => fetchTweets('elonmusk')}>Fetchowanko</button>
+      <button role='button' onClick={() => fetchTweets('elonmusk')}>Fetchowanko</button> */}
     </div>
   );
     }
