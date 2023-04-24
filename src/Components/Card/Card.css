@@ -62,7 +62,7 @@
   overflow: scroll;
   border: 2px solid black;
   overflow: scroll;
-  width: 270px;
+  width: 300px;
   gap: 10px;
 }
 .Card-settings-container ul {
@@ -77,14 +77,23 @@
   gap: 10px;
   text-align: center;
 }
-.Card-settings-container li {
+.setting-li-element {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
+  width: 43px;
   height: 20px;
 }
-.Card-settings-container li:hover button {
+.setting-li-editing input{
+  width: 25px;
+  text-align: center;
+  border: 1px solid black;
+  /* border-right: none; */
+}
+.setting-li-element:hover p{
+  display: none;
+}
+.setting-li-element:hover button {
   display: block;
 }
 .button-li {
@@ -96,8 +105,18 @@
   font-weight: 700;
   font-size: larger;
 }
+.setting-edit-input-button{
+  border: none;
+  background-color: rgba(255, 255, 255, 0);
+  font-size: large;
+}
 .Card-forms-container {
   display: flex;
   gap: 10px;
+}
+@media(max-width:800px){
+  .Card-forms-container{
+    flex-direction: column;
+  }
 }
 

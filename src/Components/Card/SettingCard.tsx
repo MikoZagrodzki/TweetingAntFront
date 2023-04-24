@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Card.css";
 import { v4 as uuidv4 } from "uuid";
 import {
@@ -6,7 +6,12 @@ import {
   updateLikesIntensivity,
   updateRetweetsIntensivity,
   updateCommentsIntensivity,
+  deleteTimeToTweetsSpecific,
+  deleteTimeToLikesSpecific,
+  deleteTimeToRetweetsSpecific,
+  deleteTimeToCommentsSpecific,
 } from "../../SQL";
+import SettingCardLiElement from "./SettingCardLiElement";
 
 interface Props {
   loginNameTwitter: string;
@@ -18,6 +23,7 @@ interface Props {
 
 function SettingCard(props: Props) {
   const { loginNameTwitter, purpose, howMany, dbTrigger, setDbTrigger } = props;
+  const [isEditing, setIsEditing] = useState(false);
 
   const updateIntensivity = async (value: number) => {
     try {
@@ -60,9 +66,7 @@ function SettingCard(props: Props) {
         {howMany.length > 0 &&
           howMany.map((x) => {
             return (
-              <li key={uuidv4()}>
-                {x.hours}:{x.minutes} <button className="button-li">x</button>
-              </li>
+              <SettingCardLiElement key={uuidv4()} loginNameTwitter={loginNameTwitter} purpose={purpose} dbTrigger={dbTrigger} setDbTrigger={setDbTrigger} hours={x.hours} minutes={x.minutes}/>
             );
           })}
       </ul>
