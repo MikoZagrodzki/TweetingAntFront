@@ -1,6 +1,6 @@
 import {requestApi} from "../Funcinalities"
 
-export const insertUserNameUsedForTweets = async (formData: {}[]) => {
+export const insertUserContent = async (formData: {}[]) => {
     // const body = {
     //     email: email,
     //     loginNameTwitter : loginNameTwitter,
@@ -8,7 +8,7 @@ export const insertUserNameUsedForTweets = async (formData: {}[]) => {
        
     // }
     try {
-    await requestApi('http://localhost:3002/database/insert_User_Name_Used_For_Tweets', {
+    await requestApi('http://localhost:3002/database/insert_User_Content', {
     method: 'POST',
     headers: {
       "Content-Type": "application/json",
@@ -23,4 +23,4 @@ export const insertUserNameUsedForTweets = async (formData: {}[]) => {
     }
   }
 
-  export default insertUserNameUsedForTweets
+  export default insertUserContent

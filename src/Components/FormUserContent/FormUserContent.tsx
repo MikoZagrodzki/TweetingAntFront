@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { useAuth } from "../../AuthContext";
-import { useForm } from "react-hook-form";
-import { useState } from "react";
 import {
   insertUserNameUsedForTweets,
   checkUserNameUsedForTweets,
+  insertUserContent,
+  checkUserContent,
 } from "../../SQL";
 import "./FormUserContent.css";
 import { v4 as uuidv4 } from "uuid";
@@ -12,7 +12,9 @@ import { v4 as uuidv4 } from "uuid";
 interface Props {
   loginNameTwitter: string;
   purpose: string;
+  funcionallity?:string;
 }
+
 interface FormData {
   email: string;
   loginnametwitter: string;
@@ -20,37 +22,33 @@ interface FormData {
 }
 
 function FormUserContent(props: Props) {
-  const { loginNameTwitter: twitterAccount, purpose } = props;
+  const { loginNameTwitter: twitterAccount, purpose, funcionallity } = props;
+  const [formData, setFormData] = useState<FormData[]>([]);
+  const [inputValue, setinputValue] = useState<string>("");
   const [errorMessageLoginData, seterrorMessageLoginData] =
     useState<boolean>(false);
   const { currentUser }: any = useAuth();
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm();
-  const [formData, setFormData] = useState<FormData[]>([]);
 
-  const formSubmit = async () => {
-    const dataObject: any = { formData: formData };
-    if (formData.length < 1) {
-      return;
+  const addNext = async () => {
+    let doesExist;
+    switch (funcionallity) {
+      case "UserNameUsedForTweets":
+        doesExist = await checkUserNameUsedForTweets(
+          twitterAccount,
+          inputValue
+        );
+        break;
+      case "UserContent":
+        doesExist = await checkUserContent(
+          twitterAccount,
+          inputValue
+        );
+        break;
+      default:
+       console.error("No functionallity passed")
     }
-    await insertUserNameUsedForTweets(dataObject);
-    seterrorMessageLoginData(false);
-    reset();
-  };
-
-  const addNext = async (data: any) => {
-    const response = await checkUserNameUsedForTweets(
-      twitterAccount,
-      data.usernameUsedForTweets
-    );
-    console.log("its going");
-    if (response) {
+    if (doesExist) {
       seterrorMessageLoginData(true);
-      console.log("its not going");
       return;
     }
     setFormData([
@@ -58,31 +56,61 @@ function FormUserContent(props: Props) {
       {
         email: currentUser.email,
         loginnametwitter: twitterAccount,
-        usernameusedfortweets: data.usernameUsedForTweets,
+        usernameusedfortweets: inputValue,
       },
     ]);
+    setinputValue("");
     seterrorMessageLoginData(false);
-    reset();
   };
+
+  const formSubmit = async (event:any) => {
+    event.preventDefault()
+    if (formData.length < 1 && !inputValue) {
+      return;
+    }
+    const dataObject: any = { formData: [...formData] };
+    if (inputValue) {
+      dataObject.formData.push({
+        email: currentUser.email,
+        loginnametwitter: twitterAccount,
+        usernameusedfortweets: inputValue,
+      });
+    }
+    switch (funcionallity) {
+      case "UserNameUsedForTweets":
+        await insertUserNameUsedForTweets(dataObject);
+        break;
+      case "UserContent":
+        await insertUserContent(dataObject);
+        break;
+      default:
+       console.error("No functionallity passed")
+    }
+    setFormData([]);
+    setinputValue("");
+    seterrorMessageLoginData(false);
+  };
+
   const removeFormData = (index: number) => {
     const newData = [...formData];
     newData.splice(index, 1);
     setFormData(newData);
   };
 
-  // console.log(formData);
-
   return (
     <div className="FormUserContent-container">
       <p>Add Twitter Username to {purpose} from</p>
-      <form onSubmit={handleSubmit((data) => addNext(data))}>
+      <form>
         <input
           type="text"
           placeholder="Twitter Username"
-          {...register("usernameUsedForTweets", { required: true })}
+          value={inputValue}
+          onChange={(event) => setinputValue(event.target.value)}
         />
-        <input type="submit" value={formData.length<1?"Add":"Add next"} />
-        {errors.usernameUsedForTweets && <p>Twitter Username is required.</p>}
+        <button type="button" onClick={() => addNext()}>
+          {formData.length < 1 ? "Add" : "Add next"}
+        </button>
+        <button onClick={(event) => formSubmit(event)}>Submit</button>
         {errorMessageLoginData && <p>Twitter Username already added.</p>}
       </form>
       <div className="FormUserContent-elements-container">
@@ -101,7 +129,6 @@ function FormUserContent(props: Props) {
             );
           })}
       </div>
-        <button className={formData.length<1?"submit-button-none":"submit-button"} onClick={() => { formSubmit() }}>Submit</button>
     </div>
   );
 }

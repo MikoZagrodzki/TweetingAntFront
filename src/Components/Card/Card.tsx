@@ -58,10 +58,12 @@ function Card(props: Props) {
             <FormUserContent
               purpose="rephrase tweets"
               loginNameTwitter={twitterAccount}
+              funcionallity="UserNameUsedForTweets"
             />
             <FormUserContent
               purpose="like/comment/retweet"
               loginNameTwitter={twitterAccount}
+              funcionallity="UserContent"
             />
           </div>
           <button
