@@ -19,6 +19,11 @@ import insertRetweetedTweets from "./InsertRetweetedTweets";
     import getUserContent from "./GetUserContent";
 import checkUserContent from "./CheckUserContent";
 import insertUserContent from "./InsertUserContent";
+import updateIsAutomated from "./UpdateIsAutomated";
+import updateTweetsIntensivity from "./UpdateTweetsIntensivity";
+import updateLikesIntensivity from "./UpdateLikesIntensivity";
+import updateRetweetsIntensivity from "./UpdateRetweetsIntensivity";
+import updateCommentsIntensivity from "./UpdateCommentsIntensivity";
 
 export {
         getLoginData,
@@ -42,5 +47,10 @@ export {
         getUserContent,
     checkUserContent,
     insertUserContent,
+    updateIsAutomated,
+    updateTweetsIntensivity,
+    updateLikesIntensivity,
+    updateRetweetsIntensivity,
+    updateCommentsIntensivity,
 
 }

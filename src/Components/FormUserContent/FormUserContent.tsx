@@ -12,7 +12,7 @@ import { v4 as uuidv4 } from "uuid";
 interface Props {
   loginNameTwitter: string;
   purpose: string;
-  funcionallity?:string;
+  funcionallity?: string;
 }
 
 interface FormData {
@@ -39,13 +39,10 @@ function FormUserContent(props: Props) {
         );
         break;
       case "UserContent":
-        doesExist = await checkUserContent(
-          twitterAccount,
-          inputValue
-        );
+        doesExist = await checkUserContent(twitterAccount, inputValue);
         break;
       default:
-       console.error("No functionallity passed")
+        console.error("No functionallity passed");
     }
     if (doesExist) {
       seterrorMessageLoginData(true);
@@ -63,8 +60,8 @@ function FormUserContent(props: Props) {
     seterrorMessageLoginData(false);
   };
 
-  const formSubmit = async (event:any) => {
-    event.preventDefault()
+  const formSubmit = async (event: any) => {
+    event.preventDefault();
     if (formData.length < 1 && !inputValue) {
       return;
     }
@@ -76,15 +73,19 @@ function FormUserContent(props: Props) {
         usernameusedfortweets: inputValue,
       });
     }
-    switch (funcionallity) {
-      case "UserNameUsedForTweets":
-        await insertUserNameUsedForTweets(dataObject);
-        break;
-      case "UserContent":
-        await insertUserContent(dataObject);
-        break;
-      default:
-       console.error("No functionallity passed")
+    try {
+      switch (funcionallity) {
+        case "UserNameUsedForTweets":
+          await insertUserNameUsedForTweets(dataObject);
+          break;
+        case "UserContent":
+          await insertUserContent(dataObject);
+          break;
+        default:
+          console.error("No functionallity passed");
+      }
+    } catch (error) {
+      console.error(error);
     }
     setFormData([]);
     setinputValue("");
@@ -108,7 +109,7 @@ function FormUserContent(props: Props) {
           onChange={(event) => setinputValue(event.target.value)}
         />
         <button type="button" onClick={() => addNext()}>
-          {formData.length < 1 ? "Add" : "Add next"}
+          Add next
         </button>
         <button onClick={(event) => formSubmit(event)}>Submit</button>
         {errorMessageLoginData && <p>Twitter Username already added.</p>}

@@ -7,18 +7,18 @@
     max-height: 300px;
     flex-wrap: wrap;
     width: 390px;
-    gap: 5px;
+    gap: 10px;
 }
 .FormUserContent-container p{
     margin: 0px;
     padding-left: 2px;
     padding-right: 2px;
 }
-/* .FormUserContent-container form{
+.FormUserContent-container form{
     display: flex;
-    flex-direction: column;
-    gap: 5px;
-} */
+    /* flex-direction: column; */
+    gap: 10px;
+}
 
 .FormUserContent-elements-container{
     display: flex;

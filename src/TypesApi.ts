@@ -32,5 +32,5 @@
     loginnametwitter : string,
     passwordtwitter: string,
     email: string,
-    isautomated: string,
+    isautomated: boolean,
   }

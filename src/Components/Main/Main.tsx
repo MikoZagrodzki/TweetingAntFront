@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useAuth } from "../../AuthContext";
 import { getLoginData, checkLoginData, insertLoginData } from "../../SQL";
 import { generateTwitterAccounts } from "../../Funcinalities";
@@ -14,7 +14,7 @@ interface LoginDataFromSql {
   loginNameTwitter: string;
   email: string;
   id?: string;
-  isAutomated: string;
+  isAutomated: boolean;
   howManyTweets: any;
   howManyLikes: [] | { hours: number; minutes: number }[];
   howManyRetweets: [] | { hours: number; minutes: number }[];
@@ -33,6 +33,8 @@ function Main(props: Props) {
   const { setTwitterClasses, twitterClasses } = props;
   const [loginDataFromSql, setLoginDataFromSql] = useState<LoginDataFromSql[] | []>([]);
   const [error, setError] = useState('');
+  const [dbTrigger, setDbTrigger] = useState<boolean>(false)
+
 
   const navigate = useNavigate();
 
@@ -58,8 +60,9 @@ function Main(props: Props) {
   };
 
   useEffect(() => {
+    console.log("useEffect triggered");
     getLoginDataFromSql();
-  }, []);
+  }, [dbTrigger]);
 
   console.log(currentUser);
   return (
@@ -86,6 +89,8 @@ function Main(props: Props) {
                     howManyLikes={x.howManyLikes}
                     howManyRetweets={x.howManyLikes}
                     howManyComments={x.howManyComments}
+                    dbTrigger={dbTrigger}
+                    setDbTrigger={setDbTrigger}
                   />
                 </li>
               );

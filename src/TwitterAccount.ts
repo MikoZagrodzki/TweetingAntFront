@@ -12,12 +12,12 @@ export class TwitterAccount {
     private passwordTwitter: string;
     email: string;
     id?: string;
-    isAutomated: string;
+    isAutomated: boolean;
     howManyTweets: any;
     howManyLikes: [] | { hours: number,  minutes: number }[];
     howManyRetweets: [] | { hours: number,  minutes: number }[];
     howManyComments: [] | { hours: number,  minutes: number }[];
-     constructor(loginNameTwitter: string, passwordTwitter: string, email: string, isAutomated: string, id?: string,  ) {
+     constructor(loginNameTwitter: string, passwordTwitter: string, email: string, isAutomated: boolean, id?: string,  ) {
       this.loginNameTwitter = loginNameTwitter;
       this.passwordTwitter = passwordTwitter;
       this.email = email;

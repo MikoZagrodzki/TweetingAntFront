@@ -1,76 +1,103 @@
-.Card-container{
+.Card-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+.Card-automation-container:hover button{
+    display: block;
+}
+.Card-automation-container:hover p{
+    display: none;
+}
+.Card-automation-container button{
+    display: none;
+}
 
+.Card-popup-container {
+  position: relative;
+  background-color: white;
+  min-height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* flex-wrap: wrap; */
+  text-align: center;
+  gap: 10px;
 }
-.Card-popup-container{
-    position: relative;
-    background-color: white;
-    min-height: 100vh;
-    width: 100vw;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    /* flex-wrap: wrap; */
-    text-align: center;
-    gap: 10px;
+.Card-popup-container-header {
+  height: 10vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
-.Card-popup-container header{
-    height: 10vh;
-    width: 100vw;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+.Card-popup-automation-container {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
 }
-.Card-settings-container{
-    width: 100vw;
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    overflow: scroll;
+.Card-popup-automation-container p {
+  margin: 0px;
 }
-.SettingCard-container{
-    padding: 3px;
-    display: flex;
-    flex-direction: column;
-    overflow: scroll;
-    border: 2px solid black;
-    overflow: scroll;
-    width: 270px;
+.Card-settings-container {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  overflow: scroll;
 }
-.Card-settings-container ul{
-    padding: 0px;
-    margin: 0px;
-    overflow: scroll;
-    list-style: none;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    text-align: center;
+.Card-settings-container p {
+  margin: 0px;
 }
-.Card-settings-container li{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 20px;
+.SettingCard-container {
+  padding: 3px;
+  display: flex;
+  flex-direction: column;
+  overflow: scroll;
+  border: 2px solid black;
+  overflow: scroll;
+  width: 270px;
+  gap: 10px;
+}
+.Card-settings-container ul {
+  padding: 0px;
+  margin: 0px;
+  overflow: scroll;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+}
+.Card-settings-container li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 20px;
 }
 .Card-settings-container li:hover button {
-    display: block;
-  }
-.button-li{
-    display: none;
-    border: 0px;
-    background-color: rgba(255, 255, 255, 0);
-    text-align: center;
-    color: red;
-    font-weight: 700;
-    font-size: larger;
+  display: block;
 }
-.Card-forms-container{
-    display: flex;
-    gap: 10px;
+.button-li {
+  display: none;
+  border: 0px;
+  background-color: rgba(255, 255, 255, 0);
+  text-align: center;
+  color: red;
+  font-weight: 700;
+  font-size: larger;
+}
+.Card-forms-container {
+  display: flex;
+  gap: 10px;
+}
 
-}
