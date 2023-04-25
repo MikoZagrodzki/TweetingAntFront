@@ -25,9 +25,13 @@ import updateLikesIntensivity from "./UpdateLikesIntensivity";
 import updateRetweetsIntensivity from "./UpdateRetweetsIntensivity";
 import updateCommentsIntensivity from "./UpdateCommentsIntensivity";
 import deleteTimeToTweetsSpecific from "./DeleteTimeToTweetsSpecific";
+import updateTimeToTweetsSpecific from "./UpdateTimeToTweetsSpecific";
 import deleteTimeToLikesSpecific from "./DeleteTimeToLikesSpecific";
+import updateTimeToLikesSpecific from "./UpdateTimeToLikesSpecific";
 import deleteTimeToRetweetsSpecific from "./DeleteTimeToRetweetsSpecific";
+import updateTimeToRetweetsSpecific from "./UpdateTimeToRetweetsSpecific";
 import deleteTimeToCommentsSpecific from "./DeleteTimeToCommentsSpecific";
+import updateTimeToCommentsSpecific from "./UpdateTimeToCommentsSpecific";
 
 export {
         getLoginData,
@@ -57,8 +61,12 @@ export {
     updateRetweetsIntensivity,
     updateCommentsIntensivity,
     deleteTimeToTweetsSpecific,
+    updateTimeToTweetsSpecific,
     deleteTimeToLikesSpecific,
+    updateTimeToLikesSpecific,
     deleteTimeToRetweetsSpecific,
+    updateTimeToRetweetsSpecific,
     deleteTimeToCommentsSpecific,
+    updateTimeToCommentsSpecific,
 
 }
