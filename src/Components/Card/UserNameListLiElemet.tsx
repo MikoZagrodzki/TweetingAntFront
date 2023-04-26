@@ -1,16 +1,42 @@
 import React from "react";
 import { v4 as uuidv4 } from "uuid";
 import "./Card.css";
+import { deleteUserContentSpecific, deleteUserNameUsedForTweetsSpecific } from "../../SQL";
 interface Props {
   username: string;
+  purpose:string;
+  loginNameTwitter:string;
+  setDbNamesTrigger: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
+
+
+
 function UserNameListLiElemet(props: Props) {
-  const { username } = props;
+  const { username, purpose, loginNameTwitter:twitterAccount, setDbNamesTrigger } = props;
+
+  const deleteUsername = async (twitterAccount:string, username:string) => {
+    switch (purpose) {
+      case "rephrasing tweets":
+        console.log("IM TRIGGERING UNSERNAMEUSEDFOR TWEETS")
+        await deleteUserNameUsedForTweetsSpecific(twitterAccount, username);
+        break;
+      case "like/comment/retweet":
+        console.log("IM TRIGGERING UNSECONTENT")
+        await deleteUserContentSpecific(twitterAccount, username)
+        break;
+      default:
+        console.error("No functionallity passed");
+    }
+    setDbNamesTrigger(true)
+    // setDbNamesTrigger(false)
+  };
+
+
   return (
     <li key={uuidv4()}>
       {username}
-      <button className="button-li" onClick={() => {}}>
+      <button className="button-li" onClick={() => {deleteUsername(twitterAccount, username)}}>
         ❌
       </button>
     </li>

@@ -3,6 +3,7 @@ import getUserNameUsedForTweetsByEmail from "../../SQL/GetUserNameUsedForTweetsB
 import UserNameListLiElemet from "./UserNameListLiElemet";
 import { getUserContent, getUserNameUsedForTweets } from "../../SQL";
 import "./Card.css";
+import { v4 as uuidv4 } from "uuid";
 
 interface Props {
   loginNameTwitter: string;
@@ -30,7 +31,7 @@ function UserNamesList(props: Props) {
         console.error("No functionallity passed");
     }
     setDbNamesData(dbNames);
-    setDbNamesTrigger(!dbNamesTrigget);
+    // setDbNamesTrigger(!dbNamesTrigget);
     return dbNamesData;
   };
 
@@ -41,6 +42,7 @@ function UserNamesList(props: Props) {
   useEffect(() => {
     if (dbNamesTrigget) {
       getNames();
+      setDbNamesTrigger(false)
     }
   }, [dbNamesTrigget]);
 
@@ -49,7 +51,7 @@ function UserNamesList(props: Props) {
       <p>List of Twitter accounts used for {purpose} from:</p>
       <ul>
         {dbNamesData.map((name: string, index: number) => (
-          <UserNameListLiElemet key={index} username={name} />
+          <UserNameListLiElemet key={uuidv4()} purpose={purpose} username={name} loginNameTwitter={twitterAccount} setDbNamesTrigger={setDbNamesTrigger} />
         ))}
       </ul>
     </div>

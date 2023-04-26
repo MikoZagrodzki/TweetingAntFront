@@ -25,8 +25,8 @@ function FormUserContent(props: Props) {
   const { loginNameTwitter: twitterAccount, purpose, funcionallity } = props;
   const [formData, setFormData] = useState<FormData[]>([]);
   const [inputValue, setinputValue] = useState<string>("");
-  const [errorMessageLoginData, seterrorMessageLoginData] =
-    useState<boolean>(false);
+  const [errorMessageLoginData, setErrorMessageLoginData] = useState<boolean>(false);
+  const [submitMessageLoginData, setSubmitMessageLoginData] = useState<boolean>(false);
   const { currentUser }: any = useAuth();
 
   const addNext = async () => {
@@ -45,7 +45,7 @@ function FormUserContent(props: Props) {
         console.error("No functionallity passed");
     }
     if (doesExist) {
-      seterrorMessageLoginData(true);
+      setErrorMessageLoginData(true);
       return;
     }
     setFormData([
@@ -57,7 +57,7 @@ function FormUserContent(props: Props) {
       },
     ]);
     setinputValue("");
-    seterrorMessageLoginData(false);
+    setErrorMessageLoginData(false);
   };
 
   const formSubmit = async (event: any) => {
@@ -89,7 +89,8 @@ function FormUserContent(props: Props) {
     }
     setFormData([]);
     setinputValue("");
-    seterrorMessageLoginData(false);
+    setErrorMessageLoginData(false);
+    setSubmitMessageLoginData(true);
   };
 
   const removeFormData = (index: number) => {
@@ -112,8 +113,9 @@ function FormUserContent(props: Props) {
           Add next
         </button>
         <button onClick={(event) => formSubmit(event)}>Submit</button>
-        {errorMessageLoginData && <p>Twitter Username already added.</p>}
       </form>
+        {submitMessageLoginData && <p>It will appear ater refresh.</p>}
+        {errorMessageLoginData && <p>Twitter Username already added.</p>}
       <div className="FormUserContent-elements-container">
         {formData.length > 0 &&
           formData.map((data, index) => {

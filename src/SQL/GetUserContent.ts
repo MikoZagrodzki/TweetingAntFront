@@ -18,7 +18,7 @@ export const getUserContent = async (loginNameTwitter:string) => {
         throw new Error('Response not exist')
     }
    const mappedResponse = response.payload.map((x: any) => {
-    return x.UserContent
+    return x.usercontent
    })
     return mappedResponse
     }catch(error){

@@ -7,6 +7,7 @@ import FormUserContent from "../FormUserContent/FormUserContent";
 import { updateIsAutomated } from "../../SQL";
 import getUserNameUsedForTweetsByEmail from "../../SQL/GetUserNameUsedForTweetsByEmail";
 import UserNamesList from "./UserNamesList";
+import Personality from "./Personality";
 
 
 interface Props {
@@ -71,6 +72,7 @@ function Card(props: Props) {
             <SettingCard dbTrigger={dbTrigger} setDbTrigger={setDbTrigger} loginNameTwitter={twitterAccount} purpose="comment" howMany={howManyComments} />
           </div>
           <div className="Card-forms-container">
+            <Personality loginNameTwitter={twitterAccount}/>
             <div className="Form-and-list-container">
               <FormUserContent
                 purpose="rephrase tweets"
@@ -87,6 +89,7 @@ function Card(props: Props) {
               />
               <UserNamesList loginNameTwitter={twitterAccount} purpose="like/comment/retweet"/>
             </div>
+            <Personality loginNameTwitter={twitterAccount}/>
           </div>
           <button
             type="button"

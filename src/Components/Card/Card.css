@@ -1,3 +1,23 @@
+/* For Chrome, Safari and Opera */
+::-webkit-scrollbar {
+  width: 10px; /* width of the scrollbar */
+}
+::-webkit-scrollbar-track {
+  background-color: #f1f1f1; /* color of the track */
+}
+::-webkit-scrollbar-thumb {
+  background-color: #888; /* color of the scrollbar */
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: #555; /* color of the scrollbar when hovering */
+}
+select{
+  text-align: center;
+}
+input{
+  text-align: center;
+}
+
 .Card-container {
   display: flex;
   flex-direction: column;
@@ -27,7 +47,9 @@
   /* flex-wrap: wrap; */
   text-align: center;
   gap: 10px;
+  /* overflow-y: scroll; */
 }
+
 .Card-popup-container-header {
   height: 10vh;
   width: 100vw;
@@ -62,7 +84,7 @@
   width: 300px;
   gap: 10px;
 }
-@media (max-width: 800px) {
+@media (max-width: 1000px) {
   .Card-settings-container{
     flex-direction: column;
     align-items: center;
@@ -71,6 +93,7 @@
     width: 390px;
   }
 }
+
 .Card-settings-container ul {
   padding: 0px;
   margin: 0px;
@@ -83,6 +106,7 @@
   align-items: center;
   gap: 10px;
   text-align: center;
+  
 }
 .setting-li-element {
   display: flex;
@@ -120,9 +144,10 @@
 .Card-forms-container {
   display: flex;
   gap: 10px;
+  justify-items: center;
 
 }
-@media (max-width: 800px) {
+@media (max-width: 1000px) {
   .Card-forms-container {
     flex-direction: column;
   }
@@ -154,7 +179,7 @@
   margin: 0px;
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 12px;
   align-items: center;
   justify-content: center;
   max-height: 110px;
@@ -162,8 +187,34 @@
 }
 .List-name-container li{
   display: flex;
-  height: 20px;
+  height: 25px;
+  padding-left: 2px;
+  padding-right: 2px;
 }
 .List-name-container li:hover button{
   display: block;
+}
+.Personality-container{
+  border: 2px solid;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  height: 76px;
+  width: 210px;
+}
+.Personality-container p{
+  margin: 0px;
+  padding-left: 2px;
+  padding-right: 2px;
+}
+.Personality-container select{
+  width: 95%;
+}
+
+
+@media (max-width: 1000px) {
+  .Personality-container{
+    width: 390px;
+  }
 }
