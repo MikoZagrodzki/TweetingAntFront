@@ -19,15 +19,23 @@ export const getUserContentByEmail = async (email: string) => {
     if (!response?.payload) {
       throw new Error("Response not exist");
     }
-    const mappedResponse = response.payload.map((x: any) => {
-      return [
-        {
-          email:x.email,
-          loginnametwitter: x.loginnametwitter,
-          usernameusedfortweets: x.usernameusedfortweets,
-        },
-      ];
+    const groupedContent = response.payload.reduce((acc: any, curr: any) => {
+      if (acc[curr.loginnametwitter]) {
+        acc[curr.loginnametwitter].push(curr.usercontent);
+      } else {
+        acc[curr.loginnametwitter] = [curr.usercontent];
+      }
+      return acc;
+    }, {});
+
+    const mappedResponse = Object.keys(groupedContent).map((loginnametwitter) => {
+      return {
+        loginnametwitter,
+        usercontent: groupedContent[loginnametwitter],
+      };
     });
+
+    console.log(mappedResponse)
     return mappedResponse;
   } catch (error) {
     console.error(error);

@@ -1,4 +1,4 @@
-    import getLoginData from "./GetLoginData";
+    import getLoginDataFromEmail from "./GetLoginDataFromEmail";
 import checkLoginData from "./CheckLoginData";
 import insertLoginData from "./InsertLoginData";
 ///////////////////////////////////////////////
@@ -50,7 +50,7 @@ import updateTimeToCommentsSpecific from "./UpdateTimeToCommentsSpecific";
 ///////////////////////////////////////////////
 
 export {
-        getLoginData,
+        getLoginDataFromEmail,
     checkLoginData,
     insertLoginData,
     ///////////////////////////////////////////////

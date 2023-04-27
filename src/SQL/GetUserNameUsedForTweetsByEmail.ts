@@ -19,15 +19,22 @@ export const getUserNameUsedForTweetsByEmail = async (email: string) => {
     if (!response?.payload) {
       throw new Error("Response not exist");
     }
-    const mappedResponse = response.payload.map((x: any) => {
-      return [
-        {
-          email:x.email,
-          loginnametwitter: x.loginnametwitter,
-          usernameusedfortweets: x.usernameusedfortweets,
-        },
-      ];
+    const groupedUsernames = response.payload.reduce((acc: any, curr: any) => {
+      if (acc[curr.loginnametwitter]) {
+        acc[curr.loginnametwitter].push(curr.usernameusedfortweets);
+      } else {
+        acc[curr.loginnametwitter] = [curr.usernameusedfortweets];
+      }
+      return acc;
+    }, {});
+
+    const mappedResponse = Object.keys(groupedUsernames).map((loginnametwitter) => {
+      return {
+        loginnametwitter,
+        usernameusedfortweets: groupedUsernames[loginnametwitter],
+      };
     });
+    console.log(mappedResponse)
     return mappedResponse;
   } catch (error) {
     console.error(error);

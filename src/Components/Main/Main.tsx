@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import { useAuth } from "../../AuthContext";
-import { getLoginData, checkLoginData, insertLoginData } from "../../SQL";
+import { getLoginDataFromEmail, checkLoginData, insertLoginData } from "../../SQL";
 import { generateTwitterAccounts } from "../../Funcinalities";
 import TwitterAccount from "../../TwitterAccount";
 import Card from "../Card/Card";
@@ -48,11 +48,11 @@ function Main(props: Props) {
     }
   }
 
-  const getLoginDataFromSql = async () => {
+  const getLoginDataFromEmailFromSql = async () => {
     try {
-      const response = await getLoginData(currentUser.email);
+      const response = await getLoginDataFromEmail(currentUser.email);
       console.log(response);
-      const responseWithClasses = generateTwitterAccounts(response.payload);
+      const responseWithClasses = generateTwitterAccounts(response);
       // const loginDataWithClass = new TwitterAccount()
       setLoginDataFromSql(responseWithClasses);
     } catch (error) {
@@ -62,7 +62,7 @@ function Main(props: Props) {
 
   useEffect(() => {
     console.log("useEffect triggered");
-    getLoginDataFromSql();
+    getLoginDataFromEmailFromSql();
   }, [dbTrigger]);
 
   console.log(currentUser);

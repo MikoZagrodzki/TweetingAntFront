@@ -1,6 +1,6 @@
 import { requestApi } from "../Funcinalities";
 
-export const getTimeToLikesByEmail = async (email: string) => {
+const getTimeToLikesByEmail = async (email: string) => {
   const body = {
     email: email,
   };
@@ -19,15 +19,30 @@ export const getTimeToLikesByEmail = async (email: string) => {
     if (!response?.payload) {
       throw new Error("Response not exist");
     }
-    const mappedResponse = response.payload.map((x: any) => {
-      return [
-        {
-          email:x.email,
-          loginnametwitter: x.loginnametwitter,
-          usernameusedfortweets: x.usernameusedfortweets,
-        },
-      ];
+    const groupedLikes = response.payload.reduce((acc: any, curr: any) => {
+      if (acc[curr.loginnametwitter]) {
+        acc[curr.loginnametwitter].push({
+          hours: curr.hours,
+          minutes: curr.minutes,
+        });
+      } else {
+        acc[curr.loginnametwitter] = [
+          {
+            hours: curr.hours,
+            minutes: curr.minutes,
+          },
+        ];
+      }
+      return acc;
+    }, {});
+
+    const mappedResponse = Object.keys(groupedLikes).map((loginnametwitter) => {
+      return {
+        loginnametwitter,
+        likesTime: groupedLikes[loginnametwitter],
+      };
     });
+    console.log(mappedResponse)
     return mappedResponse;
   } catch (error) {
     console.error(error);

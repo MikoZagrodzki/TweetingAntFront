@@ -1,6 +1,6 @@
 import {requestApi} from "../Funcinalities"
 
-export const getLoginData = async (email:string) => {
+export const getLoginDataFromEmail = async (email:string) => {
     const body = {
         email: email,
     }
@@ -13,11 +13,11 @@ export const getLoginData = async (email:string) => {
         },
         body: JSON.stringify(body)
     })
-    return response
+    return response.payload
     }catch(error){
         console.error(error)
         throw error
     }
   }
 
-  export default getLoginData
+  export default getLoginDataFromEmail
