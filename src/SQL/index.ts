@@ -3,6 +3,7 @@ import checkLoginData from "./CheckLoginData";
 import insertLoginData from "./InsertLoginData";
 ///////////////////////////////////////////////
     import getUserNameUsedForTweets from "./GetUserNameUsedForTweets";
+import getUserNameUsedForTweetsByEmail from "./GetUserNameUsedForTweetsByEmail";
 import checkUserNameUsedForTweets from "./CheckUserNameUsedForTweets";  
 import insertUserNameUsedForTweets from "./InsertUserNameUsedForTweets";
 import deleteUserNameUsedForTweetsSpecific from "./DeleteUserNameUsedForTweetsSpecific";
@@ -36,15 +37,19 @@ import updateLikesIntensivity from "./UpdateLikesIntensivity";
 import updateRetweetsIntensivity from "./UpdateRetweetsIntensivity";
 import updateCommentsIntensivity from "./UpdateCommentsIntensivity";
 ///////////////////////////////////////////////
+import getTimeToTweetsByEmail from "./GetTimeToTweetsByEmail";
 import deleteTimeToTweetsSpecific from "./DeleteTimeToTweetsSpecific";
 import updateTimeToTweetsSpecific from "./UpdateTimeToTweetsSpecific";
 ///////////////////////////////////////////////
+import getTimeToLikesByEmail from "./GetTimeToLikesByEmail";
 import deleteTimeToLikesSpecific from "./DeleteTimeToLikesSpecific";
 import updateTimeToLikesSpecific from "./UpdateTimeToLikesSpecific";
 ///////////////////////////////////////////////
+import getTimeToRetweetsByEmail from "./GetTimeToRetweetsByEmail";
 import deleteTimeToRetweetsSpecific from "./DeleteTimeToRetweetsSpecific";
 import updateTimeToRetweetsSpecific from "./UpdateTimeToRetweetsSpecific";
 ///////////////////////////////////////////////
+import getTimeToCommentsByEmail from "./GetTimeToCommentsByEmail";
 import deleteTimeToCommentsSpecific from "./DeleteTimeToCommentsSpecific";
 import updateTimeToCommentsSpecific from "./UpdateTimeToCommentsSpecific";
 ///////////////////////////////////////////////
@@ -55,6 +60,7 @@ export {
     insertLoginData,
     ///////////////////////////////////////////////
         getUserNameUsedForTweets,
+    getUserNameUsedForTweetsByEmail,
     checkUserNameUsedForTweets,
     insertUserNameUsedForTweets,
     deleteUserNameUsedForTweetsSpecific,
@@ -88,15 +94,19 @@ export {
     updateRetweetsIntensivity,
     updateCommentsIntensivity,
     ///////////////////////////////////////////////
+    getTimeToTweetsByEmail,
     deleteTimeToTweetsSpecific,
     updateTimeToTweetsSpecific,
     ///////////////////////////////////////////////
+    getTimeToLikesByEmail,
     deleteTimeToLikesSpecific,
     updateTimeToLikesSpecific,
     ///////////////////////////////////////////////
+    getTimeToRetweetsByEmail,
     deleteTimeToRetweetsSpecific,
     updateTimeToRetweetsSpecific,
     ///////////////////////////////////////////////
+    getTimeToCommentsByEmail,
     deleteTimeToCommentsSpecific,
     updateTimeToCommentsSpecific,
     ///////////////////////////////////////////////

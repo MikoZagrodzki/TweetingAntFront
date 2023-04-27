@@ -38,7 +38,7 @@ function App() {
     // await getTimeToRetweetsByEmail(email)
     // await getTimeToTweetsByEmail(email)
     // await getUserContentByEmail(email)
-    await getUserNameUsedForTweetsByEmail(email)
+    // await getUserNameUsedForTweetsByEmail(email)
   }
   return (
     <div className="App-container">
