@@ -1,36 +1,27 @@
 
-interface LoginData {
-  id: number;
-  email: string;
-  loginnametwitter: string;
-  passwordtwitter: string;
-  isautomated: boolean;
-  dateadded: Date;
-}
-
 export class TwitterAccount {
   id: number;
   email: string;
   loginNameTwitter: string;
   isAutomated: boolean;
-  timesToTweet: any[];
-  timesToLike: any[]; 
-  timesToRetweet: any[];
-  timesToComment: any[];
-  usernameForTweets: any[];
-  usernameForContent: any[];
+  timesToTweet: { hours: number; minutes: number }[];
+  timesToLike: { hours: number; minutes: number }[]; 
+  timesToRetweet: { hours: number; minutes: number }[];
+  timesToComment: { hours: number; minutes: number }[];
+  usernameForTweets: string[];
+  usernameForContent: string[];
 
   constructor(
     id: number,
     email: string,
     loginNameTwitter: string,
     isAutomated: boolean,
-    timesToTweet: any[],
-    timesToLike: any[],
-    timesToRetweet: any[],
-    timesToComment: any[],
-    usernameForTweets: any[],
-    usernameForContent: any[]
+    timesToTweet: { hours: number; minutes: number }[],
+    timesToLike: { hours: number; minutes: number }[],
+    timesToRetweet: { hours: number; minutes: number }[],
+    timesToComment: { hours: number; minutes: number }[],
+    usernameForTweets: string[],
+    usernameForContent: string[],
   ) {
     this.id = id;
     this.email = email;
@@ -44,7 +35,29 @@ export class TwitterAccount {
     this.usernameForContent = usernameForContent;
   }
 
-  // add any additional methods here
+
+  // public removeUsernameFromTweets(username: string): void {
+  //   this.usernameForTweets = this.usernameForTweets.filter((u) => u !== username);
+  // }
+
+  // public removeUserContent(username: string): void {
+  //   this.usernameForContent = this.usernameForContent.filter((u) => u !== username);
+  // }
+
+  public removeUsernameFromTweets(username: string) {
+    const index = this.usernameForTweets.indexOf(username);
+    if (index !== -1) {
+      this.usernameForTweets.splice(index, 1);
+    }
+  }
+
+  public removeUserContent(username: string) {
+    const index = this.usernameForContent.indexOf(username);
+    if (index !== -1) {
+      this.usernameForContent.splice(index, 1);
+    }
+  }
+
 }
 
 export default TwitterAccount;

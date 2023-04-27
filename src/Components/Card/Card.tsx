@@ -38,7 +38,9 @@ function Card(props: Props) {
     usernameForTweets,
     usernameForContent,
     dbTrigger,
-    setDbTrigger
+    setDbTrigger,
+    twitterAccounts,
+    setTwitterAccounts,
   } = props;
 
 
@@ -85,7 +87,7 @@ function Card(props: Props) {
                 loginNameTwitter={twitterAccount}
                 funcionallity="UserNameUsedForTweets"
               />
-              <UserNamesList loginNameTwitter={twitterAccount} purpose="rephrasing tweets"/>
+              <UserNamesList names={usernameForTweets} loginNameTwitter={twitterAccount} purpose="rephrasing tweets"  twitterAccounts={twitterAccounts} setTwitterAccounts={setTwitterAccounts}/>
             </div>
             <div className="Form-and-list-container">
               <FormUserContent
@@ -93,7 +95,7 @@ function Card(props: Props) {
                 loginNameTwitter={twitterAccount}
                 funcionallity="UserContent"
               />
-              <UserNamesList loginNameTwitter={twitterAccount} purpose="like/comment/retweet"/>
+              <UserNamesList names={usernameForContent} loginNameTwitter={twitterAccount} purpose="like/comment/retweet" twitterAccounts={twitterAccounts} setTwitterAccounts={setTwitterAccounts}/>
             </div>
             <Personality loginNameTwitter={twitterAccount}/>
           </div>

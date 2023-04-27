@@ -46,7 +46,7 @@ export const generateTwitterAccounts = async (email:string) => {
       timesToRetweet.find((item:any) => item.loginnametwitter === account.loginnametwitter)?.retweetsTime || [],
       timesToComment.find((item:any) => item.loginnametwitter === account.loginnametwitter)?.commentsTime || [],
       usernameForTweets.find((item:any) => item.loginnametwitter === account.loginnametwitter)?.usernameusedfortweets || [],
-      usernameForContent.find((item:any) => item.loginnametwitter === account.loginnametwitter)?.usercontent || []
+      usernameForContent.find((item:any) => item.loginnametwitter === account.loginnametwitter)?.usercontent || [],
     );
     accountsWithTwitterClass.push(twitterAccount);
   });

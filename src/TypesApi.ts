@@ -44,4 +44,6 @@
     timesToComment: [] | { hours: number; minutes: number }[];
     usernameForTweets: [] | string[];
     usernameForContent: [] | string[];
+    removeUsernameFromTweets?: (username:string)=> void;
+    removeUserContent?: (username:string)=> void;
   }
