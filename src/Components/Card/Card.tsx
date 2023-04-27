@@ -5,21 +5,25 @@ import { v4 as uuidv4 } from "uuid";
 import SettingCard from "./SettingCard";
 import FormUserContent from "../FormUserContent/FormUserContent";
 import { updateIsAutomated } from "../../SQL";
-import getUserNameUsedForTweetsByEmail from "../../SQL/GetUserNameUsedForTweetsByEmail";
 import UserNamesList from "./UserNamesList";
 import Personality from "./Personality";
+import { TwitterAccountType } from "../../TypesApi";
 
 
 interface Props {
   loginNameTwitter: string;
   email: string;
   isAutomated: boolean | undefined;
-  howManyTweets: [] | { hours: number; minutes: number }[];
-  howManyLikes: [] | { hours: number; minutes: number }[];
-  howManyRetweets: [] | { hours: number; minutes: number }[];
-  howManyComments: [] | { hours: number; minutes: number }[];
-  dbTrigger:boolean,
-  setDbTrigger: React.Dispatch<React.SetStateAction<boolean>>,
+  timesToTweet: [] | { hours: number; minutes: number }[];
+  timesToLike: [] | { hours: number; minutes: number }[];
+  timesToRetweet: [] | { hours: number; minutes: number }[];
+  timesToComment: [] | { hours: number; minutes: number }[];
+  usernameForTweets: [] | string[];
+  usernameForContent: [] | string[];
+  dbTrigger:boolean;
+  setDbTrigger: React.Dispatch<React.SetStateAction<boolean>>;
+  twitterAccounts: TwitterAccountType[];
+  setTwitterAccounts: React.Dispatch<React.SetStateAction<[] | TwitterAccountType[]>>;
 }
 
 function Card(props: Props) {
@@ -27,10 +31,12 @@ function Card(props: Props) {
     loginNameTwitter: twitterAccount,
     email,
     isAutomated,
-    howManyTweets,
-    howManyLikes,
-    howManyRetweets,
-    howManyComments,
+    timesToTweet,
+    timesToLike,
+    timesToRetweet,
+    timesToComment,
+    usernameForTweets,
+    usernameForContent,
     dbTrigger,
     setDbTrigger
   } = props;
@@ -66,10 +72,10 @@ function Card(props: Props) {
             </div>
           </div>
           <div className="Card-settings-container">
-            <SettingCard dbTrigger={dbTrigger} setDbTrigger={setDbTrigger} loginNameTwitter={twitterAccount} purpose="tweet" howMany={howManyTweets} />
-            <SettingCard dbTrigger={dbTrigger} setDbTrigger={setDbTrigger} loginNameTwitter={twitterAccount} purpose="like" howMany={howManyLikes} />
-            <SettingCard dbTrigger={dbTrigger} setDbTrigger={setDbTrigger} loginNameTwitter={twitterAccount} purpose="retweet" howMany={howManyRetweets} />
-            <SettingCard dbTrigger={dbTrigger} setDbTrigger={setDbTrigger} loginNameTwitter={twitterAccount} purpose="comment" howMany={howManyComments} />
+            <SettingCard dbTrigger={dbTrigger} setDbTrigger={setDbTrigger} loginNameTwitter={twitterAccount} purpose="tweet" howMany={timesToTweet} />
+            <SettingCard dbTrigger={dbTrigger} setDbTrigger={setDbTrigger} loginNameTwitter={twitterAccount} purpose="like" howMany={timesToLike} />
+            <SettingCard dbTrigger={dbTrigger} setDbTrigger={setDbTrigger} loginNameTwitter={twitterAccount} purpose="retweet" howMany={timesToRetweet} />
+            <SettingCard dbTrigger={dbTrigger} setDbTrigger={setDbTrigger} loginNameTwitter={twitterAccount} purpose="comment" howMany={timesToComment} />
           </div>
           <div className="Card-forms-container">
             <Personality loginNameTwitter={twitterAccount}/>

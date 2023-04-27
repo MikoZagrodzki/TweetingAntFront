@@ -6,7 +6,6 @@
     text:string
   }
 
-
   export interface ResponseChatGpt {
     success: boolean;
     data: string;
@@ -25,7 +24,6 @@
     likeCount: number,
     retweetCount: number,
     text: string
-  
   }
 
   export interface LoginData {
@@ -33,4 +31,17 @@
     passwordtwitter: string,
     email: string,
     isautomated: boolean,
+  }
+
+  export interface TwitterAccountType {
+    loginNameTwitter: string;
+    email: string;
+    id?: number;
+    isAutomated: boolean;
+    timesToTweet: [] | { hours: number; minutes: number }[];
+    timesToLike: [] | { hours: number; minutes: number }[];
+    timesToRetweet: [] | { hours: number; minutes: number }[];
+    timesToComment: [] | { hours: number; minutes: number }[];
+    usernameForTweets: [] | string[];
+    usernameForContent: [] | string[];
   }

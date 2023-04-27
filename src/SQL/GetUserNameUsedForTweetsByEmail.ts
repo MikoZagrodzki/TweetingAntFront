@@ -34,7 +34,7 @@ export const getUserNameUsedForTweetsByEmail = async (email: string) => {
         usernameusedfortweets: groupedUsernames[loginnametwitter],
       };
     });
-    console.log(mappedResponse)
+    // console.log(mappedResponse)
     return mappedResponse;
   } catch (error) {
     console.error(error);

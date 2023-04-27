@@ -3,17 +3,15 @@ import Popup from "reactjs-popup";
 import FormTwitterCredentials from "../FormTwitterCredentials/FormTwitterCredentials";
 import TwitterAccount from "../../TwitterAccount";
 import { useAuth } from "../../AuthContext";
-import "./PopupAddAccount.css"
+import "./PopupAddAccount.css";
 
 interface Props {
-  setTwitterClasses: React.Dispatch<
-    React.SetStateAction<[] | TwitterAccount[]>
-  >;
-  twitterClasses: TwitterAccount[] | [];
+  dbTrigger: boolean;
+  setDbTrigger: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 function PopupAddAccount(props: Props) {
-  const { setTwitterClasses, twitterClasses } = props;
+  const { dbTrigger, setDbTrigger } = props;
   const { currentUser }: any = useAuth();
 
   const ref: any = useRef();
@@ -22,7 +20,11 @@ function PopupAddAccount(props: Props) {
 
   return (
     <>
-      <button type="button" className="AddAccount openButton" onClick={openTooltip}>
+      <button
+        type="button"
+        className="AddAccount openButton"
+        onClick={openTooltip}
+      >
         Add Twitter Account
       </button>
       <Popup
@@ -35,15 +37,19 @@ function PopupAddAccount(props: Props) {
       >
         <div className="PopupAddAccount-container">
           <FormTwitterCredentials
-            setTwitterClasses={props.setTwitterClasses}
-            twitterClasses={props.twitterClasses}
+            setDbTrigger={props.setDbTrigger}
+            dbTrigger={props.dbTrigger}
           />
-          <button type="button" className="AddAccount closeButton" onClick={closeTooltip}>
+          <button
+            type="button"
+            className="AddAccount closeButton"
+            onClick={closeTooltip}
+          >
             close
           </button>
         </div>
       </Popup>
-      </>
+    </>
   );
 }
 

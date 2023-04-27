@@ -35,7 +35,7 @@ export const getUserContentByEmail = async (email: string) => {
       };
     });
 
-    console.log(mappedResponse)
+    // console.log(mappedResponse)
     return mappedResponse;
   } catch (error) {
     console.error(error);

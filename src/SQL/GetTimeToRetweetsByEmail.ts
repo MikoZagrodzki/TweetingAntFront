@@ -42,7 +42,7 @@ const getTimeToRetweetsByEmail = async (email: string) => {
         retweetsTime: groupedRetweets[loginnametwitter],
       };
     });
-    console.log(mappedResponse)
+    // console.log(mappedResponse)
     return mappedResponse;
   } catch (error) {
     console.error(error);

@@ -48,10 +48,9 @@ export const generateTwitterAccounts = async (email:string) => {
       usernameForTweets.find((item:any) => item.loginnametwitter === account.loginnametwitter)?.usernameusedfortweets || [],
       usernameForContent.find((item:any) => item.loginnametwitter === account.loginnametwitter)?.usercontent || []
     );
-
     accountsWithTwitterClass.push(twitterAccount);
   });
-
+console.log(accountsWithTwitterClass)
   return accountsWithTwitterClass;
 };
 

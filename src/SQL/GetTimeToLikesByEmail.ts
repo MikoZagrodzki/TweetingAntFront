@@ -42,7 +42,7 @@ const getTimeToLikesByEmail = async (email: string) => {
         likesTime: groupedLikes[loginnametwitter],
       };
     });
-    console.log(mappedResponse)
+    // console.log(mappedResponse)
     return mappedResponse;
   } catch (error) {
     console.error(error);

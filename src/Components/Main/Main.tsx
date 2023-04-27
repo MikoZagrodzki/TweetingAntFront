@@ -1,38 +1,31 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect} from "react";
 import { useAuth } from "../../AuthContext";
-import { getLoginDataFromEmail, checkLoginData, insertLoginData } from "../../SQL";
 import { generateTwitterAccounts } from "../../Funcinalities";
-import TwitterAccount from "../../TwitterAccount";
 import Card from "../Card/Card";
-import Popup from "reactjs-popup";
 import PopupAddAccount from "../PopupAddAccount/PopupAddAccount";
 import "./Main.css";
-import FormUserNameUsedForTweets from "../FormUserContent/FormUserContent";
 import { useNavigate } from "react-router-dom";
-import getUserNameUsedForTweetsByEmail from "../../SQL/GetUserNameUsedForTweetsByEmail";
+import { TwitterAccountType } from "../../TypesApi";
 
-interface LoginDataFromSql {
-  loginNameTwitter: string;
-  email: string;
-  id?: string;
-  isAutomated: boolean;
-  howManyTweets: any;
-  howManyLikes: [] | { hours: number; minutes: number }[];
-  howManyRetweets: [] | { hours: number; minutes: number }[];
-  howManyComments: [] | { hours: number; minutes: number }[];
-}
+// interface TwitterAccounts {
+//   loginNameTwitter: string;
+//   email: string;
+//   id?: number;
+//   isAutomated: boolean;
+//   timesToTweet: [] | { hours: number; minutes: number }[];
+//   timesToLike: [] | { hours: number; minutes: number }[];
+//   timesToRetweet: [] | { hours: number; minutes: number }[];
+//   timesToComment: [] | { hours: number; minutes: number }[];
+//   usernameForTweets: [] | string[];
+//   usernameForContent: [] | string[];
+// }
 
 interface Props {
-  setTwitterClasses: React.Dispatch<
-    React.SetStateAction<[] | TwitterAccount[]>
-  >;
-  twitterClasses: TwitterAccount[] | [];
 }
 
-function Main(props: Props) {
+function Main() {
   const { currentUser, logOut }: any = useAuth();
-  const { setTwitterClasses, twitterClasses } = props;
-  const [loginDataFromSql, setLoginDataFromSql] = useState<LoginDataFromSql[] | []>([]);
+  const [twitterAccounts, setTwitterAccounts] = useState<TwitterAccountType[] | []>([]);
   const [error, setError] = useState('');
   const [dbTrigger, setDbTrigger] = useState<boolean>(false)
 
@@ -50,11 +43,8 @@ function Main(props: Props) {
 
   const getLoginDataFromEmailFromSql = async () => {
     try {
-      const response = await getLoginDataFromEmail(currentUser.email);
-      console.log(response);
-      const responseWithClasses = generateTwitterAccounts(response);
-      // const loginDataWithClass = new TwitterAccount()
-      setLoginDataFromSql(responseWithClasses);
+      const responseWithClasses = await generateTwitterAccounts(currentUser.email);
+      setTwitterAccounts(responseWithClasses);
     } catch (error) {
       console.log(error);
     }
@@ -72,26 +62,30 @@ function Main(props: Props) {
       <p>{currentUser.email} is logged in.</p>
       <button onClick={handleLogout}> Log out </button>
       <PopupAddAccount
-        setTwitterClasses={setTwitterClasses}
-        twitterClasses={twitterClasses}
+        dbTrigger={dbTrigger}
+        setDbTrigger={setDbTrigger}
       />
       </div>
       <div className="listOfCards-container">
         <ul>
-          {loginDataFromSql.length > 0 &&
-            loginDataFromSql.map((x) => {
+          {twitterAccounts.length > 0 &&
+            twitterAccounts.map((x) => {
               return (
                 <li key={x.id}>
                   <Card
                     loginNameTwitter={x.loginNameTwitter}
                     email={x.email}
                     isAutomated={x.isAutomated}
-                    howManyTweets={x.howManyTweets}
-                    howManyLikes={x.howManyLikes}
-                    howManyRetweets={x.howManyLikes}
-                    howManyComments={x.howManyComments}
+                    timesToTweet={x.timesToTweet}
+                    timesToLike={x.timesToLike}
+                    timesToRetweet={x.timesToRetweet}
+                    timesToComment={x.timesToComment}
+                    usernameForTweets={x.usernameForTweets}
+                    usernameForContent={x.usernameForContent}
                     dbTrigger={dbTrigger}
                     setDbTrigger={setDbTrigger}
+                    twitterAccounts={twitterAccounts}
+                    setTwitterAccounts={setTwitterAccounts}
                   />
                 </li>
               );

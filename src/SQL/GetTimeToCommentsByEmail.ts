@@ -42,7 +42,7 @@ const getTimeToCommentsByEmail = async (email: string) => {
         commentsTime: groupedComments[loginnametwitter],
       };
     });
-    console.log(mappedResponse)
+    // console.log(mappedResponse)
     return mappedResponse;
   } catch (error) {
     console.error(error);
