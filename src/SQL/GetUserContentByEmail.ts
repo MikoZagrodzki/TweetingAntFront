@@ -1,12 +1,12 @@
 import { requestApi } from "../Funcinalities";
 
-export const getUserNameUsedForTweetsByEmail = async (email: string) => {
+export const getUserContentByEmail = async (email: string) => {
   const body = {
     email: email,
   };
   try {
     const response = await requestApi(
-      "http://localhost:3002/database/user_Name_Used_For_Tweets_By_Email",
+      "http://localhost:3002/database/user_Content_By_Email",
       {
         method: "POST",
         headers: {
@@ -35,4 +35,4 @@ export const getUserNameUsedForTweetsByEmail = async (email: string) => {
   }
 };
 
-export default getUserNameUsedForTweetsByEmail;
+export default getUserContentByEmail;

@@ -24,6 +24,7 @@ import checkRetweetedTweets from "./CheckRetweetedTweets";
 import insertRetweetedTweets from "./InsertRetweetedTweets";
 ///////////////////////////////////////////////
     import getUserContent from "./GetUserContent";
+import getUserContentByEmail from "./GetUserContentByEmail";
 import checkUserContent from "./CheckUserContent";
 import insertUserContent from "./InsertUserContent";
 import deleteUserContentSpecific from "./DeleteUserContentSpecific";
@@ -75,6 +76,7 @@ export {
     insertRetweetedTweets,
     ///////////////////////////////////////////////
         getUserContent,
+    getUserContentByEmail,
     checkUserContent,
     insertUserContent,
     deleteUserContentSpecific,
