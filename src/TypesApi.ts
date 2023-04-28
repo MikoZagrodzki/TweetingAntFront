@@ -48,12 +48,16 @@
     email: string;
     id?: number;
     isAutomated: boolean;
-    timesToTweet: [] | { hours: number; minutes: number }[];
-    timesToLike: [] | { hours: number; minutes: number }[];
-    timesToRetweet: [] | { hours: number; minutes: number }[];
-    timesToComment: [] | { hours: number; minutes: number }[];
-    usernameForTweets: [] | string[];
-    usernameForContent: [] | string[];
+    tweetsIntensivity:number;
+    timesToTweet: { hours: number; minutes: number }[];
+    likesIntensivity:number;
+    timesToLike: { hours: number; minutes: number }[]; 
+    retweetsIntensivity:number;
+    timesToRetweet: { hours: number; minutes: number }[];
+    commentsintensivity:number;
+    timesToComment: { hours: number; minutes: number }[];
+    usernameForTweets: string[];
+    usernameForContent: string[];
 ///////////////////////////////////////////////////////////
     addUsernameForTweets?: (dataObject:FormDataObject)=> void;
     removeUsernameFromTweets?: (username:string)=> void;

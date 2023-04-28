@@ -1,4 +1,5 @@
 import {requestApi} from "../Funcinalities"
+import insertIntensivity from "./InsertIntensivity"
 
 export const insertLoginData = async (email:string, loginNameTwitter: string, passwordTwitter: string ) => {
     const body = {
@@ -15,8 +16,8 @@ export const insertLoginData = async (email:string, loginNameTwitter: string, pa
       "Access-Control-Allow-Origin": "*",
     },
     body: JSON.stringify(body)
-
     })
+    await insertIntensivity(email, loginNameTwitter)
     }catch(error){
         console.error(error)
         throw error

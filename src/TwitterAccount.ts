@@ -6,9 +6,13 @@ export class TwitterAccount {
   email: string;
   loginNameTwitter: string;
   isAutomated: boolean;
+  tweetsIntensivity:number;
   timesToTweet: { hours: number; minutes: number }[];
+  likesIntensivity:number;
   timesToLike: { hours: number; minutes: number }[]; 
+  retweetsIntensivity:number;
   timesToRetweet: { hours: number; minutes: number }[];
+  commentsintensivity:number;
   timesToComment: { hours: number; minutes: number }[];
   usernameForTweets: string[];
   usernameForContent: string[];
@@ -18,9 +22,13 @@ export class TwitterAccount {
     email: string,
     loginNameTwitter: string,
     isAutomated: boolean,
+    tweetsIntensivity:number,
     timesToTweet: { hours: number; minutes: number }[],
+    likesIntensivity:number,
     timesToLike: { hours: number; minutes: number }[],
+    retweetsIntensivity:number,
     timesToRetweet: { hours: number; minutes: number }[],
+    commentsintensivity:number,
     timesToComment: { hours: number; minutes: number }[],
     usernameForTweets: string[],
     usernameForContent: string[],
@@ -29,9 +37,13 @@ export class TwitterAccount {
     this.email = email;
     this.loginNameTwitter = loginNameTwitter;
     this.isAutomated = isAutomated;
+    this.tweetsIntensivity=tweetsIntensivity;
     this.timesToTweet = timesToTweet;
+    this.likesIntensivity=likesIntensivity;
     this.timesToLike = timesToLike;
+    this.retweetsIntensivity=retweetsIntensivity;
     this.timesToRetweet = timesToRetweet;
+    this.commentsintensivity=commentsintensivity;
     this.timesToComment = timesToComment;
     this.usernameForTweets = usernameForTweets;
     this.usernameForContent = usernameForContent;
