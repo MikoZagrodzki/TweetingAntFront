@@ -50,8 +50,18 @@ function Card(props: Props) {
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     event.stopPropagation();
-    await updateIsAutomated(twitterAccount, !isAutomated);
-    setDbTrigger(!dbTrigger);
+    try{
+      await updateIsAutomated(twitterAccount, !isAutomated);
+      const twitterClassAccount = twitterAccounts.find(
+        (account) => account.loginNameTwitter === twitterAccount
+      );
+      if (twitterClassAccount && typeof twitterClassAccount.updateIsAutometed === 'function') {
+        twitterClassAccount.updateIsAutometed(!isAutomated);
+      }
+      setTwitterAccounts([...twitterAccounts])
+    }catch(error){
+      console.error(error)
+    }
   };
 
   return (

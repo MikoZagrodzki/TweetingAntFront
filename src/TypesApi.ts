@@ -77,5 +77,7 @@
     removeTimesToComment?: (hours: number, minutes: number)=> void;
     updateTimesToComment?: (oldHours: number, oldMinutes: number, newHours: number, newMinutes: number)=> void;
 ///////////////////////////////////////////////////////////
+    updateIsAutometed?: (value:boolean)=> void;
+///////////////////////////////////////////////////////////
 
   }
