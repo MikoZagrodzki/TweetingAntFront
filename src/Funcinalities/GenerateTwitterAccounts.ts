@@ -40,16 +40,22 @@ export const generateTwitterAccounts = async (email:string) => {
       account.email,
       account.loginnametwitter,
       account.isautomated,
+////////////////////////////////////////////////////////
       intensivity.find((item: any) => item.loginnametwitter === account.loginnametwitter)?.tweetsintensivity||5,
       timesToTweet.find((item:any) => item.loginnametwitter === account.loginnametwitter)?.tweetsTime || [],
+////////////////////////////////////////////////////////
       intensivity.find((item: any) => item.loginnametwitter === account.loginnametwitter)?.likesintensivity||5,
       timesTolike.find((item:any) => item.loginnametwitter === account.loginnametwitter)?.likesTime || [],
+////////////////////////////////////////////////////////
       intensivity.find((item: any) => item.loginnametwitter === account.loginnametwitter)?.retweetsintensivity||5,
       timesToRetweet.find((item:any) => item.loginnametwitter === account.loginnametwitter)?.retweetsTime || [],
+////////////////////////////////////////////////////////
       intensivity.find((item: any) => item.loginnametwitter === account.loginnametwitter)?.commentsintensivity||5,
       timesToComment.find((item:any) => item.loginnametwitter === account.loginnametwitter)?.commentsTime || [],
+////////////////////////////////////////////////////////
       usernameForTweets.find((item:any) => item.loginnametwitter === account.loginnametwitter)?.usernameusedfortweets || [],
       usernameForContent.find((item:any) => item.loginnametwitter === account.loginnametwitter)?.usercontent || [],
+////////////////////////////////////////////////////////
     );
     accountsWithTwitterClass.push(twitterAccount);
   });
