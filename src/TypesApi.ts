@@ -54,13 +54,24 @@
     timesToComment: [] | { hours: number; minutes: number }[];
     usernameForTweets: [] | string[];
     usernameForContent: [] | string[];
+///////////////////////////////////////////////////////////
     addUsernameForTweets?: (dataObject:FormDataObject)=> void;
     removeUsernameFromTweets?: (username:string)=> void;
+///////////////////////////////////////////////////////////
     addUserContent?: (dataObject:FormDataObject)=> void;
     removeUserContent?: (username:string)=> void;
+    ///////////////////////////////////////////////////////////
     removeTimesToTweet?: (hours: number, minutes: number)=> void;
+    updateTimesToTweet?: (oldHours: number, oldMinutes: number, newHours: number, newMinutes: number)=> void;
+///////////////////////////////////////////////////////////
     removeTimesToLike?: (hours: number, minutes: number)=> void;
+    updateTimesToLike?: (oldHours: number, oldMinutes: number, newHours: number, newMinutes: number)=> void;
+///////////////////////////////////////////////////////////
     removeTimesToRetweet?: (hours: number, minutes: number)=> void;
+    updateTimesToRetweet?: (oldHours: number, oldMinutes: number, newHours: number, newMinutes: number)=> void;
+///////////////////////////////////////////////////////////
     removeTimesToComment?: (hours: number, minutes: number)=> void;
-    
+    updateTimesToComment?: (oldHours: number, oldMinutes: number, newHours: number, newMinutes: number)=> void;
+///////////////////////////////////////////////////////////
+
   }

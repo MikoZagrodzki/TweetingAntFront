@@ -77,18 +77,33 @@ function SettingCardLiElement(props:Props) {
 
     const updateSpecificTime = async (hours: number, minutes: number, updatedHours:number, updatedMinutes:number) => {
         try {
+          const twitterClassAccount = twitterAccounts.find(
+            (account) => account.loginNameTwitter === loginNameTwitter
+          );
           switch (purpose) {
             case "tweet":
               await updateTimeToTweetsSpecific(loginNameTwitter, hours, minutes, updatedHours, updatedMinutes);
+              if (twitterClassAccount && typeof twitterClassAccount.updateTimesToTweet === 'function') {
+                twitterClassAccount.updateTimesToTweet(hours, minutes, updatedHours, updatedMinutes);
+              }
               break;
             case "like":
               await updateTimeToLikesSpecific(loginNameTwitter, hours, minutes, updatedHours, updatedMinutes);
+              if (twitterClassAccount && typeof twitterClassAccount.updateTimesToLike === 'function') {
+                twitterClassAccount.updateTimesToLike(hours, minutes, updatedHours, updatedMinutes);
+              }
               break;
             case "retweet":
               await updateTimeToRetweetsSpecific(loginNameTwitter, hours, minutes, updatedHours, updatedMinutes);
+              if (twitterClassAccount && typeof twitterClassAccount.updateTimesToRetweet === 'function') {
+                twitterClassAccount.updateTimesToRetweet(hours, minutes, updatedHours, updatedMinutes);
+              }
               break;
             case "comment":
               await updateTimeToCommentsSpecific(loginNameTwitter, hours, minutes, updatedHours, updatedMinutes);
+              if (twitterClassAccount && typeof twitterClassAccount.updateTimesToComment === 'function') {
+                twitterClassAccount.updateTimesToComment(hours, minutes, updatedHours, updatedMinutes);
+              }
               break;
             default:
               break;
@@ -97,16 +112,27 @@ function SettingCardLiElement(props:Props) {
           console.error(error)
         }
         setIsEditing(!isEditing)
-        setDbTrigger(!dbTrigger);
+        setTwitterAccounts([...twitterAccounts]);
       };
 
       function inputValueHours(e: React.ChangeEvent<HTMLInputElement>){
-        setHoursState(Number(e.target.value))
-        setTimes({...times, hours: Number(e.target.value)})
+        const value = Number(e.target.value)
+        if (value >= 0 && value <= 23) {
+          setHoursState(value)
+          setTimes({...times, hours: value})
+          alert
+        }else{
+          alert('Please enter a valid time in the format HH:MM');
+        }
       }
       function inputValueMinutes(e: React.ChangeEvent<HTMLInputElement>){
-        setMinutesState(Number(e.target.value))
-        setTimes({...times, minutes: Number(e.target.value)})
+        const value = Number(e.target.value)
+        if (value >= 0 && value <= 59) {
+          setMinutesState(value)
+          setTimes({...times, minutes: value})
+        }else{
+          alert('Please enter a valid time in the format HH:MM');
+        }
       }
       
       function isEditingTrigger(hours:number, minutes:number){
@@ -117,15 +143,15 @@ function SettingCardLiElement(props:Props) {
   return (
     <li key={uuidv4()}>
     {!isEditing ? (
-        <div className="setting-li-element">
+      <div className="setting-li-element">
           <p>{hours}:{minutes}</p>
         <button className="button-li" onClick={() => {isEditingTrigger(hours, minutes)}}>✍️</button>
         <button className="button-li" onClick={() => {deleteSpecificTime(hours, minutes)}}>❌</button>
       </div>
     ) : (
       <div className="setting-li-editing">
-        <input defaultValue={hours} onChange={inputValueHours}></input>
-        <input defaultValue={minutes} onChange={inputValueMinutes}></input>
+        <input type="number" name="hours" value={times.hours || ''} defaultValue={hours} onChange={inputValueHours} autoFocus min="0" max="23"></input>
+        <input type="number" name="minutes" value={times.minutes || ''} defaultValue={minutes} onChange={inputValueMinutes} autoFocus min="0" max="59"></input>
         <button className="setting-edit-input-button" onClick={()=>{updateSpecificTime(hours, minutes, hoursState, minutesState)}}>✅</button>
       </div>
     )}

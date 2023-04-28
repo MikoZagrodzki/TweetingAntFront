@@ -116,10 +116,15 @@ input{
   height: 20px;
 }
 .setting-li-editing input {
-  width: 25px;
+  width: 30px;
   text-align: center;
   border: 1px solid black;
   /* border-right: none; */
+}
+.setting-li-editing input::-webkit-outer-spin-button,
+.setting-li-editing input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 .setting-li-element:hover p {
   display: none;

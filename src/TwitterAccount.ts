@@ -69,12 +69,24 @@ export class TwitterAccount {
       this.timesToTweet.splice(index, 1);
     }
   }
+  public updateTimesToTweet(oldHours: number, oldMinutes: number, newHours: number, newMinutes: number): void {
+    const index = this.timesToTweet.findIndex((time) => time.hours === oldHours && time.minutes === oldMinutes);
+    if (index !== -1) {
+      this.timesToTweet[index] = { hours: newHours, minutes: newMinutes };
+    }
+  }
 /////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////
   public removeTimesToLike(hours: number, minutes: number): void {
     const index = this.timesToLike.findIndex((time) => time.hours === hours && time.minutes === minutes);
     if (index !== -1) {
       this.timesToLike.splice(index, 1);
+    }
+  }
+  public updateTimesToLike(oldHours: number, oldMinutes: number, newHours: number, newMinutes: number): void {
+    const index = this.timesToLike.findIndex((time) => time.hours === oldHours && time.minutes === oldMinutes);
+    if (index !== -1) {
+      this.timesToLike[index] = { hours: newHours, minutes: newMinutes };
     }
   }
 /////////////////////////////////////////////////////////////////
@@ -85,12 +97,24 @@ export class TwitterAccount {
       this.timesToRetweet.splice(index, 1);
     }
   }
+  public updateTimesToRetweet(oldHours: number, oldMinutes: number, newHours: number, newMinutes: number): void {
+    const index = this.timesToRetweet.findIndex((time) => time.hours === oldHours && time.minutes === oldMinutes);
+    if (index !== -1) {
+      this.timesToRetweet[index] = { hours: newHours, minutes: newMinutes };
+    }
+  }
 /////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////
   public removeTimesToComment(hours: number, minutes: number): void {
     const index = this.timesToComment.findIndex((time) => time.hours === hours && time.minutes === minutes);
     if (index !== -1) {
       this.timesToComment.splice(index, 1);
+    }
+  }
+  public updateTimesToComment(oldHours: number, oldMinutes: number, newHours: number, newMinutes: number): void {
+    const index = this.timesToComment.findIndex((time) => time.hours === oldHours && time.minutes === oldMinutes);
+    if (index !== -1) {
+      this.timesToComment[index] = { hours: newHours, minutes: newMinutes };
     }
   }
 /////////////////////////////////////////////////////////////////
