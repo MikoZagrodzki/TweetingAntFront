@@ -11,6 +11,7 @@ import {
   updateTimeToRetweetsSpecific,
   updateTimeToCommentsSpecific,
 } from "../../SQL";
+import { TwitterAccountType } from "../../TypesApi";
 
 interface Props {
     loginNameTwitter: string;
@@ -19,7 +20,8 @@ interface Props {
     setDbTrigger: React.Dispatch<React.SetStateAction<boolean>>;
     hours:number;
     minutes:number;
-    key:any;
+    twitterAccounts: TwitterAccountType[];
+    setTwitterAccounts: React.Dispatch<React.SetStateAction<[] | TwitterAccountType[]>>;
   }
 interface Times{
   hours?:number;
@@ -27,7 +29,7 @@ interface Times{
 }
 
 function SettingCardLiElement(props:Props) {
-    const { key, loginNameTwitter, purpose, dbTrigger, setDbTrigger, hours, minutes } = props;
+    const { loginNameTwitter, purpose, dbTrigger, setDbTrigger, hours, minutes, twitterAccounts, setTwitterAccounts } = props;
     const [isEditing, setIsEditing] = useState(false);
     const [times, setTimes]=useState<Times>({})
     const [hoursState, setHoursState] = useState(hours);
@@ -36,26 +38,41 @@ function SettingCardLiElement(props:Props) {
 
     const deleteSpecificTime = async (hours: number, minutes: number) => {
       try {
+        const twitterClassAccount = twitterAccounts.find(
+          (account) => account.loginNameTwitter === loginNameTwitter
+        );
         switch (purpose) {
           case "tweet":
             await deleteTimeToTweetsSpecific(loginNameTwitter, hours, minutes);
+            if (twitterClassAccount && typeof twitterClassAccount.removeTimesToTweet === 'function') {
+              twitterClassAccount.removeTimesToTweet(hours, minutes);
+            }
             break;
           case "like":
             await deleteTimeToLikesSpecific(loginNameTwitter, hours, minutes);
+            if (twitterClassAccount && typeof twitterClassAccount.removeTimesToLike === 'function') {
+              twitterClassAccount.removeTimesToLike(hours, minutes);
+            }
             break;
           case "retweet":
             await deleteTimeToRetweetsSpecific(loginNameTwitter, hours, minutes);
+            if (twitterClassAccount && typeof twitterClassAccount.removeTimesToRetweet === 'function') {
+              twitterClassAccount.removeTimesToRetweet(hours, minutes);
+            }
             break;
           case "comment":
             await deleteTimeToCommentsSpecific(loginNameTwitter, hours, minutes);
+            if (twitterClassAccount && typeof twitterClassAccount.removeTimesToComment === 'function') {
+              twitterClassAccount.removeTimesToComment(hours, minutes);
+            }
             break;
-          default:
-            break;
-        }
+            default:
+              break;
+            }
+            setTwitterAccounts([...twitterAccounts]);
       }catch(error){
         console.error(error)
       }
-      setDbTrigger(!dbTrigger);
     };
 
     const updateSpecificTime = async (hours: number, minutes: number, updatedHours:number, updatedMinutes:number) => {
@@ -98,7 +115,7 @@ function SettingCardLiElement(props:Props) {
       }
 
   return (
-    <li key={key}>
+    <li key={uuidv4()}>
     {!isEditing ? (
         <div className="setting-li-element">
           <p>{hours}:{minutes}</p>

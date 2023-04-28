@@ -58,5 +58,9 @@
     removeUsernameFromTweets?: (username:string)=> void;
     addUserContent?: (dataObject:FormDataObject)=> void;
     removeUserContent?: (username:string)=> void;
+    removeTimesToTweet?: (hours: number, minutes: number)=> void;
+    removeTimesToLike?: (hours: number, minutes: number)=> void;
+    removeTimesToRetweet?: (hours: number, minutes: number)=> void;
+    removeTimesToComment?: (hours: number, minutes: number)=> void;
     
   }

@@ -12,6 +12,7 @@ import {
   deleteTimeToCommentsSpecific,
 } from "../../SQL";
 import SettingCardLiElement from "./SettingCardLiElement";
+import { TwitterAccountType } from "../../TypesApi";
 
 interface Props {
   loginNameTwitter: string;
@@ -19,10 +20,12 @@ interface Props {
   howMany: [] | { hours: number; minutes: number }[];
   dbTrigger: boolean;
   setDbTrigger: React.Dispatch<React.SetStateAction<boolean>>;
+  twitterAccounts: TwitterAccountType[];
+  setTwitterAccounts: React.Dispatch<React.SetStateAction<[] | TwitterAccountType[]>>;
 }
 
 function SettingCard(props: Props) {
-  const { loginNameTwitter, purpose, howMany, dbTrigger, setDbTrigger } = props;
+  const { loginNameTwitter, purpose, howMany, dbTrigger, setDbTrigger, twitterAccounts, setTwitterAccounts,} = props;
   const [isEditing, setIsEditing] = useState(false);
 
   const updateIntensivity = async (value: number) => {
@@ -66,7 +69,7 @@ function SettingCard(props: Props) {
         {howMany.length > 0 &&
           howMany.map((x) => {
             return (
-              <SettingCardLiElement key={uuidv4()} loginNameTwitter={loginNameTwitter} purpose={purpose} dbTrigger={dbTrigger} setDbTrigger={setDbTrigger} hours={x.hours} minutes={x.minutes}/>
+              <SettingCardLiElement loginNameTwitter={loginNameTwitter} purpose={purpose} dbTrigger={dbTrigger} setDbTrigger={setDbTrigger} hours={x.hours} minutes={x.minutes} twitterAccounts={twitterAccounts} setTwitterAccounts={setTwitterAccounts}/>
             );
           })}
       </ul>

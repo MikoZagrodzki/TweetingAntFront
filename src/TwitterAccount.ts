@@ -37,6 +37,8 @@ export class TwitterAccount {
     this.usernameForContent = usernameForContent;
   }
 
+/////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////
   public addUsernameForTweets(formDataObj: FormDataObject): void {
     const { formData } = formDataObj;
     if (formData) {
@@ -47,6 +49,8 @@ export class TwitterAccount {
   public removeUsernameFromTweets(username: string): void {
     this.usernameForTweets = this.usernameForTweets.filter((u) => u !== username);
   }
+/////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////
   public addUserContent(formDataObj: FormDataObject): void {
     const { formData } = formDataObj;
     if (formData) {
@@ -57,6 +61,42 @@ export class TwitterAccount {
   public removeUserContent(username: string): void {
     this.usernameForContent = this.usernameForContent.filter((u) => u !== username);
   }
+/////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////
+  public removeTimesToTweet(hours: number, minutes: number): void {
+    const index = this.timesToTweet.findIndex((time) => time.hours === hours && time.minutes === minutes);
+    if (index !== -1) {
+      this.timesToTweet.splice(index, 1);
+    }
+  }
+/////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////
+  public removeTimesToLike(hours: number, minutes: number): void {
+    const index = this.timesToLike.findIndex((time) => time.hours === hours && time.minutes === minutes);
+    if (index !== -1) {
+      this.timesToLike.splice(index, 1);
+    }
+  }
+/////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////
+  public removeTimesToRetweet(hours: number, minutes: number): void {
+    const index = this.timesToRetweet.findIndex((time) => time.hours === hours && time.minutes === minutes);
+    if (index !== -1) {
+      this.timesToRetweet.splice(index, 1);
+    }
+  }
+/////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////
+  public removeTimesToComment(hours: number, minutes: number): void {
+    const index = this.timesToComment.findIndex((time) => time.hours === hours && time.minutes === minutes);
+    if (index !== -1) {
+      this.timesToComment.splice(index, 1);
+    }
+  }
+/////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////
+
+
 
   // public removeUsernameFromTweets(username: string) {
   //   const index = this.usernameForTweets.indexOf(username);
