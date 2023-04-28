@@ -18,26 +18,23 @@ function UserNameListLiElemet(props: Props) {
   const { username, purpose, loginNameTwitter:twitterAccount, twitterAccounts, setTwitterAccounts, } = props;
 
   const deleteUsername = async (twitterAccount: string, username: string) => {
+    const twitterClassAccount = twitterAccounts.find(
+      (account) => account.loginNameTwitter === twitterAccount
+    );
     switch (purpose) {
       case "rephrasing tweets":
         console.log("IM TRIGGERING UNSERNAMEUSEDFOR TWEETS");
         await deleteUserNameUsedForTweetsSpecific(twitterAccount, username);
-        const accountWithUsernameForTweets = twitterAccounts.find(
-          (account) => account.loginNameTwitter === twitterAccount
-        );
-        if (accountWithUsernameForTweets) {
-          accountWithUsernameForTweets.removeUsernameFromTweets(username);
+        if (twitterClassAccount && typeof twitterClassAccount.removeUsernameFromTweets === 'function') {
+          twitterClassAccount.removeUsernameFromTweets(username);
           setTwitterAccounts([...twitterAccounts]);
         }
         break;
       case "like/comment/retweet":
         console.log("IM TRIGGERING UNSECONTENT");
         await deleteUserContentSpecific(twitterAccount, username);
-        const accountWithUserContent = twitterAccounts.find(
-          (account) => account.loginNameTwitter === twitterAccount
-        );
-        if (accountWithUserContent) {
-          accountWithUserContent.removeUserContent(username);
+        if (twitterClassAccount && typeof twitterClassAccount.removeUserContent === 'function') {
+          twitterClassAccount.removeUserContent(username);
           setTwitterAccounts([...twitterAccounts]);
         }
         break;
@@ -45,10 +42,6 @@ function UserNameListLiElemet(props: Props) {
         console.error("No functionality passed");
     }
   };
-  
-
-
-  
 
   return (
     <li key={uuidv4()}>

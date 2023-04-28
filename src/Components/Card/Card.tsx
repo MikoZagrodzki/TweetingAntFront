@@ -86,6 +86,8 @@ function Card(props: Props) {
                 purpose="rephrase tweets"
                 loginNameTwitter={twitterAccount}
                 funcionallity="UserNameUsedForTweets"
+                twitterAccounts={twitterAccounts} 
+                setTwitterAccounts={setTwitterAccounts}
               />
               <UserNamesList names={usernameForTweets} loginNameTwitter={twitterAccount} purpose="rephrasing tweets"  twitterAccounts={twitterAccounts} setTwitterAccounts={setTwitterAccounts}/>
             </div>
@@ -94,6 +96,8 @@ function Card(props: Props) {
                 purpose="like/comment/retweet"
                 loginNameTwitter={twitterAccount}
                 funcionallity="UserContent"
+                twitterAccounts={twitterAccounts} 
+                setTwitterAccounts={setTwitterAccounts}
               />
               <UserNamesList names={usernameForContent} loginNameTwitter={twitterAccount} purpose="like/comment/retweet" twitterAccounts={twitterAccounts} setTwitterAccounts={setTwitterAccounts}/>
             </div>

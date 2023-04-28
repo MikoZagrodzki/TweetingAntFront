@@ -55,7 +55,6 @@ function Main() {
     getLoginDataFromEmailFromSql();
   }, [dbTrigger]);
 
-  console.log(currentUser);
   return (
     <div className="Main-container">
       <div className="Main-header">

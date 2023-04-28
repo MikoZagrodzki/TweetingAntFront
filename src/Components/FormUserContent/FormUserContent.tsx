@@ -8,11 +8,14 @@ import {
 } from "../../SQL";
 import "./FormUserContent.css";
 import { v4 as uuidv4 } from "uuid";
+import { TwitterAccountType } from "../../TypesApi";
 
 interface Props {
   loginNameTwitter: string;
   purpose: string;
   funcionallity?: string;
+  twitterAccounts: TwitterAccountType[];
+  setTwitterAccounts: React.Dispatch<React.SetStateAction<[] | TwitterAccountType[]>>;
 }
 
 interface FormData {
@@ -22,11 +25,10 @@ interface FormData {
 }
 
 function FormUserContent(props: Props) {
-  const { loginNameTwitter: twitterAccount, purpose, funcionallity } = props;
+  const { loginNameTwitter: twitterAccount, purpose, funcionallity, twitterAccounts, setTwitterAccounts, } = props;
   const [formData, setFormData] = useState<FormData[]>([]);
   const [inputValue, setinputValue] = useState<string>("");
   const [errorMessageLoginData, setErrorMessageLoginData] = useState<boolean>(false);
-  const [submitMessageLoginData, setSubmitMessageLoginData] = useState<boolean>(false);
   const { currentUser }: any = useAuth();
 
   const addNext = async () => {
@@ -74,12 +76,23 @@ function FormUserContent(props: Props) {
       });
     }
     try {
+      const twitterClassAccount = twitterAccounts.find(
+        (account) => account.loginNameTwitter === twitterAccount
+      );
       switch (funcionallity) {
         case "UserNameUsedForTweets":
           await insertUserNameUsedForTweets(dataObject);
+          if (twitterClassAccount && typeof twitterClassAccount.addUsernameForTweets === 'function') {
+            twitterClassAccount.addUsernameForTweets(dataObject);
+            setTwitterAccounts([...twitterAccounts]);
+          }
           break;
         case "UserContent":
           await insertUserContent(dataObject);
+          if (twitterClassAccount && typeof twitterClassAccount.addUserContent === 'function') {
+            twitterClassAccount.addUserContent(dataObject);
+            setTwitterAccounts([...twitterAccounts]);
+          }
           break;
         default:
           console.error("No functionallity passed");
@@ -90,7 +103,6 @@ function FormUserContent(props: Props) {
     setFormData([]);
     setinputValue("");
     setErrorMessageLoginData(false);
-    setSubmitMessageLoginData(true);
   };
 
   const removeFormData = (index: number) => {
@@ -114,7 +126,6 @@ function FormUserContent(props: Props) {
         </button>
         <button onClick={(event) => formSubmit(event)}>Submit</button>
       </form>
-        {submitMessageLoginData && <p>It will appear ater refresh.</p>}
         {errorMessageLoginData && <p>Twitter Username already added.</p>}
       <div className="FormUserContent-elements-container">
         {formData.length > 0 &&

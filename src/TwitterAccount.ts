@@ -1,3 +1,5 @@
+import { FormData, FormDataObject } from "./TypesApi";
+
 
 export class TwitterAccount {
   id: number;
@@ -35,28 +37,40 @@ export class TwitterAccount {
     this.usernameForContent = usernameForContent;
   }
 
-
-  // public removeUsernameFromTweets(username: string): void {
-  //   this.usernameForTweets = this.usernameForTweets.filter((u) => u !== username);
-  // }
-
-  // public removeUserContent(username: string): void {
-  //   this.usernameForContent = this.usernameForContent.filter((u) => u !== username);
-  // }
-
-  public removeUsernameFromTweets(username: string) {
-    const index = this.usernameForTweets.indexOf(username);
-    if (index !== -1) {
-      this.usernameForTweets.splice(index, 1);
+  public addUsernameForTweets(formDataObj: FormDataObject): void {
+    const { formData } = formDataObj;
+    if (formData) {
+      const usernames = formData.map(data => data.usernameusedfortweets);
+      this.usernameForTweets.unshift(...usernames);
     }
   }
-
-  public removeUserContent(username: string) {
-    const index = this.usernameForContent.indexOf(username);
-    if (index !== -1) {
-      this.usernameForContent.splice(index, 1);
+  public removeUsernameFromTweets(username: string): void {
+    this.usernameForTweets = this.usernameForTweets.filter((u) => u !== username);
+  }
+  public addUserContent(formDataObj: FormDataObject): void {
+    const { formData } = formDataObj;
+    if (formData) {
+      const usernames = formData.map(data => data.usernameusedfortweets);
+      this.usernameForContent.unshift(...usernames);
     }
   }
+  public removeUserContent(username: string): void {
+    this.usernameForContent = this.usernameForContent.filter((u) => u !== username);
+  }
+
+  // public removeUsernameFromTweets(username: string) {
+  //   const index = this.usernameForTweets.indexOf(username);
+  //   if (index !== -1) {
+  //     this.usernameForTweets.splice(index, 1);
+  //   }
+  // }
+
+  // public removeUserContent(username: string) {
+  //   const index = this.usernameForContent.indexOf(username);
+  //   if (index !== -1) {
+  //     this.usernameForContent.splice(index, 1);
+  //   }
+  // }
 
 }
 

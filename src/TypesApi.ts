@@ -33,6 +33,16 @@
     isautomated: boolean,
   }
 
+  export interface FormDataObject {
+    formData: FormData[];
+  }
+
+  export interface FormData {
+    email: string;
+    loginnametwitter: string;
+    usernameusedfortweets: string;
+  }
+
   export interface TwitterAccountType {
     loginNameTwitter: string;
     email: string;
@@ -44,6 +54,9 @@
     timesToComment: [] | { hours: number; minutes: number }[];
     usernameForTweets: [] | string[];
     usernameForContent: [] | string[];
+    addUsernameForTweets?: (dataObject:FormDataObject)=> void;
     removeUsernameFromTweets?: (username:string)=> void;
+    addUserContent?: (dataObject:FormDataObject)=> void;
     removeUserContent?: (username:string)=> void;
+    
   }
