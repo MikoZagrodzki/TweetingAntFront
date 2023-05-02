@@ -5,13 +5,13 @@ import TwitterAccount from "../TwitterAccount";
 export const generateTwitterAccounts = async (email:string) => {
   let accountsWithTwitterClass: TwitterAccount[] = [];
   const loginData = await getLoginDataFromEmail(email);
+  const intensivity = await getIntensivityByEmail(email);
   const timesToTweet = await getTimeToTweetsByEmail(email);
   const timesTolike = await getTimeToLikesByEmail(email);
   const timesToRetweet = await getTimeToRetweetsByEmail(email);
   const timesToComment = await getTimeToCommentsByEmail(email);
   const usernameForTweets = await getUserNameUsedForTweetsByEmail(email);
   const usernameForContent = await getUserContentByEmail(email);
-  const intensivity = await getIntensivityByEmail(email);
 
 
   loginData?.forEach((account:any) => {

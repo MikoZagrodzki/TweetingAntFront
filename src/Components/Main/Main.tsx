@@ -37,7 +37,6 @@ function Main() {
   };
 
   useEffect(() => {
-    console.log("useEffect triggered");
     getLoginDataFromEmailFromSql();
   }, [dbTrigger]);
 
