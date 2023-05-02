@@ -1,4 +1,5 @@
 import { deleteTimeToCommentsSpecific, deleteTimeToLikesSpecific, deleteTimeToRetweetsSpecific, deleteTimeToTweetsSpecific, deleteUserContentSpecific, deleteUserNameUsedForTweetsSpecific, insertUserContent, insertUserNameUsedForTweets, updateCommentsIntensivity, updateIsAutomated, updateLikesIntensivity, updateRetweetsIntensivity, updateTimeToCommentsSpecific, updateTimeToLikesSpecific, updateTimeToRetweetsSpecific, updateTimeToTweetsSpecific, updateTweetsIntensivity } from "./SQL";
+import updatePersonality from "./SQL/UpdatePersonality";
 import { FormData, FormDataObject } from "./TypesApi";
 
 
@@ -7,13 +8,14 @@ export class TwitterAccount {
   email: string;
   loginNameTwitter: string;
   isAutomated: boolean;
+  personality: string;
   tweetsIntensivity:number;
   timesToTweet: { hours: number; minutes: number }[];
   likesIntensivity:number;
   timesToLike: { hours: number; minutes: number }[]; 
   retweetsIntensivity:number;
   timesToRetweet: { hours: number; minutes: number }[];
-  commentsintensivity:number;
+  commentsIntensivity:number;
   timesToComment: { hours: number; minutes: number }[];
   usernameForTweets: string[];
   usernameForContent: string[];
@@ -23,13 +25,14 @@ export class TwitterAccount {
     email: string,
     loginNameTwitter: string,
     isAutomated: boolean,
+    personality: string,
     tweetsIntensivity:number,
     timesToTweet: { hours: number; minutes: number }[],
     likesIntensivity:number,
     timesToLike: { hours: number; minutes: number }[],
     retweetsIntensivity:number,
     timesToRetweet: { hours: number; minutes: number }[],
-    commentsintensivity:number,
+    commentsIntensivity:number,
     timesToComment: { hours: number; minutes: number }[],
     usernameForTweets: string[],
     usernameForContent: string[],
@@ -38,13 +41,14 @@ export class TwitterAccount {
     this.email = email;
     this.loginNameTwitter = loginNameTwitter;
     this.isAutomated = isAutomated;
+    this.personality= personality;
     this.tweetsIntensivity=tweetsIntensivity;
     this.timesToTweet = timesToTweet;
     this.likesIntensivity=likesIntensivity;
     this.timesToLike = timesToLike;
     this.retweetsIntensivity=retweetsIntensivity;
     this.timesToRetweet = timesToRetweet;
-    this.commentsintensivity=commentsintensivity;
+    this.commentsIntensivity=commentsIntensivity;
     this.timesToComment = timesToComment;
     this.usernameForTweets = usernameForTweets;
     this.usernameForContent = usernameForContent;
@@ -168,7 +172,14 @@ export class TwitterAccount {
     this.isAutomated = value;
     updateIsAutomated(this.loginNameTwitter, value);
   }
-
+/////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////
+  public updatePersonality(personality:string): void {
+    this.personality = personality;
+    updatePersonality(this.loginNameTwitter, personality);
+  }
+/////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////
 
 
   // public removeUsernameFromTweets(username: string) {

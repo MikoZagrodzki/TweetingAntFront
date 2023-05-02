@@ -1,23 +1,3 @@
-// import TwitterAccount from '../TwitterAccount'
-// import { LoginData } from '../TypesApi';
-
-// export const generateTwitterAccounts = (loginData: LoginData[]) => {
-//   let accountsWithTwitterClass: TwitterAccount[] = []
-
-//   loginData?.forEach((account:LoginData) => {
-//         let  twitterAccountName = new TwitterAccount(account.loginnametwitter, account.passwordtwitter, account.email, account.isautomated );
-    
-//         accountsWithTwitterClass.push(twitterAccountName);
-    
-//   });
-
-//   return accountsWithTwitterClass
-// }
-
-// export default generateTwitterAccounts
-////////////////////////////////////////////
-
-
 import { getLoginDataFromEmail, getUserContentByEmail,getUserNameUsedForTweetsByEmail,getTimeToTweetsByEmail,getTimeToRetweetsByEmail, getTimeToLikesByEmail, getTimeToCommentsByEmail} from "../SQL";
 import getIntensivityByEmail from "../SQL/GetIntensivityByEmail";
 import TwitterAccount from "../TwitterAccount";
@@ -40,6 +20,7 @@ export const generateTwitterAccounts = async (email:string) => {
       account.email,
       account.loginnametwitter,
       account.isautomated,
+      account.personality,
 ////////////////////////////////////////////////////////
       intensivity.find((item: any) => item.loginnametwitter === account.loginnametwitter)?.tweetsintensivity||5,
       timesToTweet.find((item:any) => item.loginnametwitter === account.loginnametwitter)?.tweetsTime || [],

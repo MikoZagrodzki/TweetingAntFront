@@ -48,13 +48,14 @@
     email: string;
     id?: number;
     isAutomated: boolean;
+    personality: string;
     tweetsIntensivity:number;
     timesToTweet: { hours: number; minutes: number }[];
     likesIntensivity:number;
     timesToLike: { hours: number; minutes: number }[]; 
     retweetsIntensivity:number;
     timesToRetweet: { hours: number; minutes: number }[];
-    commentsintensivity:number;
+    commentsIntensivity:number;
     timesToComment: { hours: number; minutes: number }[];
     usernameForTweets: string[];
     usernameForContent: string[];
@@ -82,6 +83,7 @@
     updateTimesToCommentIntensivity?: (intansivityValue: number)=> void;
 ///////////////////////////////////////////////////////////
     updateIsAutometed?: (value:boolean)=> void;
+    updatePersonality?: (personality:string)=> void;
 ///////////////////////////////////////////////////////////
 
   }

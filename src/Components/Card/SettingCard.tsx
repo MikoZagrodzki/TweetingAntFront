@@ -69,7 +69,7 @@ function SettingCard(props: Props) {
         case "retweet":
           return twitterClassAccount?.retweetsIntensivity;
         case "comment":
-          return twitterClassAccount?.commentsintensivity;
+          return twitterClassAccount?.commentsIntensivity;
         default:
           break;
       }

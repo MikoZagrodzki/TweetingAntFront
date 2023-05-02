@@ -1,16 +1,29 @@
 import React from "react";
 import "./Card.css";
-import updatePersonality from "../../SQL/UpdatePersonality";
+import { TwitterAccountType } from "../../TypesApi";
 
 interface Props {
   loginNameTwitter: string;
+  twitterAccounts: TwitterAccountType[];
+  setTwitterAccounts: React.Dispatch<React.SetStateAction<[] | TwitterAccountType[]>>;
 }
 
 function Personality(props: Props) {
-  const { loginNameTwitter: twitterAccount } = props;
+  const { loginNameTwitter: twitterAccount, twitterAccounts, setTwitterAccounts } = props;
 
-  const personalitySetter = ()=>{
-    
+  const twitterClassAccount = twitterAccounts.find(
+    (account) => account.loginNameTwitter === twitterAccount
+  );
+
+  const getDefaultPersonality = () => {
+    return twitterClassAccount?.personality;
+  }
+
+  const personalitySetter = (personality:string) => {
+    if (twitterClassAccount && typeof twitterClassAccount.updatePersonality === "function") {
+      twitterClassAccount.updatePersonality(personality);
+      setTwitterAccounts([...twitterAccounts]);
+    }
   }
 
   return (
@@ -19,14 +32,10 @@ function Personality(props: Props) {
       <select
         name="personality_setter"
         id=""
-        onChange={(e) => updatePersonality(twitterAccount, String(e.target.value))}
+        onChange={(e) => personalitySetter(String(e.target.value))}
+        defaultValue={getDefaultPersonality()}
       >
-        <option value="">Personality</option>
-        <option value="">Personality</option>
-        <option value="">Personality</option>
-        <option value="">Personality</option>
-        <option value="">Personality</option>
-        <option value="">Personality</option>
+        <option value="default">Personality</option>
       </select>
     </div>
   );

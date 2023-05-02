@@ -19,8 +19,6 @@ interface Props {
   timesToComment: [] | { hours: number; minutes: number }[];
   usernameForTweets: [] | string[];
   usernameForContent: [] | string[];
-  dbTrigger: boolean;
-  setDbTrigger: React.Dispatch<React.SetStateAction<boolean>>;
   twitterAccounts: TwitterAccountType[];
   setTwitterAccounts: React.Dispatch<React.SetStateAction<[] | TwitterAccountType[]>>;
 }
@@ -36,8 +34,6 @@ function Card(props: Props) {
     timesToComment,
     usernameForTweets,
     usernameForContent,
-    dbTrigger,
-    setDbTrigger,
     twitterAccounts,
     setTwitterAccounts,
   } = props;
@@ -115,7 +111,7 @@ function Card(props: Props) {
             />
           </div>
           <div className="Card-forms-container">
-            <Personality loginNameTwitter={twitterAccount} />
+            <Personality loginNameTwitter={twitterAccount} twitterAccounts={twitterAccounts} setTwitterAccounts={setTwitterAccounts}/>
             <div className="Form-and-list-container">
               <FormUserContent
                 purpose="rephrase tweets"
@@ -148,7 +144,7 @@ function Card(props: Props) {
                 setTwitterAccounts={setTwitterAccounts}
               />
             </div>
-            <Personality loginNameTwitter={twitterAccount} />
+            <Personality loginNameTwitter={twitterAccount} twitterAccounts={twitterAccounts} setTwitterAccounts={setTwitterAccounts}/>
           </div>
           <button
             type="button"

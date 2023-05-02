@@ -67,8 +67,6 @@ function Main() {
                     timesToComment={x.timesToComment}
                     usernameForTweets={x.usernameForTweets}
                     usernameForContent={x.usernameForContent}
-                    dbTrigger={dbTrigger}
-                    setDbTrigger={setDbTrigger}
                     twitterAccounts={twitterAccounts}
                     setTwitterAccounts={setTwitterAccounts}
                   />
