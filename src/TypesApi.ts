@@ -67,15 +67,19 @@
     ///////////////////////////////////////////////////////////
     removeTimesToTweet?: (hours: number, minutes: number)=> void;
     updateTimesToTweet?: (oldHours: number, oldMinutes: number, newHours: number, newMinutes: number)=> void;
+    updateTimesToTweetIntensivity?: (intansivityValue: number)=> void;
 ///////////////////////////////////////////////////////////
     removeTimesToLike?: (hours: number, minutes: number)=> void;
     updateTimesToLike?: (oldHours: number, oldMinutes: number, newHours: number, newMinutes: number)=> void;
+    updateTimesToLikeIntensivity?: (intansivityValue: number)=> void;
 ///////////////////////////////////////////////////////////
     removeTimesToRetweet?: (hours: number, minutes: number)=> void;
     updateTimesToRetweet?: (oldHours: number, oldMinutes: number, newHours: number, newMinutes: number)=> void;
+    updateTimesToRetweetIntensivity?: (intansivityValue: number)=> void;
 ///////////////////////////////////////////////////////////
     removeTimesToComment?: (hours: number, minutes: number)=> void;
     updateTimesToComment?: (oldHours: number, oldMinutes: number, newHours: number, newMinutes: number)=> void;
+    updateTimesToCommentIntensivity?: (intansivityValue: number)=> void;
 ///////////////////////////////////////////////////////////
     updateIsAutometed?: (value:boolean)=> void;
 ///////////////////////////////////////////////////////////

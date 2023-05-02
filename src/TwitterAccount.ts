@@ -1,3 +1,4 @@
+import { updateCommentsIntensivity, updateLikesIntensivity, updateRetweetsIntensivity, updateTweetsIntensivity } from "./SQL";
 import { FormData, FormDataObject } from "./TypesApi";
 
 
@@ -87,6 +88,10 @@ export class TwitterAccount {
       this.timesToTweet[index] = { hours: newHours, minutes: newMinutes };
     }
   }
+  public updateTimesToTweetIntensivity(intensivityValue:number): void{
+    this.tweetsIntensivity=intensivityValue;
+    updateTweetsIntensivity(this.loginNameTwitter, intensivityValue)
+  }
 /////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////
   public removeTimesToLike(hours: number, minutes: number): void {
@@ -100,6 +105,10 @@ export class TwitterAccount {
     if (index !== -1) {
       this.timesToLike[index] = { hours: newHours, minutes: newMinutes };
     }
+  }
+  public updateTimesToLikeIntensivity(intensivityValue:number): void{
+    this.tweetsIntensivity=intensivityValue;
+    updateLikesIntensivity(this.loginNameTwitter, intensivityValue)
   }
 /////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////
@@ -115,6 +124,10 @@ export class TwitterAccount {
       this.timesToRetweet[index] = { hours: newHours, minutes: newMinutes };
     }
   }
+  public updateTimesToRetweetIntensivity(intensivityValue:number): void{
+    this.tweetsIntensivity=intensivityValue;
+    updateRetweetsIntensivity(this.loginNameTwitter, intensivityValue)
+  }
 /////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////
   public removeTimesToComment(hours: number, minutes: number): void {
@@ -128,6 +141,10 @@ export class TwitterAccount {
     if (index !== -1) {
       this.timesToComment[index] = { hours: newHours, minutes: newMinutes };
     }
+  }
+  public updateTimesToCommentIntensivity(intensivityValue:number): void{
+    this.tweetsIntensivity=intensivityValue;
+    updateCommentsIntensivity(this.loginNameTwitter, intensivityValue)
   }
 /////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////

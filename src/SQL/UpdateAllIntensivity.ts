@@ -1,13 +1,13 @@
 import { requestApi } from "../Funcinalities";
 
-const updateIntensivity = async (loginNameTwitter: string, intensivity:number) => {
+const updateAllIntensivity = async (loginNameTwitter: string, intensivity:number) => {
   const body = {
     loginNameTwitter: loginNameTwitter,
     intensivity: intensivity,
   };
   try {
     const response = await requestApi(
-      "http://localhost:3002/twitterClass/updateIntensivity",
+      "http://localhost:3002/twitterClass/updateAllIntensivity",
       {
         method: "POST",
         headers: {
@@ -29,4 +29,4 @@ const updateIntensivity = async (loginNameTwitter: string, intensivity:number) =
 
 
 
-export default updateIntensivity;
+export default updateAllIntensivity;
