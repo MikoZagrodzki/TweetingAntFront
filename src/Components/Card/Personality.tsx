@@ -9,7 +9,10 @@ interface Props {
 function Personality(props: Props) {
   const { loginNameTwitter: twitterAccount } = props;
 
-  updatePersonality;
+  const personalitySetter = ()=>{
+    
+  }
+
   return (
     <div className="Personality-container">
       <p>Your accont personality</p>

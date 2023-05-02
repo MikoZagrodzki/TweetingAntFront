@@ -1,16 +1,6 @@
 import React, { useState } from "react";
 import "./Card.css";
 import { v4 as uuidv4 } from "uuid";
-import {
-  deleteTimeToTweetsSpecific,
-  deleteTimeToLikesSpecific,
-  deleteTimeToRetweetsSpecific,
-  deleteTimeToCommentsSpecific,
-  updateTimeToTweetsSpecific,
-  updateTimeToLikesSpecific,
-  updateTimeToRetweetsSpecific,
-  updateTimeToCommentsSpecific,
-} from "../../SQL";
 import { TwitterAccountType } from "../../TypesApi";
 
 interface Props {
@@ -33,12 +23,12 @@ function SettingCardLiElement(props:Props) {
     const [hoursState, setHoursState] = useState(hours);
     const [minutesState, setMinutesState] = useState(minutes);
   
+    const twitterClassAccount = twitterAccounts.find(
+      (account) => account.loginNameTwitter === loginNameTwitter
+    );
 
     const deleteSpecificTime = async (hours: number, minutes: number) => {
       try {
-        const twitterClassAccount = twitterAccounts.find(
-          (account) => account.loginNameTwitter === loginNameTwitter
-        );
         switch (purpose) {
           case "tweet":
             if (twitterClassAccount && typeof twitterClassAccount.removeTimesToTweet === 'function') {
@@ -71,9 +61,6 @@ function SettingCardLiElement(props:Props) {
 
     const updateSpecificTime = async (hours: number, minutes: number, updatedHours:number, updatedMinutes:number) => {
         try {
-          const twitterClassAccount = twitterAccounts.find(
-            (account) => account.loginNameTwitter === loginNameTwitter
-          );
           switch (purpose) {
             case "tweet":
               if (twitterClassAccount && typeof twitterClassAccount.updateTimesToTweet === 'function') {

@@ -45,20 +45,20 @@ function Card(props: Props) {
   const ref: any = useRef();
   const openTooltip = () => ref.current.open();
   const closeTooltip = () => ref.current.close();
+  
+  const twitterClassAccount = twitterAccounts.find(
+    (account) => account.loginNameTwitter === twitterAccount
+  );
 
   const autommationSwitch = async (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     event.stopPropagation();
     try{
-      await updateIsAutomated(twitterAccount, !isAutomated);
-      const twitterClassAccount = twitterAccounts.find(
-        (account) => account.loginNameTwitter === twitterAccount
-      );
       if (twitterClassAccount && typeof twitterClassAccount.updateIsAutometed === 'function') {
         twitterClassAccount.updateIsAutometed(!isAutomated);
+        setTwitterAccounts([...twitterAccounts])
       }
-      setTwitterAccounts([...twitterAccounts])
     }catch(error){
       console.error(error)
     }
@@ -85,8 +85,6 @@ function Card(props: Props) {
           </div>
           <div className="Card-settings-container">
             <SettingCard
-              dbTrigger={dbTrigger}
-              setDbTrigger={setDbTrigger}
               loginNameTwitter={twitterAccount}
               purpose="tweet"
               howMany={timesToTweet}
@@ -94,8 +92,6 @@ function Card(props: Props) {
               setTwitterAccounts={setTwitterAccounts}
             />
             <SettingCard
-              dbTrigger={dbTrigger}
-              setDbTrigger={setDbTrigger}
               loginNameTwitter={twitterAccount}
               purpose="like"
               howMany={timesToLike}
@@ -103,8 +99,6 @@ function Card(props: Props) {
               setTwitterAccounts={setTwitterAccounts}
             />
             <SettingCard
-              dbTrigger={dbTrigger}
-              setDbTrigger={setDbTrigger}
               loginNameTwitter={twitterAccount}
               purpose="retweet"
               howMany={timesToRetweet}
@@ -112,8 +106,7 @@ function Card(props: Props) {
               setTwitterAccounts={setTwitterAccounts}
             />
             <SettingCard
-              dbTrigger={dbTrigger}
-              setDbTrigger={setDbTrigger}
+              // key={uuidv4()}
               loginNameTwitter={twitterAccount}
               purpose="comment"
               howMany={timesToComment}

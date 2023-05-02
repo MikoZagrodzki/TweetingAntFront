@@ -1,9 +1,7 @@
 import { checkLoginData, insertLoginData } from "../../SQL";
-// import createSingleTwitterAccount from "../../Funcinalities/CreateSingleTwitterAccount";
 import { useAuth } from "../../AuthContext";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
-import TwitterAccount from "../../TwitterAccount";
 import "./FormTwitterCredentials.css";
 
 interface Props {
@@ -24,11 +22,11 @@ function FormTwitterCredentials(props: Props) {
   } = useForm();
 
   const formSubmit = async (data: any) => {
-    const response = await checkLoginData(
+    const checkedLoginData = await checkLoginData(
       data.TwitterUsername,
       data.TwitterPassword
     );
-    if (response) {
+    if (checkedLoginData) {
       seterrorMessageLoginData(true);
       return;
     }

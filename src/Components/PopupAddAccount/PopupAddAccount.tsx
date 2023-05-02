@@ -1,8 +1,6 @@
 import React, { useRef } from "react";
 import Popup from "reactjs-popup";
 import FormTwitterCredentials from "../FormTwitterCredentials/FormTwitterCredentials";
-import TwitterAccount from "../../TwitterAccount";
-import { useAuth } from "../../AuthContext";
 import "./PopupAddAccount.css";
 
 interface Props {
@@ -12,7 +10,6 @@ interface Props {
 
 function PopupAddAccount(props: Props) {
   const { dbTrigger, setDbTrigger } = props;
-  const { currentUser }: any = useAuth();
 
   const ref: any = useRef();
   const openTooltip = () => ref.current.open();
@@ -37,8 +34,8 @@ function PopupAddAccount(props: Props) {
       >
         <div className="PopupAddAccount-container">
           <FormTwitterCredentials
-            setDbTrigger={props.setDbTrigger}
-            dbTrigger={props.dbTrigger}
+            setDbTrigger={setDbTrigger}
+            dbTrigger={dbTrigger}
           />
           <button
             type="button"

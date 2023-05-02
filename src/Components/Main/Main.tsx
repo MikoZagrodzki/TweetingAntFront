@@ -7,19 +7,6 @@ import "./Main.css";
 import { useNavigate } from "react-router-dom";
 import { TwitterAccountType } from "../../TypesApi";
 
-// interface TwitterAccounts {
-//   loginNameTwitter: string;
-//   email: string;
-//   id?: number;
-//   isAutomated: boolean;
-//   timesToTweet: [] | { hours: number; minutes: number }[];
-//   timesToLike: [] | { hours: number; minutes: number }[];
-//   timesToRetweet: [] | { hours: number; minutes: number }[];
-//   timesToComment: [] | { hours: number; minutes: number }[];
-//   usernameForTweets: [] | string[];
-//   usernameForContent: [] | string[];
-// }
-
 interface Props {
 }
 
@@ -28,8 +15,7 @@ function Main() {
   const [twitterAccounts, setTwitterAccounts] = useState<TwitterAccountType[] | []>([]);
   const [error, setError] = useState('');
   const [dbTrigger, setDbTrigger] = useState<boolean>(false)
-
-
+  
   const navigate = useNavigate();
 
   async function handleLogout() {
@@ -96,13 +82,3 @@ function Main() {
 }
 
 export default Main;
-
-// function handleFormSubmit(event) {
-//     event.preventDefault(); // prevent the form from submitting normally
-
-//     const form = event.target; // get a reference to the form element
-//     const formData = new FormData(form); // create a FormData object from the form data
-//     const values = Object.fromEntries(formData.entries()); // convert the FormData to an object
-
-//     console.log(values); // log the object of form values
-//   }

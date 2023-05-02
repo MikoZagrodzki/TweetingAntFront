@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import { useAuth } from "../../AuthContext";
 import {
-  insertUserNameUsedForTweets,
   checkUserNameUsedForTweets,
-  insertUserContent,
   checkUserContent,
 } from "../../SQL";
 import "./FormUserContent.css";
@@ -30,15 +28,16 @@ function FormUserContent(props: Props) {
   const [inputValue, setinputValue] = useState<string>("");
   const [errorMessageLoginData, setErrorMessageLoginData] = useState<boolean>(false);
   const { currentUser }: any = useAuth();
+  
+  const twitterClassAccount = twitterAccounts.find(
+    (account) => account.loginNameTwitter === twitterAccount
+  );
 
   const addNext = async () => {
     let doesExist;
     switch (funcionallity) {
       case "UserNameUsedForTweets":
-        doesExist = await checkUserNameUsedForTweets(
-          twitterAccount,
-          inputValue
-        );
+        doesExist = await checkUserNameUsedForTweets(twitterAccount, inputValue);
         break;
       case "UserContent":
         doesExist = await checkUserContent(twitterAccount, inputValue);
@@ -76,30 +75,25 @@ function FormUserContent(props: Props) {
       });
     }
     try {
-      const twitterClassAccount = twitterAccounts.find(
-        (account) => account.loginNameTwitter === twitterAccount
-      );
       switch (funcionallity) {
         case "UserNameUsedForTweets":
-          await insertUserNameUsedForTweets(dataObject);
           if (twitterClassAccount && typeof twitterClassAccount.addUsernameForTweets === 'function') {
             twitterClassAccount.addUsernameForTweets(dataObject);
             setTwitterAccounts([...twitterAccounts]);
           }
           break;
         case "UserContent":
-          await insertUserContent(dataObject);
           if (twitterClassAccount && typeof twitterClassAccount.addUserContent === 'function') {
             twitterClassAccount.addUserContent(dataObject);
-            setTwitterAccounts([...twitterAccounts]);
           }
           break;
-        default:
-          console.error("No functionallity passed");
-      }
-    } catch (error) {
-      console.error(error);
-    }
+          default:
+            console.error("No functionallity passed");
+          }
+        } catch (error) {
+          console.error(error);
+        }
+    setTwitterAccounts([...twitterAccounts]);
     setFormData([]);
     setinputValue("");
     setErrorMessageLoginData(false);

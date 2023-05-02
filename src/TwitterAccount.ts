@@ -1,4 +1,4 @@
-import { deleteTimeToCommentsSpecific, deleteTimeToLikesSpecific, deleteTimeToRetweetsSpecific, deleteTimeToTweetsSpecific, updateCommentsIntensivity, updateLikesIntensivity, updateRetweetsIntensivity, updateTimeToCommentsSpecific, updateTimeToLikesSpecific, updateTimeToRetweetsSpecific, updateTimeToTweetsSpecific, updateTweetsIntensivity } from "./SQL";
+import { deleteTimeToCommentsSpecific, deleteTimeToLikesSpecific, deleteTimeToRetweetsSpecific, deleteTimeToTweetsSpecific, deleteUserContentSpecific, deleteUserNameUsedForTweetsSpecific, insertUserContent, insertUserNameUsedForTweets, updateCommentsIntensivity, updateIsAutomated, updateLikesIntensivity, updateRetweetsIntensivity, updateTimeToCommentsSpecific, updateTimeToLikesSpecific, updateTimeToRetweetsSpecific, updateTimeToTweetsSpecific, updateTweetsIntensivity } from "./SQL";
 import { FormData, FormDataObject } from "./TypesApi";
 
 
@@ -58,9 +58,12 @@ export class TwitterAccount {
       const usernames = formData.map(data => data.usernameusedfortweets);
       this.usernameForTweets.unshift(...usernames);
     }
+    insertUserNameUsedForTweets(formData);
   }
   public removeUsernameFromTweets(username: string): void {
     this.usernameForTweets = this.usernameForTweets.filter((u) => u !== username);
+    deleteUserNameUsedForTweetsSpecific(this.loginNameTwitter, username);
+
   }
 /////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////
@@ -70,9 +73,12 @@ export class TwitterAccount {
       const usernames = formData.map(data => data.usernameusedfortweets);
       this.usernameForContent.unshift(...usernames);
     }
+    insertUserContent(formData);
+
   }
   public removeUserContent(username: string): void {
     this.usernameForContent = this.usernameForContent.filter((u) => u !== username);
+    deleteUserContentSpecific(this.loginNameTwitter, username);
   }
 /////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////
@@ -160,6 +166,7 @@ export class TwitterAccount {
 /////////////////////////////////////////////////////////////////
   public updateIsAutometed(value:boolean): void {
     this.isAutomated = value;
+    updateIsAutomated(this.loginNameTwitter, value);
   }
 
 

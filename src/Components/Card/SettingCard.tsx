@@ -1,16 +1,6 @@
 import React, { useState } from "react";
 import "./Card.css";
 import { v4 as uuidv4 } from "uuid";
-import {
-  updateTweetsIntensivity,
-  updateLikesIntensivity,
-  updateRetweetsIntensivity,
-  updateCommentsIntensivity,
-  deleteTimeToTweetsSpecific,
-  deleteTimeToLikesSpecific,
-  deleteTimeToRetweetsSpecific,
-  deleteTimeToCommentsSpecific,
-} from "../../SQL";
 import SettingCardLiElement from "./SettingCardLiElement";
 import { TwitterAccountType } from "../../TypesApi";
 
@@ -18,8 +8,6 @@ interface Props {
   loginNameTwitter: string;
   purpose: string;
   howMany: [] | { hours: number; minutes: number }[];
-  dbTrigger: boolean;
-  setDbTrigger: React.Dispatch<React.SetStateAction<boolean>>;
   twitterAccounts: TwitterAccountType[];
   setTwitterAccounts: React.Dispatch<
     React.SetStateAction<[] | TwitterAccountType[]>
@@ -31,12 +19,9 @@ function SettingCard(props: Props) {
     loginNameTwitter,
     purpose,
     howMany,
-    dbTrigger,
-    setDbTrigger,
     twitterAccounts,
     setTwitterAccounts,
   } = props;
-  const [isEditing, setIsEditing] = useState(false);
 
   const twitterClassAccount = twitterAccounts.find(
     (account) => account.loginNameTwitter === loginNameTwitter
@@ -111,6 +96,7 @@ function SettingCard(props: Props) {
           howMany.map((x) => {
             return (
               <SettingCardLiElement
+                key={uuidv4()}
                 loginNameTwitter={loginNameTwitter}
                 purpose={purpose}
                 hours={x.hours}
