@@ -113,8 +113,6 @@ function SettingCard(props: Props) {
               <SettingCardLiElement
                 loginNameTwitter={loginNameTwitter}
                 purpose={purpose}
-                dbTrigger={dbTrigger}
-                setDbTrigger={setDbTrigger}
                 hours={x.hours}
                 minutes={x.minutes}
                 twitterAccounts={twitterAccounts}

@@ -1,4 +1,4 @@
-import { updateCommentsIntensivity, updateLikesIntensivity, updateRetweetsIntensivity, updateTweetsIntensivity } from "./SQL";
+import { deleteTimeToCommentsSpecific, deleteTimeToLikesSpecific, deleteTimeToRetweetsSpecific, deleteTimeToTweetsSpecific, updateCommentsIntensivity, updateLikesIntensivity, updateRetweetsIntensivity, updateTimeToCommentsSpecific, updateTimeToLikesSpecific, updateTimeToRetweetsSpecific, updateTimeToTweetsSpecific, updateTweetsIntensivity } from "./SQL";
 import { FormData, FormDataObject } from "./TypesApi";
 
 
@@ -81,12 +81,14 @@ export class TwitterAccount {
     if (index !== -1) {
       this.timesToTweet.splice(index, 1);
     }
+    deleteTimeToTweetsSpecific(this.loginNameTwitter, hours, minutes);
   }
   public updateTimesToTweet(oldHours: number, oldMinutes: number, newHours: number, newMinutes: number): void {
     const index = this.timesToTweet.findIndex((time) => time.hours === oldHours && time.minutes === oldMinutes);
     if (index !== -1) {
       this.timesToTweet[index] = { hours: newHours, minutes: newMinutes };
     }
+    updateTimeToTweetsSpecific(this.loginNameTwitter, oldHours, oldMinutes, newHours, newMinutes);
   }
   public updateTimesToTweetIntensivity(intensivityValue:number): void{
     this.tweetsIntensivity=intensivityValue;
@@ -99,12 +101,15 @@ export class TwitterAccount {
     if (index !== -1) {
       this.timesToLike.splice(index, 1);
     }
+    deleteTimeToLikesSpecific(this.loginNameTwitter, hours, minutes);
   }
   public updateTimesToLike(oldHours: number, oldMinutes: number, newHours: number, newMinutes: number): void {
     const index = this.timesToLike.findIndex((time) => time.hours === oldHours && time.minutes === oldMinutes);
     if (index !== -1) {
       this.timesToLike[index] = { hours: newHours, minutes: newMinutes };
     }
+    updateTimeToLikesSpecific(this.loginNameTwitter, oldHours, oldMinutes, newHours, newMinutes);
+
   }
   public updateTimesToLikeIntensivity(intensivityValue:number): void{
     this.tweetsIntensivity=intensivityValue;
@@ -117,12 +122,14 @@ export class TwitterAccount {
     if (index !== -1) {
       this.timesToRetweet.splice(index, 1);
     }
+    deleteTimeToRetweetsSpecific(this.loginNameTwitter, hours, minutes);
   }
   public updateTimesToRetweet(oldHours: number, oldMinutes: number, newHours: number, newMinutes: number): void {
     const index = this.timesToRetweet.findIndex((time) => time.hours === oldHours && time.minutes === oldMinutes);
     if (index !== -1) {
       this.timesToRetweet[index] = { hours: newHours, minutes: newMinutes };
     }
+    updateTimeToRetweetsSpecific(this.loginNameTwitter, oldHours, oldMinutes, newHours, newMinutes);
   }
   public updateTimesToRetweetIntensivity(intensivityValue:number): void{
     this.tweetsIntensivity=intensivityValue;
@@ -135,12 +142,15 @@ export class TwitterAccount {
     if (index !== -1) {
       this.timesToComment.splice(index, 1);
     }
+    deleteTimeToCommentsSpecific(this.loginNameTwitter, hours, minutes);
   }
   public updateTimesToComment(oldHours: number, oldMinutes: number, newHours: number, newMinutes: number): void {
     const index = this.timesToComment.findIndex((time) => time.hours === oldHours && time.minutes === oldMinutes);
     if (index !== -1) {
       this.timesToComment[index] = { hours: newHours, minutes: newMinutes };
     }
+    updateTimeToCommentsSpecific(this.loginNameTwitter, oldHours, oldMinutes, newHours, newMinutes);
+
   }
   public updateTimesToCommentIntensivity(intensivityValue:number): void{
     this.tweetsIntensivity=intensivityValue;
