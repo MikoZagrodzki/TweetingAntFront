@@ -97,7 +97,6 @@ function SettingCardLiElement(props:Props) {
         if (value >= 0 && value <= 23) {
           setHoursState(value)
           setTimes({...times, hours: value})
-          alert
         }else{
           alert('Please enter a valid time in the format HH:MM');
         }
