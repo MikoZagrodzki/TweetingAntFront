@@ -35,6 +35,9 @@ function FormUserContent(props: Props) {
   );
 
   const addNext = async () => {
+    if(inputValue===""){
+      return
+    }
     let doesExist;
     switch (funcionallity) {
       case "UserNameUsedForTweets":
