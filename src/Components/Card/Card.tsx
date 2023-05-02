@@ -60,6 +60,15 @@ function Card(props: Props) {
     }
   };
 
+  const personality = () => {
+    switch (twitterClassAccount?.personality) {
+      case "default":
+        return "Default";
+      default:
+        break;
+    }
+  };
+
   return (
     <div className="Card-container">
       <p>{twitterAccount}</p>
@@ -72,6 +81,7 @@ function Card(props: Props) {
           {isAutomated ? "TURN OFF" : "TURN ON"}
         </button>
       </div>
+        <p>Personality: <br/>{personality()}</p>
       <Popup ref={ref}>
         <div className="Card-popup-container">
           <div className="Card-popup-container-header">

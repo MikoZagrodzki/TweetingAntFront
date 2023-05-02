@@ -24,6 +24,7 @@ input{
   justify-content: center;
   align-items: center;
   gap: 10px;
+  text-align: center;
 }
 .Card-automation-container:hover button {
   display: block;
