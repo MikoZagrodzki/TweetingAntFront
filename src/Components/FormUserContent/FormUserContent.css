@@ -61,3 +61,20 @@
 .submit-button{
     display: block;
 }
+
+@media (max-width: 1000px) {
+    .FormUserContent-container{
+        width: 190px;
+    }
+    /* .FormUserContent-elements-container{
+        flex-direction: column;
+    } */
+    /* .FormUserContent-container p{
+        padding: 0px;
+    } */
+    .FormUserContent-container form{
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+  }

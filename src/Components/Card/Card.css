@@ -39,6 +39,7 @@ input{
   position: relative;
   background-color: white;
   min-height: 100vh;
+  min-height: 100vh;
   width: 100vw;
   display: flex;
   flex-direction: column;
@@ -47,11 +48,10 @@ input{
   /* flex-wrap: wrap; */
   text-align: center;
   gap: 10px;
-  /* overflow-y: scroll; */
 }
 
 .Card-popup-container-header {
-  height: 10vh;
+  height: 10%;
   width: 100vw;
   display: flex;
   flex-direction: column;
@@ -69,6 +69,7 @@ input{
 }
 .Card-settings-container {
   width: 100vw;
+  height: 20%;
   display: flex;
   justify-content: center;
   gap: 10px;
@@ -85,12 +86,18 @@ input{
   gap: 10px;
 }
 @media (max-width: 1000px) {
+  .Card-popup-container{
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
   .Card-settings-container{
-    flex-direction: column;
+    /* flex-direction: column; */
     align-items: center;
+    flex-wrap: wrap;
   }
   .SettingCard-container{
-    width: 390px;
+    width: 170px;
+    min-height: 150px;
   }
 }
 
@@ -149,12 +156,15 @@ input{
 .Card-forms-container {
   display: flex;
   gap: 10px;
-  justify-items: center;
-
+  width: 100vw;
+  height: 20%;
+  justify-content: center;
 }
 @media (max-width: 1000px) {
   .Card-forms-container {
     flex-direction: column;
+    align-items: center;
+    flex-wrap: wrap;
   }
 }
 
@@ -162,6 +172,7 @@ input{
   display: flex;
   flex-direction: column;
   gap: 10px;
+  height: 100%;
 }
 .List-name-container {
   /* padding: 0px;
@@ -219,7 +230,14 @@ input{
 
 
 @media (max-width: 1000px) {
-  .Personality-container{
-    width: 390px;
+  .Form-and-list-container{
+    flex-direction: row;
   }
+  .Personality-container{
+    width: 360px;
+  }
+  .List-name-container{
+    width: 170px;
+  }
+
 }
