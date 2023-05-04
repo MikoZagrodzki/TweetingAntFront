@@ -31,7 +31,6 @@ function UserNameListLiElemet(props: Props) {
           typeof twitterClassAccount.removeUsernameFromTweets === "function"
         ) {
           twitterClassAccount.removeUsernameFromTweets(username);
-          setTwitterAccounts([...twitterAccounts]);
         }
         break;
       case "like/comment/retweet":
@@ -44,8 +43,8 @@ function UserNameListLiElemet(props: Props) {
         break;
       default:
         console.error("No functionality passed");
-        setTwitterAccounts([...twitterAccounts]);
-    }
+      }
+      setTwitterAccounts([...twitterAccounts]);
   };
 
   return (
