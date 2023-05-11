@@ -1,3 +1,16 @@
+● Independently designing and developing a full-scale Twitter management application, from concept to deployment.
+● Implementing object-oriented programming principles to create a scalable and maintainable codebase.
+● Utilising APIs, including AI-powered language generation, to automate tasks such as content creation,
+retweeting, and like activity.
+● Building automated scheduling functionality to execute tasks at specified times (CRON).
+● Working with Twitter API to manage multiple accounts simultaneously.
+● Incorporating secure and efficient database management using technologies like Postgres.
+● Ensuring high-quality code through rigorous testing and debugging processes.
+● Creating and maintaining thorough documentation and user guides for the application.
+● Collaborating with users to gather feedback and continuously improve the product.
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
