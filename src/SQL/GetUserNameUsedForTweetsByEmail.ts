@@ -21,9 +21,9 @@ export const getUserNameUsedForTweetsByEmail = async (email: string) => {
     }
     const groupedUsernames = response.payload.reduce((acc: any, curr: any) => {
       if (acc[curr.loginnametwitter]) {
-        acc[curr.loginnametwitter].push(curr.usernameusedfortweets);
+        acc[curr.loginnametwitter].push(curr.usercontent);
       } else {
-        acc[curr.loginnametwitter] = [curr.usernameusedfortweets];
+        acc[curr.loginnametwitter] = [curr.usercontent];
       }
       return acc;
     }, {});
@@ -31,7 +31,7 @@ export const getUserNameUsedForTweetsByEmail = async (email: string) => {
     const mappedResponse = Object.keys(groupedUsernames).map((loginnametwitter) => {
       return {
         loginnametwitter,
-        usernameusedfortweets: groupedUsernames[loginnametwitter],
+        usercontent: groupedUsernames[loginnametwitter],
       };
     });
     // console.log(mappedResponse)

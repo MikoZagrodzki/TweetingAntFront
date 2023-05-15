@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import Popup from "reactjs-popup";
-import FormTwitterCredentials from "../FormTwitterCredentials/FormTwitterCredentials";
-import "./PopupAddAccount.css";
+import FormTwitterCredentials from "../../FormTwitterCredentials/FormTwitterCredentials";
+import "../PopupMain.css";
 
 interface Props {
   dbTrigger: boolean;
@@ -32,14 +32,14 @@ function PopupAddAccount(props: Props) {
         //   </button>
         //   }
       >
-        <div className="PopupAddAccount-container">
+        <div className="Popup_Background">
           <FormTwitterCredentials
             setDbTrigger={setDbTrigger}
             dbTrigger={dbTrigger}
           />
           <button
             type="button"
-            className="AddAccount closeButton"
+            // className="AddAccount closeButton"
             onClick={closeTooltip}
           >
             close

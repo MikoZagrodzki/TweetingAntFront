@@ -2,10 +2,11 @@ import { useState, useEffect} from "react";
 import { useAuth } from "../../AuthContext";
 import { generateTwitterAccounts } from "../../Funcinalities";
 import Card from "../Card/Card";
-import PopupAddAccount from "../PopupAddAccount/PopupAddAccount";
+import PopupAddAccount from "./PopupAddAccount/PopupAddAccount";
 import "./Main.css";
 import { useNavigate } from "react-router-dom";
 import { TwitterAccountType } from "../../TypesApi";
+import PopupLikesAttack from "./PopupLikesAttack/PopupLikesAttack";
 
 interface Props {
 }
@@ -44,11 +45,12 @@ function Main() {
     <div className="Main-container">
       <div className="Main-header">
       <p>{currentUser.email} is logged in.</p>
-      <button onClick={handleLogout}> Log out </button>
       <PopupAddAccount
         dbTrigger={dbTrigger}
         setDbTrigger={setDbTrigger}
       />
+      <PopupLikesAttack twitterAccounts={twitterAccounts} setTwitterAccounts={setTwitterAccounts}/>
+      <button onClick={handleLogout}> Log out </button>
       </div>
       <div className="listOfCards-container">
         <ul>

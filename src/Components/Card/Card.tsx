@@ -8,6 +8,7 @@ import { updateIsAutomated } from "../../SQL";
 import UserNamesList from "./UserNamesList";
 import Personality from "./Personality";
 import { TwitterAccountType } from "../../TypesApi";
+import LikesAttack from "../LikesAttack/LikesAttack";
 
 interface Props {
   loginNameTwitter: string;
@@ -154,7 +155,7 @@ function Card(props: Props) {
                 setTwitterAccounts={setTwitterAccounts}
               />
             </div>
-            <Personality loginNameTwitter={twitterAccount} twitterAccounts={twitterAccounts} setTwitterAccounts={setTwitterAccounts}/>
+            {/* <LikesAttack twitterAccounts={twitterAccounts} setTwitterAccounts={setTwitterAccounts}/> */}
           </div>
           <button
             type="button"

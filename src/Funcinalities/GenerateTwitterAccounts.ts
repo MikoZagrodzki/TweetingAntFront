@@ -34,7 +34,7 @@ export const generateTwitterAccounts = async (email:string) => {
       intensivity.find((item: any) => item.loginnametwitter === account.loginnametwitter)?.commentsintensivity||5,
       timesToComment.find((item:any) => item.loginnametwitter === account.loginnametwitter)?.commentsTime || [],
 ////////////////////////////////////////////////////////
-      usernameForTweets.find((item:any) => item.loginnametwitter === account.loginnametwitter)?.usernameusedfortweets || [],
+      usernameForTweets.find((item:any) => item.loginnametwitter === account.loginnametwitter)?.usercontent || [],
       usernameForContent.find((item:any) => item.loginnametwitter === account.loginnametwitter)?.usercontent || [],
 ////////////////////////////////////////////////////////
     );

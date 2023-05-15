@@ -41,7 +41,7 @@ function FormTwitterCredentials(props: Props) {
   };
 
   return (
-    <div className="FormTwitterCredentials-container">
+    <div className="FormTwitterCredentials_container">
       <p>Add Twitter Account</p>
       <form onSubmit={handleSubmit((data) => formSubmit(data))}>
         <input

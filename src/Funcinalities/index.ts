@@ -14,6 +14,7 @@ import dailyTask from "./DailyTask";
 import fetchAndRephreseAndTweet from "./FetchAndRephreseAndTweet";
 import triggerRetweetTweet from "./TriggerRetweetTweet";
 // import createSingleTwitterAccount from './CreateSingleTwitterAccount'
+import triggerLikeTweetUrl from "./TriggerLikeTweetUrl";
 
 export {
     chatGpt,
@@ -25,6 +26,7 @@ export {
     requestApi,
     generateSeleniumDriver,
     triggerLikeTweet,
+    triggerLikeTweetUrl,
     triggerCommentTweet,
     triggerLoginToTwitterAccount,
     executeAtScheduledTime,
