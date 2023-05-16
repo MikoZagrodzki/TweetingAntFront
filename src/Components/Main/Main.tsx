@@ -7,6 +7,7 @@ import "./Main.css";
 import { useNavigate } from "react-router-dom";
 import { TwitterAccountType } from "../../TypesApi";
 import PopupLikesAttack from "./PopupLikesAttack/PopupLikesAttack";
+import { getPersonalityList } from "../../SQL";
 
 interface Props {
 }
@@ -15,10 +16,12 @@ function Main() {
   const { currentUser, logOut }: any = useAuth();
   const [twitterAccounts, setTwitterAccounts] = useState<TwitterAccountType[] | []>([]);
   const [error, setError] = useState('');
-  const [dbTrigger, setDbTrigger] = useState<boolean>(false)
+  const [dbTrigger, setDbTrigger] = useState<boolean>(false);
+  const [personalityList, setPersonalityList] = useState<string[] | []>([]);
   
   const navigate = useNavigate();
 
+  
   async function handleLogout() {
     try {
       await logOut();
@@ -27,11 +30,14 @@ function Main() {
       setError('Failed to log out');
     }
   }
-
+  
   const getLoginDataFromEmailFromSql = async () => {
     try {
       const responseWithClasses = await generateTwitterAccounts(currentUser.email);
       setTwitterAccounts(responseWithClasses);
+      const personality = await getPersonalityList();
+      setPersonalityList(personality);
+
     } catch (error) {
       console.log(error);
     }
@@ -70,6 +76,7 @@ function Main() {
                     usernameForContent={x.usernameForContent}
                     twitterAccounts={twitterAccounts}
                     setTwitterAccounts={setTwitterAccounts}
+                    personalityList={personalityList}
                   />
                 </li>
               );

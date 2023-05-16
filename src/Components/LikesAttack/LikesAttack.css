@@ -7,8 +7,11 @@
     width: fit-content;
     justify-content: center;
     align-items: center;
+    gap: 10px;
 }
-
+.LikesAttack_Container p{
+    margin: 0px;
+}
 .LikesAttack_Container form{
     display: flex;
     gap: 10px;

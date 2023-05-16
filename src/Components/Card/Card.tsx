@@ -22,6 +22,7 @@ interface Props {
   usernameForContent: [] | string[];
   twitterAccounts: TwitterAccountType[];
   setTwitterAccounts: React.Dispatch<React.SetStateAction<[] | TwitterAccountType[]>>;
+  personalityList: string[]|[];
 }
 
 function Card(props: Props) {
@@ -37,6 +38,7 @@ function Card(props: Props) {
     usernameForContent,
     twitterAccounts,
     setTwitterAccounts,
+    personalityList,
   } = props;
 
   const ref: any = useRef();
@@ -61,14 +63,14 @@ function Card(props: Props) {
     }
   };
 
-  const personality = () => {
-    switch (twitterClassAccount?.personality) {
-      case "default":
-        return "Default";
-      default:
-        break;
-    }
-  };
+  // const personality = () => {
+  //   switch (twitterClassAccount?.personality) {
+  //     case "default":
+  //       return "Default";
+  //     default:
+  //       break;
+  //   }
+  // };
 
   return (
     <div className="Card-container">
@@ -82,7 +84,7 @@ function Card(props: Props) {
           {isAutomated ? "TURN OFF" : "TURN ON"}
         </button>
       </div>
-        <p>Personality: <br/>{personality()}</p>
+        <p>Personality: <br/>{twitterClassAccount?.personality}</p>
       <Popup ref={ref}>
         <div className="Card-popup-container">
           <div className="Card-popup-container-header">
@@ -122,7 +124,7 @@ function Card(props: Props) {
             />
           </div>
           <div className="Card-forms-container">
-            <Personality loginNameTwitter={twitterAccount} twitterAccounts={twitterAccounts} setTwitterAccounts={setTwitterAccounts}/>
+            <Personality loginNameTwitter={twitterAccount} twitterAccounts={twitterAccounts} setTwitterAccounts={setTwitterAccounts} personalityList={personalityList}/>
             <div className="Form-and-list-container">
               <FormUserContent
                 purpose="rephrase tweets"

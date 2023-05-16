@@ -30,7 +30,7 @@ function PopupLikesAttack(props: Props) {
         ref={ref}
       >
         <div className="Popup_Background">
-          <LikesAttack twitterAccounts={twitterAccounts} setTwitterAccounts={setTwitterAccounts}/>
+          <LikesAttack twitterAccounts={twitterAccounts} setTwitterAccounts={setTwitterAccounts} closeTooltip={closeTooltip}/>
           <button
             type="button"
             // className="AddAccount closeButton"
