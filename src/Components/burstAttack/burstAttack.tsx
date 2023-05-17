@@ -98,7 +98,6 @@ function LikesAttack(props: Props) {
         twitterAccounts.filter((account) => account.personality === personality)
       );
     }
-
   };
 
   const formSubmit = async (event: any) => {

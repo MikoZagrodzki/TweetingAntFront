@@ -7,7 +7,7 @@ const insertIntensivity = async (email:string, loginNameTwitter: string) => {
   };
   try {
     const response = await requestApi(
-      "http://localhost:3002/twitterClass/updateIntensivity",
+      "http://localhost:3002/twitterClass/insertIntensivity",
       {
         method: "POST",
         headers: {

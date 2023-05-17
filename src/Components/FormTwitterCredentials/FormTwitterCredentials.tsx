@@ -3,6 +3,8 @@ import { useAuth } from "../../AuthContext";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import "./FormTwitterCredentials.css";
+import insertIntensivity from "../../SQL/InsertIntensivity";
+import generateTwitterClassAndPush from "../../Funcinalities/GenerateTwitterClassAndPush";
 
 interface Props {
   dbTrigger: boolean;
@@ -22,22 +24,28 @@ function FormTwitterCredentials(props: Props) {
   } = useForm();
 
   const formSubmit = async (data: any) => {
-    const checkedLoginData = await checkLoginData(
-      data.TwitterUsername,
-      data.TwitterPassword
-    );
-    if (checkedLoginData) {
-      seterrorMessageLoginData(true);
-      return;
+    try {
+      const checkedLoginData = await checkLoginData(
+        data.TwitterUsername,
+        data.TwitterPassword
+      );
+      if (checkedLoginData) {
+        seterrorMessageLoginData(true);
+        return;
+      }
+      await insertLoginData(
+        currentUser.email,
+        data.TwitterUsername,
+        data.TwitterPassword
+      );
+      await insertIntensivity(currentUser.email, data.TwitterUsername)
+      await generateTwitterClassAndPush(data.TwitterUsername, data.TwitterPassword, currentUser.email)
+      setDbTrigger(!dbTrigger)
+      seterrorMessageLoginData(false);
+      reset();
+    }catch (error){
+      console.error(error)
     }
-    insertLoginData(
-      currentUser.email,
-      data.TwitterUsername,
-      data.TwitterPassword
-    );
-    setDbTrigger(!dbTrigger)
-    seterrorMessageLoginData(false);
-    reset();
   };
 
   return (

@@ -5,8 +5,7 @@ export const insertLoginData = async (email:string, loginNameTwitter: string, pa
     const body = {
         email: email,
         loginNameTwitter : loginNameTwitter,
-        passwordTwitter : passwordTwitter,
-       
+        passwordTwitter : passwordTwitter
     }
     try {
     await requestApi('http://localhost:3002/database/insert_login_Data', {
@@ -17,7 +16,6 @@ export const insertLoginData = async (email:string, loginNameTwitter: string, pa
     },
     body: JSON.stringify(body)
     })
-    await insertIntensivity(email, loginNameTwitter)
     }catch(error){
         console.error(error)
         throw error

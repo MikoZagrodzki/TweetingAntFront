@@ -17,4 +17,3 @@ const requestApi = async (
 };
 
 export default requestApi;
-
