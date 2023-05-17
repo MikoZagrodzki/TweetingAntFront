@@ -29,20 +29,16 @@ function LikesAttack(props: Props) {
   const [url, setUrl] = useState<string>("");
   const [burstAttackFormData, setBurstAttackFormData] = useState<BurstAttackFormData[]>([]);
   const [likesAttackFormData, setLikesAttackFormData] = useState<BurstAttackFormData[]>([]);
-  const [rephraseAttackFormData, setRephraseAttackFormData] = useState<BurstAttackFormData[]>([]);
   const [retweetsAttackFormData, setRetweetsAttackFormData] = useState<BurstAttackFormData[]>([]);
   const [commentsAttackFormData, setCommentsAttackFormData] = useState<BurstAttackFormData[]>([]);
-  const [filteredAccounts, setFilteredAccounts] =
-    useState<TwitterAccountType[]>(twitterAccounts);
+  const [filteredAccounts, setFilteredAccounts] = useState<TwitterAccountType[]>(twitterAccounts);
   const [selectValue, setSelectValue] = useState<string>("");
+  const [amountValue, setAmountValue] = useState<number>(filteredAccounts.length);
   const [rephraseSwitch, setRephraseSwitch] = useState<boolean>(false);
   const [likeSwitch, setLikeSwitch] = useState<boolean>(false);
   const [retweetSwitch, setRetweetSwitch] = useState<boolean>(false);
   const [commentSwitch, setCommentSwitch] = useState<boolean>(false);
 
-  const handleRephraseChange = () => {
-    setRephraseSwitch(!rephraseSwitch);
-  };
 
   const handleLikeChange = () => {
     setLikeSwitch(!likeSwitch);
@@ -85,14 +81,24 @@ function LikesAttack(props: Props) {
     return randomMinutes;
   };
 
+
+  const amountSetter = (amount:number) => {
+    setAmountValue(amount)
+    // if(amount=== 0){
+
+    // }
+  }
+
   const personalitySetter = (personality: string) => {
     setSelectValue(personality);
     if (personality === "All Personalities") {
       setFilteredAccounts(twitterAccounts);
+    }else{
+      setFilteredAccounts(
+        twitterAccounts.filter((account) => account.personality === personality)
+      );
     }
-    setFilteredAccounts(
-      twitterAccounts.filter((account) => account.personality === personality)
-    );
+
   };
 
   const formSubmit = async (event: any) => {
@@ -102,11 +108,10 @@ function LikesAttack(props: Props) {
       return;
     }
     if (url) {
-      // let time = getRandomTime()
-
       if(likeSwitch){
         let likesDataObject: any = { formData: [...likesAttackFormData] };
-        filteredAccounts.map((x) => {
+        const randomAccounts = [...filteredAccounts].sort(() => Math.random() - 0.5).slice(0, amountValue);
+        randomAccounts.map((x) => {
           likesDataObject.formData.push({
             email: currentUser.email,
             loginnametwitter: x.loginNameTwitter,
@@ -116,23 +121,12 @@ function LikesAttack(props: Props) {
           });
         });
         await insertLikesAttack(likesDataObject);
-      }
-      if(rephraseSwitch){
-        let rephraseDataObject: any = { formData: [...rephraseAttackFormData] };
-        filteredAccounts.map((x) => {
-          rephraseDataObject.formData.push({
-            email: currentUser.email,
-            loginnametwitter: x.loginNameTwitter,
-            url: url,
-            hours: getRandomHour(),
-            minutes: getRandomMinutes(),
-          });
-        });
-        await insertRephraseAttack(rephraseDataObject);
+        setLikesAttackFormData([])
       }
       if(retweetSwitch){
         let retweetDataObject: any = { formData: [...retweetsAttackFormData] };
-        filteredAccounts.map((x) => {
+        const randomAccounts = [...filteredAccounts].sort(() => Math.random() - 0.5).slice(0, amountValue);
+        randomAccounts.map((x) => {
           retweetDataObject.formData.push({
             email: currentUser.email,
             loginnametwitter: x.loginNameTwitter,
@@ -142,10 +136,12 @@ function LikesAttack(props: Props) {
           });
         });
         await insertRetweetsAttack(retweetDataObject);
+        setRetweetsAttackFormData([])
       }
       if(commentSwitch){
         let commentDataObject: any = { formData: [...commentsAttackFormData] };
-        filteredAccounts.map((x) => {
+        const randomAccounts = [...filteredAccounts].sort(() => Math.random() - 0.5).slice(0, amountValue);
+        randomAccounts.map((x) => {
           commentDataObject.formData.push({
             email: currentUser.email,
             loginnametwitter: x.loginNameTwitter,
@@ -155,6 +151,7 @@ function LikesAttack(props: Props) {
           });
         });
         await insertCommentsAttack(commentDataObject);
+        setCommentsAttackFormData([])
       }
       setUrl("");
       setBurstAttackFormData([]);
@@ -185,6 +182,18 @@ function LikesAttack(props: Props) {
       </form>
       <p>You are performing atatck with:</p>
       <select
+        name="amount_setter"
+        id=""
+        onChange={(e) => amountSetter(Number(e.target.value))}
+        value={amountValue}
+      >
+        {Array.from({ length: filteredAccounts.length }, (_, index) => filteredAccounts.length - index).map((number) => (
+          <option key={uuidv4()} value={number}>
+            {number>1?`${number} accounts`:`${number} account`}
+          </option>
+        ))}
+      </select>
+      <select
         name="personality_setter"
         id=""
         onChange={(e) => personalitySetter(String(e.target.value))}
@@ -202,13 +211,6 @@ function LikesAttack(props: Props) {
         })}
       </select>
       <div className="select_container">
-        <div className="select_single_container">
-          <p>Rephrase</p>
-          <label className="switch">
-            <input type="checkbox" onChange={handleRephraseChange} checked={rephraseSwitch} />
-            <span className="slider"></span>
-          </label>
-        </div>
         <div className="select_single_container">
           <p>Like</p>
           <label className="switch">
