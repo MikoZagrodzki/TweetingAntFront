@@ -181,35 +181,37 @@ function LikesAttack(props: Props) {
         <button onClick={(event) => formSubmit(event)}>Attack!</button>
       </form>
       <p>You are performing atatck with:</p>
-      <select
-        name="amount_setter"
-        id=""
-        onChange={(e) => amountSetter(Number(e.target.value))}
-        value={amountValue}
-      >
-        {Array.from({ length: filteredAccounts.length }, (_, index) => filteredAccounts.length - index).map((number) => (
-          <option key={uuidv4()} value={number}>
-            {number>1?`${number} accounts`:`${number} account`}
-          </option>
-        ))}
-      </select>
-      <select
-        name="personality_setter"
-        id=""
-        onChange={(e) => personalitySetter(String(e.target.value))}
-        value={selectValue}
-      >
-        <option key={uuidv4()} value="All Personalities">
-          All Personalities
-        </option>
-        {personalitiesNoDuplicates.map((personality) => {
-          return (
-            <option key={uuidv4()} value={personality}>
-              {personality} personality
+      <div className="setters_container">
+        <select
+          name="amount_setter"
+          id=""
+          onChange={(e) => amountSetter(Number(e.target.value))}
+          value={amountValue}
+        >
+          {Array.from({ length: filteredAccounts.length }, (_, index) => filteredAccounts.length - index).map((number) => (
+            <option key={uuidv4()} value={number}>
+              {number>1?`${number} accounts`:`${number} account`}
             </option>
-          );
-        })}
-      </select>
+          ))}
+        </select>
+        <select
+          name="personality_setter"
+          id=""
+          onChange={(e) => personalitySetter(String(e.target.value))}
+          value={selectValue}
+        >
+          <option key={uuidv4()} value="All Personalities">
+            All Personalities
+          </option>
+          {personalitiesNoDuplicates.map((personality) => {
+            return (
+              <option key={uuidv4()} value={personality}>
+                {personality} personality
+              </option>
+            );
+          })}
+        </select>
+      </div>
       <div className="select_container">
         <div className="select_single_container">
           <p>Like</p>
