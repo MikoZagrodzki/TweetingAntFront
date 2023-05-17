@@ -54,6 +54,9 @@ import deleteTimeToCommentsSpecific from "./DeleteTimeToCommentsSpecific";
 import updateTimeToCommentsSpecific from "./UpdateTimeToCommentsSpecific";
 ///////////////////////////////////////////////
 import insertLikesAttack from "./InsertLikesAttack";
+import insertCommentsAttack from "./InsertCommentsAttack";
+import insertRephraseAttack from "./InsertRephraseAttack";
+import insertRetweetsAttack from "./InsertRetweetsAttack";
 ///////////////////////////////////////////////
 import getPersonalityList from "./GetPersonalityList";
 ///////////////////////////////////////////////
@@ -116,6 +119,9 @@ export {
     updateTimeToCommentsSpecific,
     ///////////////////////////////////////////////
     insertLikesAttack,
+    insertCommentsAttack,
+    insertRephraseAttack,
+    insertRetweetsAttack,
     ///////////////////////////////////////////////
     getPersonalityList,
     ///////////////////////////////////////////////

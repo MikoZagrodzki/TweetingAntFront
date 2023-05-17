@@ -1,19 +1,16 @@
 import { requestApi } from "../Funcinalities";
 
-const getIntensivity = async (loginNameTwitter: string) => {
-  const body = {
-    loginNameTwitter: loginNameTwitter,
-  };
+const getIntensivity = async () => {
+
   try {
     const response = await requestApi(
       "http://localhost:3002/twitterClass/getIntensivity",
       {
-        method: "POST",
+        method: "GET",
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",
         },
-        body: JSON.stringify(body),
       }
     );
     if (!response?.payload) {

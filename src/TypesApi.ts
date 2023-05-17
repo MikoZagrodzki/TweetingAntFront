@@ -43,12 +43,12 @@
     usernameusedfortweets: string;
   }
 
-  export interface LikesAttackFormData {
+  export interface BurstAttackFormData {
     email: string;
     loginnametwitter: string;
     url: string;
-    performat:string;
-
+    hours:number;
+    minutes:number
   }
 
   export interface TwitterAccountType {

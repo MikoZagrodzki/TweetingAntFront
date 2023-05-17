@@ -3,7 +3,7 @@ import Popup from "reactjs-popup";
 import FormTwitterCredentials from "../../FormTwitterCredentials/FormTwitterCredentials";
 import "../PopupMain.css";
 import { TwitterAccountType } from "../../../TypesApi";
-import LikesAttack from "../../LikesAttack/LikesAttack";
+import BurstAttack from "../../burstAttack/burstAttack";
 
 interface Props {
     twitterAccounts: TwitterAccountType[];
@@ -24,13 +24,13 @@ function PopupLikesAttack(props: Props) {
         className="AddAccount openButton"
         onClick={openTooltip}
       >
-        Likes Attack
+        Burst Attack
       </button>
       <Popup
         ref={ref}
       >
         <div className="Popup_Background">
-          <LikesAttack twitterAccounts={twitterAccounts} setTwitterAccounts={setTwitterAccounts} closeTooltip={closeTooltip}/>
+          <BurstAttack twitterAccounts={twitterAccounts} setTwitterAccounts={setTwitterAccounts} closeTooltip={closeTooltip}/>
           <button
             type="button"
             // className="AddAccount closeButton"

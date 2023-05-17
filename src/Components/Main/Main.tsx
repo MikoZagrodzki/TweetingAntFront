@@ -6,7 +6,7 @@ import PopupAddAccount from "./PopupAddAccount/PopupAddAccount";
 import "./Main.css";
 import { useNavigate } from "react-router-dom";
 import { TwitterAccountType } from "../../TypesApi";
-import PopupLikesAttack from "./PopupLikesAttack/PopupLikesAttack";
+import PopupBurstAttack from "./PopupBurstAttack/PopupBurstAttack";
 import { getPersonalityList } from "../../SQL";
 
 interface Props {
@@ -55,7 +55,7 @@ function Main() {
         dbTrigger={dbTrigger}
         setDbTrigger={setDbTrigger}
       />
-      <PopupLikesAttack twitterAccounts={twitterAccounts} setTwitterAccounts={setTwitterAccounts}/>
+      <PopupBurstAttack twitterAccounts={twitterAccounts} setTwitterAccounts={setTwitterAccounts}/>
       <button onClick={handleLogout}> Log out </button>
       </div>
       <div className="listOfCards-container">

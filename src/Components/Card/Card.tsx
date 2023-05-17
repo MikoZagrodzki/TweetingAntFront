@@ -8,7 +8,7 @@ import { updateIsAutomated } from "../../SQL";
 import UserNamesList from "./UserNamesList";
 import Personality from "./Personality";
 import { TwitterAccountType } from "../../TypesApi";
-import LikesAttack from "../LikesAttack/LikesAttack";
+import LikesAttack from "../burstAttack/burstAttack";
 
 interface Props {
   loginNameTwitter: string;
