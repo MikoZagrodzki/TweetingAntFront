@@ -19,7 +19,7 @@ export const checkRetweetedTweets = async (loginNameTwitter: string, tweetId: st
     if (!response?.payload){
       throw new Error('No response from API')
     }
-    console.log(response.payload[0].exists)
+    // console.log(response.payload[0].exists)
     const exists = response.payload[0].exists
     return exists
     }catch(error){

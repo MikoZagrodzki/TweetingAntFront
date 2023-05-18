@@ -15,7 +15,6 @@ export const insertUserNameUsedForTweets = async (formData: {}[]) => {
       "Access-Control-Allow-Origin": "*",
     },
     body: JSON.stringify(formData)
-
     })
     }catch(error){
         console.error(error)

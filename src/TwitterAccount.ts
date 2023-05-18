@@ -65,6 +65,7 @@ export class TwitterAccount {
     }
     insertUserNameUsedForTweets(formData);
   }
+
   public removeUsernameFromTweets(username: string): void {
     this.usernameForTweets = this.usernameForTweets.filter((u) => u !== username);
     deleteUserNameUsedForTweetsSpecific(this.loginNameTwitter, username);

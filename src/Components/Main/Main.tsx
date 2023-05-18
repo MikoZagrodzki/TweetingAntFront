@@ -39,7 +39,7 @@ function Main() {
       setPersonalityList(personality);
 
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
